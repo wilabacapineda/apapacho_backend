@@ -38,5 +38,15 @@
       "price": 22500,
       "stock":100,
       "thumbnail": "./assets/img/ModeloVioleta.jpg"
+    },
+    {
+      "id":5,
+      "timestamp": 0,
+      "title": "Poleron modelo Amaranta",
+      "description": "Poleron modelo Amaranta",
+      "code": "P0005",
+      "price": 21000,
+      "stock":100,
+      "thumbnail": "./assets/img/ModeloAmaranta.jpg"
     }
   ]
