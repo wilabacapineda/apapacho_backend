@@ -6,13 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="./../assets/img/icon.png">
     <script src="https://kit.fontawesome.com/9d11d30b0e.js" crossorigin="anonymous"></script>
-    <script src="./../assets/js/addproduct.js" defer></script>
+    <script src="./../assets/js/carrito.js" defer></script>    
+    <script src="./../assets/js/tienda.js" defer></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link href="./../assets/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="./../assets/css/style.css">    
-    <title>Tienda | APAPACHO</title>
-    
+    <title>Tienda | APAPACHO</title>    
     <meta name="description" content="Tienda de vestuario infantil hecho a mano para apapachar a quienes amas. Produciendo desde el Sur de Chile a baja escala, amando la naturaleza.">
     <meta name="keywords" content="Apapacho,Valdivia,Diseño,Independiente,Tienda,Ropa,Infantil,Niños,Niñas,Niñes,Niño,Niña,Niñe">
 </head>
@@ -47,56 +47,46 @@
                                 <a href="./tienda.html" class="nav-link">Tienda</a>
                             </li>
                             <li class="nav-item">
-                                <a href="./addProductos.html" class="nav-link active" aria-current="page">Añadir Productos</a>
+                                <a href="./addProductos.html" class="nav-link">Añadir Productos</a>
                             </li>
                             <li class="nav-item">
-                                <a href="./carrito.html" class="nav-link">Carrito</a>
+                                <a href="./carrito.html" class="nav-link active" aria-current="page">Carrito</a>
                             </li>
                         </ul>
                     </div>
                 </div>
             </nav>
         </div>
+        
     </header>   
     <main class="container paginas pad-2 tienda">
+        <div id="error"></div>
         <div class="row bs_gutter-x-0 justify-content-center">
             <!-- Pagina: Tienda -->
-            <section class="col-md-9 pad-right-1p5 pad-bottom-2" id="sectionProductsInput">
-                <h2 class="text-center">Ingreso de Productos</h2>
-                <article>
-                    <form class="row g-3" action="/api/productos/form" id="productsForm" method="post" name="productos" enctype="multipart/form-data">
-                        <div class="col-12">
-                            <label for="title" class="form-label">Nombre<span class="requerido">*</span></label>
-                            <input required type="text" name="title" id="title" class="form-control" placeholder="Nombre de Producto" aria-label="title">
-                        </div>
-                        <div class="col-12">
-                            <label for="description" class="form-label">Descripción<span class="requerido">*</span></label>
-                            <textarea required name="description" id="description" class="form-control" placeholder="Descripción del Producto" aria-label="description"></textarea>
-                        </div>
-                        <div class="col-12">
-                            <label for="price" class="form-label">Precio<span class="requerido">*</span></label>
-                            <input required type="number" name="price" id="price" class="form-control" placeholder="Precio de Producto" aria-label="price">
-                        </div>
-                        <div class="col-12">
-                            <label for="code" class="form-label">Código<span class="requerido">*</span></label>
-                            <input required type="text" name="code" id="code" class="form-control" placeholder="Código de Producto" aria-label="code">
-                        </div>
-                        <div class="col-12">
-                            <label for="stock" class="form-label">Stock<span class="requerido">*</span></label>
-                            <input required type="number" name="stock" id="stock" class="form-control" min="0" step="1" placeholder="Stock de Producto" aria-label="stock">
-                        </div>                    
-                        <div class="col-12">
-                            <label for="thumbnail" class="form-label">Imagen<span class="requerido">*</span></label>
-                            <input required type="file" name="thumbnail" id="thumbnail" class="form-control" aria-label="Imagen">
-                        </div>                    
-                        <div class="col-12 requerido">*Valor requerido</div>
-                        <div class="col-12">
-                            <button type="submit" class="btn btn-primary">Añadir Producto</button>
-                        </div>
-                    </form> 
+            <section class="col-md-9">
+                <h2 class="pb-4">Carrito</h2>
+                <div id="productosCarrito">
+                    <div id="productoCarrito" class="row">
+                    </div>                    
+                </div>
+            </section>
+            <!-- Barra Lateral -->
+            <aside class="col-md-3">                
+                <article id="CheckoutCarrito" class="aside-flex collapse">
+                    <h2>Total</h2>
+                    <div class="info_checkout">
+                        <span><strong>Subtotal:</strong><span id="checkout_subtotal"></span></span>
+                        <span><strong>Envío:</strong><span id="checkout_envio">Sin Información</span></span>
+                        <span><strong>Total:</strong><span id="checkout_total"></span></span>                        
+                    </div>
+                    <hr>
+                    <h5>Información de Envío</h5>
+                    <div id="info_envio">
+
+                    </div>
+                    <span id="envio_checkout"><button class="btn" id="agregarEnvio" disabled>Calcular Envío</button></span>
                 </article>
-                <div id="enviando"></div>
-            </section>   
+            </aside>
         </div> 
     </main>
     <footer>
@@ -134,4 +124,4 @@
     </footer> 
     <script src="./../assets/js/bootstrap.bundle.min.js"></script>    
 </body>
-</html>
+</html>     

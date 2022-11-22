@@ -10,18 +10,7 @@
         "price": 20000,
         "stock": 100,
         "thumbnail": "/assets/img/ModeloAmapola.jpg",
-        "cantidad": 3
-      },
-      {
-        "id": 3,
-        "timestamp": 0,
-        "title": "Poleron modelo Jacinto",
-        "description": "Poleron modelo Jacinto",
-        "code": "P0003",
-        "price": 15000,
-        "stock": 100,
-        "thumbnail": "/assets/img/ModeloJacinto.jpg",
-        "cantidad": 2
+        "cantidad": 1
       }
     ],
     "id": 1,

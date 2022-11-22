@@ -165,7 +165,6 @@ const routerCarrito = new Router()
             return res.send(c.productos)
           }
         })
-        return res.send({error: 'carrito no encontrado'})
       })
       routerCarrito.post('/api/carrito/:id/productos/:id_prod', (req,res) => {
         
