@@ -19,7 +19,14 @@ export default class Contenedor {
         try {
             const content = this.getAll()            
             const newID = await content.then( resp => {
-                Object.id = resp.length+1
+                let lastElement = resp[resp.length - 1];
+                if(lastElement.id > resp.length){
+                    Object.id = parseInt(lastElement.id)+1
+                } else {
+                    Object.id = resp.length+1
+                }
+                
+                Object.timestamp=Date.now()
                 resp.push(Object)                   
                 fs.promises.writeFile(this.file,JSON.stringify(resp,null,2))                
                 return Object
