@@ -5,8 +5,7 @@ const cargarCarrito = (carrito) => {
     let total = 0 
     const resultado = carrito.map( (p) => {
         total = total + (p.price*p.cantidad)
-        return(`            
-                <span>
+        return(`<span>
                     <a href="/pages/producto/?id=${p.id}">
                         <img src="${p.thumbnail}" width="0">
                     </a>
@@ -34,10 +33,29 @@ const cargarCarrito = (carrito) => {
                     </div>
                 </span>`)      
     }).join(" ")
-    //resultado += '<div id="vaciarCarritoDiv" class="row"><button class="btn btn-primary">Vaciar Carrito</button></div>'
+    
     document.getElementById("checkout_subtotal").innerHTML='$'+total.toLocaleString()
     document.getElementById("checkout_total").innerHTML='$'+total.toLocaleString()
     return resultado
+}
+
+const errorDelete = () => {
+    Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Ocurrió un error al vaciar el carrito!',
+    })
+}
+
+const successDelete = () => {
+    Swal.fire({
+        icon: 'success',
+        title: 'Carrito Vaciado',
+        showConfirmButton: true
+    }).then(res => {
+        localStorage.removeItem("idCarrito")
+        window.location.href = "/pages/tienda.html"
+    })
 }
 
 if(productosCarritoX) {
@@ -47,6 +65,8 @@ if(productosCarritoX) {
         .then(data => {
             if(data.length>0){
                 productosCarritoX.innerHTML = cargarCarrito(data)
+                const vaciarCarro = '<div id="vaciarCarritoDiv" class="row"><button id="emptyCart" class="btn btn-primary">Vaciar Carrito</button></div>'
+                productosCarritoX.innerHTML += vaciarCarro
                 const actualizarProdCart = document.querySelectorAll(".actualizarProdCart")
                 if(actualizarProdCart){
                     for(let a of actualizarProdCart){
@@ -79,6 +99,31 @@ if(productosCarritoX) {
                             })
                         })
                     }
+                }
+                const emptyCart = document.getElementById("emptyCart")
+                if(emptyCart){
+                    emptyCart.addEventListener("click", (e) => {
+                        e.preventDefault()
+                        Swal.fire({
+                            title: '¿Deseas vaciar y eliminar el carrito?',
+                            showDenyButton: true,
+                            showCancelButton: false,
+                            confirmButtonText: 'Si',
+                            denyButtonText: `No`,
+                        }).then((result) => {
+                            /* Read more about isConfirmed, isDenied below */
+                            if (result.isConfirmed){
+                                fetch(`/api/carrito/${idCarrito}`, {
+                                    method: "DELETE"
+                                }).then( res => {                        
+                                    res.status === 200 ? successDelete() : errorDelete()
+                                }).catch((error) => {
+                                    console.log('error: ', error)
+                                    errorDelete()
+                                })
+                            }                        
+                        })
+                    })
                 }
             } else {
                 productosCarritoX.innerHTML="Carrito Vacío"
