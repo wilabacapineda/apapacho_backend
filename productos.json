@@ -7,7 +7,7 @@
     "code": "P0001",
     "price": 20000,
     "stock": 100,
-    "thumbnail": "./assets/img/ModeloNomeolvides.jpg"
+    "thumbnail": "/assets/img/ModeloNomeolvides.jpg"
   },
   {
     "id": 2,
@@ -17,7 +17,7 @@
     "code": "P0002",
     "price": 20000,
     "stock": 100,
-    "thumbnail": "./assets/img/ModeloAmapola.jpg"
+    "thumbnail": "/assets/img/ModeloAmapola.jpg"
   },
   {
     "id": 3,
@@ -27,7 +27,7 @@
     "code": "P0003",
     "price": 15000,
     "stock": 100,
-    "thumbnail": "./assets/img/ModeloJacinto.jpg"
+    "thumbnail": "/assets/img/ModeloJacinto.jpg"
   },
   {
     "id": 4,
@@ -37,7 +37,7 @@
     "code": "P0004",
     "price": 22500,
     "stock": 100,
-    "thumbnail": "./assets/img/ModeloVioleta.jpg"
+    "thumbnail": "/assets/img/ModeloVioleta.jpg"
   },
   {
     "id": 5,
@@ -47,6 +47,6 @@
     "code": "P0005",
     "price": 21000,
     "stock": 100,
-    "thumbnail": "./assets/img/ModeloAmaranta.jpg"
+    "thumbnail": "/assets/img/ModeloAmaranta.jpg"
   }
 ]

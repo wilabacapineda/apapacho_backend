@@ -48,18 +48,6 @@ const routerProductos = new Router()
         })  
         return res.send({error: 'producto no encontrado'})              
       })
-      routerProductos.get('/api/productoRandom', (req, res) => {
-        const min = Math.ceil(1)
-        const max = Math.floor(productos.length)
-        const id = Math.floor(Math.random() * (max - min + 1) + min)
-        productos.forEach( o => {
-          if(parseInt(o.id) === parseInt(id)){
-            return res.send(o)
-          }
-        })
-        
-      })
-
       app.post('/api', (req, res) => {
         return res.send({ mensaje: "Bienvenido a la Api de Apapacho"})
       })
@@ -77,21 +65,15 @@ const routerProductos = new Router()
       routerProductos.post('/api/productos/form', uploadProductImage.single('thumbnail'), (req, res, next) => {        
         if(administrador){
           const thumbnail = req.file
-          if(!thumbnail){
-            if(req.body.thumbnail){
-              req.body.thumbnail = `/assets/img/${req.body.thumbnail}`            
+          if(thumbnail){
+              req.body.thumbnail = `/assets/img/${thumbnail.filename}`            
               const newProd = fileP.save(req.body)                  
                     newProd.then( np => {
                       productos.push(np)
                       return res.send(np)
-                    })             
-            } else {
-              const error = new Error('Por favor sube un archivo')
-              error.httpStatusCode = 400          
-              return next(error)
-            }
+                    })                         
           } else {
-            const error = new Error('Por favor sube un archivo')
+            const error = new Error('Por favor sube un archivo (2)')
             error.httpStatusCode = 400          
             return next(error)
           }
