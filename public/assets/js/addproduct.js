@@ -33,7 +33,7 @@ const successAdd = () => {
 if(productsForm){
     productsForm.addEventListener('submit', (e) => {
         e.preventDefault()               
-        const data = new FormData(productsForm)   
+        const data = new FormData(productsForm)       
         fetch("/api/productos/form", {
             method: "POST",
             body: data

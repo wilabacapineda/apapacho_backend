@@ -429,6 +429,11 @@ header .menu_tienda {
     width: 100%; }
   #productoTienda #productoImagen {
     max-width: 300px; }
+    #productoTienda #productoImagen #productoOptions {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
   #productoTienda #productoInfo {
     max-width: 600px; }
     #productoTienda #productoInfo .productoSelect {

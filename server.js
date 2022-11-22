@@ -46,7 +46,6 @@ const routerProductos = new Router()
             return res.send(o)
           }
         })  
-        return res.send({error: 'producto no encontrado'})              
       })
       app.post('/api', (req, res) => {
         return res.send({ mensaje: "Bienvenido a la Api de Apapacho"})
@@ -169,9 +168,11 @@ const routerCarrito = new Router()
         return res.send({error: 'carrito no encontrado'})
       })
       routerCarrito.post('/api/carrito/:id/productos/:id_prod', (req,res) => {
+        
         const id = parseInt(req.params.id)
         const id_prod = parseInt(req.params.id_prod)
-        const addCant = 1
+        let addCant = req.body.cantidad ? parseInt(req.body.cantidad) : 10
+
         if(isNaN(id) || id <= 0){
           return res.send({error: 'carrito no encontrado'})
         } 
@@ -190,8 +191,7 @@ const routerCarrito = new Router()
                       c.productos.forEach( cp => {
                         if(cp.id === id_prod){              
                           prodBool = 1 
-                          //cp.cantidad = addCant                                
-                          cp.cantidad++
+                          cp.cantidad = addCant
                         }
                       })
                       
