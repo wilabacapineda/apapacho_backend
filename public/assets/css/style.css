@@ -435,7 +435,7 @@ header .menu_tienda {
       gap: 5px;
     }
   #productoTienda #productoInfo {
-    max-width: 600px; }
+    max-width: 300px; }
     #productoTienda #productoInfo .productoSelect {
       margin-bottom: 1rem; }
       #productoTienda #productoInfo .productoSelect h5 {
@@ -701,6 +701,9 @@ footer {
     padding: 2rem 1rem;
     border-radius: 1rem;
     margin-bottom: 2rem;
+}
+#sectionProductsInput #thumbnail_preview {
+  max-width: 300px;
 }
   #mensaje {
     resize: none;

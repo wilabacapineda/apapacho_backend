@@ -8,7 +8,7 @@ const { Router } = express
 const { productos, fileP } = loadProducts()
 const { carritos, fileC } = loadCarritos()
 
-const PORT = 8080
+const PORT = 8080 || process.env.PORT
 //const PORT = process.env.PORT
 
 const administrador = true 
@@ -33,6 +33,16 @@ const routerProductos = new Router()
       app.get('/api', (req,res) => {
         return res.send({ mensaje: "Bienvenido a la Api de Apapacho"})
       })
+      app.post('/api', (req, res) => {
+        return res.send({ mensaje: "Bienvenido a la Api de Apapacho"})
+      })
+      app.put('/api', (req, res) => {
+        return res.send({ mensaje: "Bienvenido a la Api de Apapacho"})
+      })
+      app.delete('/api', (req, res) => {
+        return res.send({ mensaje: "Bienvenido a la Api de Apapacho"})
+      })
+
       routerProductos.get('/api/productos', (req,res) => {
         res.send(productos)                  
       })      
@@ -41,15 +51,19 @@ const routerProductos = new Router()
         if(isNaN(id) || id <= 0){
           return res.send({error: 'producto no encontrado'})
         } 
+        let prodBool = 0
+        let aux
         productos.forEach( o => {
           if(parseInt(o.id) === id){
-            return res.send(o)
-          }
+            prodBool = 1
+            aux = o          }
         })  
-      })
-      app.post('/api', (req, res) => {
-        return res.send({ mensaje: "Bienvenido a la Api de Apapacho"})
-      })
+        if(prodBool == 1){
+          return res.send(aux)
+        } else {
+          return res.send({error: 'producto no encontrado'})
+        }
+      })      
       routerProductos.post('/api/productos', (req, res) => {
         if(administrador){
           const newProd = fileP.save(req.body)
@@ -72,21 +86,17 @@ const routerProductos = new Router()
                       return res.send(np)
                     })                         
           } else {
-            const error = new Error('Por favor sube un archivo (2)')
+            const error = new Error('Por favor sube un archivo')
             error.httpStatusCode = 400          
             return next(error)
           }
         } else {
           res.send({ error : -1, descripcion: "Ruta '/api/productos/form', metodo POST no autorizado"})
         }              
-      })
-
-      app.put('/api', (req, res) => {
-        return res.send({ mensaje: "Bienvenido a la Api de Apapacho"})
-      })
+      })      
       routerProductos.put('/api/productos/:id', (req, res) => {
         if(administrador){
-          const id = parseInt(req.params.id)    
+          const id = parseInt(req.params.id)   
           const newProd = fileP.update(id,req.body)
                 newProd.then( np => {  
                   if(np.length>0){
@@ -101,13 +111,35 @@ const routerProductos = new Router()
                 })      
         } else {
           res.send({ error : -1, descripcion: "Ruta '/api/productos/:id', metodo PUT no autorizado"})
-        }
-        
-      })
-
-      app.delete('/api', (req, res) => {
-        return res.send({ mensaje: "Bienvenido a la Api de Apapacho"})
-      })
+        }        
+      })  
+      routerProductos.put('/api/productos/form/:id', uploadProductImage.single('thumbnail'), (req, res,next) => {
+        if(administrador){
+          const thumbnail = req.file
+          if(thumbnail){
+            req.body.thumbnail = `/assets/img/${thumbnail.filename}`            
+            const id = parseInt(req.params.id)    
+            const newProd = fileP.update(id,req.body)
+                  newProd.then( np => {  
+                    if(np.length>0){
+                      productos.forEach(p => {
+                        if(p.id === id) {
+                          const indexOfItemInArray = productos.findIndex(p => p.id === id)
+                          productos.splice(indexOfItemInArray, 1, np[0])
+                        }
+                      })
+                    }   
+                    np.length === 0 ? res.send({error: 'producto no encontrado'}) : res.send(np[0])                
+                  })      
+          } else {
+            const error = new Error('Por favor sube un archivo')
+            error.httpStatusCode = 400          
+            return next(error)
+          }
+        } else {
+          res.send({ error : -1, descripcion: "Ruta '/api/productos/:id', metodo PUT no autorizado"})
+        }        
+      })      
       routerProductos.delete('/api/productos/:id', (req, res) => {
         if(administrador){
           const id = parseInt(req.params.id)     
@@ -115,7 +147,7 @@ const routerProductos = new Router()
                 newProd.then( np => {
                   if(np===null) {
                     return res.send({error: 'producto no encontrado'})
-                  }
+                  }                
                   const deleteID = fileP.deleteById(id)
                   deleteID.then( np => {
                     const indexOfItemInArray = productos.findIndex(p => p.id === id)
@@ -170,7 +202,7 @@ const routerCarrito = new Router()
         
         const id = parseInt(req.params.id)
         const id_prod = parseInt(req.params.id_prod)
-        let addCant = req.body.cantidad ? parseInt(req.body.cantidad) : 10
+        let addCant = req.body.cantidad ? parseInt(req.body.cantidad) : 1
 
         if(isNaN(id) || id <= 0){
           return res.send({error: 'carrito no encontrado'})
@@ -293,7 +325,6 @@ const routerCarrito = new Router()
 app.use(routerProductos)
 app.use(routerCarrito)
 app.use('/api/', (req, res, next) => {
-  console.log(req)
   res.status(404).send({error: -2, descripcion: `ruta ${req.originalUrl} método ${req.method} no implementada`})
 })
 

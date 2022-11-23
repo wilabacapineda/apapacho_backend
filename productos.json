@@ -10,14 +10,13 @@
     "thumbnail": "/assets/img/ModeloNomeolvides.jpg"
   },
   {
-    "id": 2,
-    "timestamp": 0,
     "title": "Poleron modelo Amapola",
     "description": "Poleron modelo Amapola",
+    "price": "20000",
     "code": "P0002",
-    "price": 20000,
-    "stock": 100,
-    "thumbnail": "/assets/img/ModeloAmapola.jpg"
+    "stock": "101",
+    "thumbnail": "/assets/img/ModeloAmapola.jpg",
+    "id": 2
   },
   {
     "id": 3,
