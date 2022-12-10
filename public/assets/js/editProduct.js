@@ -41,13 +41,14 @@ if(productsForm){
     .then(data => {            
         if(data.error){
             productsForm.innerHTML="Producto NO Existe"
-        } else {               
+        } else {      
             const thumbnailVal = data.thumbnail
             document.getElementById("title").value=data.title
             document.getElementById("description").value=data.description
             document.getElementById("price").value=data.price
             document.getElementById("code").value=data.code
             document.getElementById("stock").value=data.stock
+            document.getElementById("ventas").value=data.ventas
             document.getElementById("thumbnail_preview").setAttribute('src',thumbnailVal)           
             
             productsForm.addEventListener('submit', (e) => {
@@ -67,9 +68,10 @@ if(productsForm){
                     const data = { 
                         title: document.getElementById("title").value,
                         description: document.getElementById("description").value,
-                        price: document.getElementById("price").value,
+                        price: parseInt(document.getElementById("price").value),
                         code: document.getElementById("code").value,
-                        stock: document.getElementById("stock").value,
+                        stock: parseInt(document.getElementById("stock").value),
+                        ventas: parseInt(document.getElementById("ventas").value),
                         thumbnail: thumbnailVal
                     }                     
                     

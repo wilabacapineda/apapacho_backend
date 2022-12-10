@@ -4,7 +4,7 @@ export default class ContenedorMemory {
     } 
 
     save(Object){
-        this.push(Object)
+        this.object.push(Object)
     }
 
     update(id,Object){

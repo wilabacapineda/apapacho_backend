@@ -34,7 +34,9 @@ const routerProductos = new Router()
       routerProductos.post('/api/productos', (req, res) => {
         if(administrador){
           req.body.ventas = 0
-          req.body.variations=[]          
+          req.body.variations=[] 
+          req.body.price=parseInt(req.body.price)
+          req.body.stock=parseInt(req.body.stock)         
           const newProd = productsDaoFiles.save(req.body)
                 newProd.then( np => {
                   ProductsDaoMemory.save(np)
@@ -50,6 +52,8 @@ const routerProductos = new Router()
           if(thumbnail){
               req.body.thumbnail = `/assets/img/${thumbnail.filename}`            
               req.body.ventas = 0
+              req.body.price=parseInt(req.body.price)
+              req.body.stock=parseInt(req.body.stock)
               req.body.variations=[]
               const newProd = productsDaoFiles.save(req.body)                  
                     newProd.then( np => {                      
@@ -83,7 +87,7 @@ const routerProductos = new Router()
         if(administrador){
           const thumbnail = req.file
           if(thumbnail){
-            req.body.thumbnail = `/assets/img/${thumbnail.filename}`            
+            req.body.thumbnail = `/assets/img/${thumbnail.filename}`  
             const id = parseInt(req.params.id)    
             const newProd = productsDaoFiles.update(id,req.body)
                   newProd.then( np => {  

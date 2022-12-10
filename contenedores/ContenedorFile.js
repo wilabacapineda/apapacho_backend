@@ -26,6 +26,7 @@ export default class ContenedorFile {
                     Object.id = resp.length+1
                 }            
                 Object.timestamp=Date.now()
+                Object.dateUpdate=Object.timestamp
                 resp.push(Object)                   
                 fs.promises.writeFile(this.file,JSON.stringify(resp,null,2))                
                 return Object
@@ -37,15 +38,18 @@ export default class ContenedorFile {
         }
     }
 
-    async update(id,Object) {
+    async update(id,object) {
       try {
         const content = this.getAll()            
         const updateObject = await content.then( resp => {
             const returnObject = []
-            const updateID = resp.map( r => {
-              if(parseInt(r.id)===parseInt(id)){
-                r = Object
-                r.id=id
+            const updateID = resp.map( r => {                
+              if(parseInt(r.id)===parseInt(id)){   
+                const propNames = Object.getOwnPropertyNames(object)             
+                      propNames.forEach( pn => {
+                        r[pn]=object[pn]
+                      })
+                r.dateUpdate=Date.now()
                 returnObject.push(r)
                 return r
               } else {
