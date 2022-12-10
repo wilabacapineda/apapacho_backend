@@ -8,41 +8,22 @@ const cartDaoFile = new CartDaoFiles
 
 const routerCarrito = new Router()
       routerCarrito.use(json())
+      routerCarrito.get('/api/carrito/:id/productos', (req, res) => {
+        setTimeout( () => {
+          const id = parseInt(req.params.id)
+          if(isNaN(id) || id <= 0){
+            return res.send({error: 'carrito no encontrado'})
+          } 
+          const result = CartDaoMemory.getById(id)
+          result ? res.send(result.productos) : res.send({error: 'carrito no encontrado'})  
+        },500)              
+      })      
       routerCarrito.post('/api/carrito/', (req,res) => {
         const newCart = cartDaoFile.save({productos:[]})
               newCart.then( nc => {
-                CartDaoMemory.object.push(nc)
+                CartDaoMemory.save(nc)
                 return res.send({id: nc.id})
               })   
-      })
-      routerCarrito.delete('/api/carrito/:id', (req, res) => {
-        const id = parseInt(req.params.id)    
-        if(isNaN(id) || id <= 0){
-          return res.send({error: 'carrito no encontrado'})
-        } 
-        const newCart = cartDaoFile.getById(id)
-              newCart.then( nc => {
-                if(nc===null) {
-                  return res.send({error: 'carrito no encontrado'})
-                }
-                const deleteID = cartDaoFile.deleteById(id)
-                deleteID.then( ncc => {
-                  const indexOfItemInArray = CartDaoMemory.object.findIndex(c => c.id === id)
-                  CartDaoMemory.object.splice(indexOfItemInArray, 1)
-                  return res.send({mensaje:`Carrito ${id} eliminado`})
-                })
-              }) 
-      })
-      routerCarrito.get('/api/carrito/:id/productos', (req, res) => {
-        const id = parseInt(req.params.id)
-        if(isNaN(id) || id <= 0){
-          return res.send({error: 'carrito no encontrado'})
-        } 
-        CartDaoMemory.object.forEach( c => {
-          if(parseInt(c.id) === id){
-            return res.send(c.productos)
-          }
-        })
       })
       routerCarrito.post('/api/carrito/:id/productos/:id_prod', (req,res) => {        
         const id = parseInt(req.params.id)
@@ -55,72 +36,73 @@ const routerCarrito = new Router()
         if(isNaN(id_prod) || id_prod <= 0){
           return res.send({error: 'producto para agregar al carrito no encontrado'})
         } 
+
         const Cart = cartDaoFile.getById(id)
               Cart.then(cart => {
                 if(cart===null) {
                   return res.send({error: 'carrito no encontrado'})
                 }
-                CartDaoMemory.object.forEach( c => {
-                  if(parseInt(c.id) === id){
-                    if(c.productos.length>0) {              
-                      let prodBool = 0                                            
-                      c.productos.forEach( cp => {
-                        if(cp.id === id_prod){              
-                          prodBool = 1 
-                          cp.cantidad = addCant
-                        }
-                      })
-                      
-                      if(prodBool === 1) {                
-                        const newCart = cartDaoFile.update(id,c)
-                              newCart.then( nc => {
-                                res.send(c)
-                              })
-                      } else {
-                        let prodBool = 0
-                        ProductsDaoMemory.object.forEach( p => {
-                          if(parseInt(p.id) === id_prod){
-                            prodBool = 1
-                            const objNew = {
-                              ... p,
-                              cantidad: addCant
-                            }
-                            c.productos.push(objNew)                                                                             
-                          }
-                        })
-                        if(prodBool == 1){
-                          const newCart = cartDaoFile.update(id,c)
-                                newCart.then( nc => {
-                                  return res.send(c)
-                                })
-                        } else {
-                          return res.send({error: 'producto para agregar al carrito no encontrado'})
-                        }
-                      }
+                
+                if(cart.productos.length>0) {                   
+                  const result = cart.productos.find(cp => cp.id === id_prod )
+                  if(result){                
+                    result.cantidad = addCant
+                    cart.productos.forEach(cp => cp.id === id_prod ? cp = result : "")                    
+                    const newCart = cartDaoFile.update(id,cart)
+                          newCart.then( () => {                            
+                            CartDaoMemory.update(id,cart)
+                            res.send(cart)
+                          })
+                  } else {
+                    const result = ProductsDaoMemory.getById(id_prod)
+                    if(result){
+                      cart.productos.push({
+                        ... result,
+                        cantidad: addCant
+                      })  
+                      const newCart = cartDaoFile.update(id,cart)
+                            newCart.then( () => {
+                              CartDaoMemory.update(id,cart)
+                              res.send(cart)
+                            })                                                                           
                     } else {
-                      let prodBool = 0
-                      ProductsDaoMemory.object.forEach( p => {
-                        if(parseInt(p.id) === id_prod){
-                          prodBool = 1
-                          const objNew = {
-                            ... p,
-                            cantidad: addCant
-                          }
-                          c.productos.push(objNew)                                                                             
-                        }
-                      })
-                      if(prodBool == 1){
-                        const newCart = cartDaoFile.update(id,c)
-                              newCart.then( nc => {
-                                return res.send(c)
-                              })
-                      } else {
-                        return res.send({error: 'producto para agregar al carrito no encontrado'})
-                      }
-                    }   
-                  }          
-                })
+                      return res.send({error: 'producto para agregar al carrito no encontrado'})
+                    }                    
+                  }                  
+                } else {
+                  const result = ProductsDaoMemory.getById(id_prod)
+                  if(result){
+                    cart.productos.push({
+                      ... result,
+                      cantidad: addCant
+                    })  
+                    const newCart = cartDaoFile.update(id,cart)
+                          newCart.then( () => {
+                            CartDaoMemory.update(id,cart)
+                            res.send(cart)
+                          })                                                                           
+                  } else {
+                    return res.send({error: 'producto para agregar al carrito no encontrado'})
+                  }                                      
+                }                   
               })
+      })
+      routerCarrito.delete('/api/carrito/:id', (req, res) => {
+        const id = parseInt(req.params.id)    
+        if(isNaN(id) || id <= 0){
+          return res.send({error: 'carrito no encontrado'})
+        } 
+        const newCart = cartDaoFile.getById(id)
+              newCart.then( nc => {
+                if(nc===null) {
+                  return res.send({error: 'carrito no encontrado'})
+                }
+                const deleteID = cartDaoFile.deleteById(id)
+                deleteID.then( () => {
+                  CartDaoMemory.deleteById(id)
+                  return res.send({mensaje:`Carrito ${id} eliminado`})
+                })
+              }) 
       })
       routerCarrito.delete('/api/carrito/:id/productos/:id_prod', (req, res) => {
         const id = parseInt(req.params.id)
@@ -137,33 +119,18 @@ const routerCarrito = new Router()
                 if(cart===null) {
                   return res.send({error: 'carrito no encontrado'})
                 }
-                CartDaoMemory.object.forEach( c => {
-                  if(parseInt(c.id) === id){
-                    if(c.productos.length>0) {              
-                      let prodBool = 0                                            
-                      c.productos.forEach( cp => {
-                        if(cp.id === id_prod){              
-                          prodBool = 1 
-                        }
-                      })
 
-                      if(prodBool === 1) { 
-                        const indexOfItemInArray = c.productos.findIndex(cp => cp.id === id_prod)
-                        c.productos.splice(indexOfItemInArray, 1)
-
-                        const newCart = cartDaoFile.update(id,c)
-                              newCart.then( nc => {
-                                res.send(c)
-                              })
-
-                      } else {
-                        return res.send({error: 'El carrito no contiene el producto a eliminar'})
-                      }
-                    } else {
-                      return res.send({error: 'carrito no contiene productos'})
-                    }   
-                  }          
-                })
+                if(cart.productos.length>0) {                   
+                  const indexOfItemInArray = cart.productos.findIndex(cp => cp.id === id_prod)
+                  cart.productos.splice(indexOfItemInArray, 1)
+                  const newCart = cartDaoFile.update(id,cart)
+                        newCart.then( () => {
+                          CartDaoMemory.update(id,cart)
+                          res.send(cart)
+                        })              
+                } else {
+                  return res.send({error: 'carrito no contiene productos'})                                     
+                }                   
               })
       })
 

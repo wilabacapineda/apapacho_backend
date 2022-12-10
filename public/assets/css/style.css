@@ -116,6 +116,16 @@ img {
   flex-direction: column;
   gap: 1rem;
   --bs-gutter-x: 0; }
+  #productosCarrito #productoCarrito #loading {
+    width: 100%;
+    display: flex;
+  } #productosCarrito #productoCarrito #loading {
+    width: 100%;
+    display: flex; 
+    justify-content: center;
+    align-items: flex-start; }
+      #productosCarrito #productoCarrito #loading img {
+        width: 200px; }
   #productosCarrito #productoCarrito span {
     display: flex;
     flex-direction: row;

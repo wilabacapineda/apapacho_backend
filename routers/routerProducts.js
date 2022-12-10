@@ -27,29 +27,19 @@ const routerProductos = new Router()
         const id = parseInt(req.params.id)
         if(isNaN(id) || id <= 0){
           return res.send({error: 'producto no encontrado'})
-        } 
-        let prodBool = 0
-        let aux
-        ProductsDaoMemory.object.forEach( o => {
-          if(parseInt(o.id) === id){
-            prodBool = 1
-            aux = o          }
-        })  
-        if(prodBool == 1){
-          return res.send(aux)
-        } else {
-          return res.send({error: 'producto no encontrado'})
-        }
-      })      
+        }         
+        const result = ProductsDaoMemory.getById(id)
+        result ? res.send(result) : res.send({error: 'producto no encontrado'})
+      })  
       routerProductos.post('/api/productos', (req, res) => {
         if(administrador){
           req.body.ventas = 0
-          req.body.variations=[]
+          req.body.variations=[]          
           const newProd = productsDaoFiles.save(req.body)
-              newProd.then( np => {
-                ProductsDaoMemory.object.push(np)
-                return res.send(np)
-              })      
+                newProd.then( np => {
+                  ProductsDaoMemory.save(np)
+                  return res.send(np)
+                })      
         } else {
           res.send({ error : -1, descripcion: "Ruta '/api/productos', metodo POST no autorizado"})
         }       
@@ -63,7 +53,7 @@ const routerProductos = new Router()
               req.body.variations=[]
               const newProd = productsDaoFiles.save(req.body)                  
                     newProd.then( np => {                      
-                      ProductsDaoMemory.object.push(np)
+                      ProductsDaoMemory.save(np)
                       return res.send(np)
                     })                         
           } else {
@@ -74,19 +64,14 @@ const routerProductos = new Router()
         } else {
           res.send({ error : -1, descripcion: "Ruta '/api/productos/form', metodo POST no autorizado"})
         }              
-      })      
+      })   
       routerProductos.put('/api/productos/:id', (req, res) => {
         if(administrador){
           const id = parseInt(req.params.id)   
           const newProd = productsDaoFiles.update(id,req.body)
                 newProd.then( np => {  
                   if(np.length>0){
-                    ProductsDaoMemory.object.forEach(p => {
-                      if(p.id === id) {
-                        const indexOfItemInArray = ProductsDaoMemory.object.findIndex(p => p.id === id)
-                        ProductsDaoMemory.object.splice(indexOfItemInArray, 1, np[0])
-                      }
-                    })
+                    ProductsDaoMemory.update(id,np[0])                    
                   }   
                   np.length === 0 ? res.send({error: 'producto no encontrado'}) : res.send(np[0])                
                 })      
@@ -103,12 +88,7 @@ const routerProductos = new Router()
             const newProd = productsDaoFiles.update(id,req.body)
                   newProd.then( np => {  
                     if(np.length>0){
-                      ProductsDaoMemory.object.forEach(p => {
-                        if(p.id === id) {
-                          const indexOfItemInArray = ProductsDaoMemory.object.findIndex(p => p.id === id)
-                          ProductsDaoMemory.object.splice(indexOfItemInArray, 1, np[0])
-                        }
-                      })
+                      ProductsDaoMemory.update(id,np[0])                    
                     }   
                     np.length === 0 ? res.send({error: 'producto no encontrado'}) : res.send(np[0])                
                   })      
@@ -130,11 +110,10 @@ const routerProductos = new Router()
                     return res.send({error: 'producto no encontrado'})
                   }                
                   const deleteID = productsDaoFiles.deleteById(id)
-                  deleteID.then( np => {
-                    const indexOfItemInArray = ProductsDaoMemory.object.findIndex(p => p.id === id)
-                    ProductsDaoMemory.object.splice(indexOfItemInArray, 1)
-                    return res.send(np)
-                  })
+                        deleteID.then( np => {                          
+                          ProductsDaoMemory.deleteById(id)
+                          return res.send(np)
+                        })
                 }) 
         } else {
           res.send({ error : -1, descripcion: "Ruta '/api/productos/:id', metodo DELETE no autorizado"})
