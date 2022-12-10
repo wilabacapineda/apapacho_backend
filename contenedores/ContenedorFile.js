@@ -24,8 +24,7 @@ export default class ContenedorFile {
                     Object.id = parseInt(lastElement.id)+1
                 } else {
                     Object.id = resp.length+1
-                }
-                console.log("O",Object.id)
+                }            
                 Object.timestamp=Date.now()
                 resp.push(Object)                   
                 fs.promises.writeFile(this.file,JSON.stringify(resp,null,2))                
