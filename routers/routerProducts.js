@@ -1,10 +1,11 @@
 import express, { json, urlencoded} from 'express'
-import loadProducts from './../contenedor/loadProducts.js'
+import ProductsDaoFiles from './../daos/products/ProductsDaoFiles.js'
+import ProductsDaoMemory from '../daos/products/ProductsDaoMemory.js'
 import multer, { diskStorage } from 'multer'
 
 const { Router } = express
-const { productosFS, fileP } = loadProducts()
 const administrador = true 
+const productsDaoFiles = new ProductsDaoFiles
 
 const storageProductImage = diskStorage({
     destination: (req, file, cb) => {
@@ -20,7 +21,7 @@ const uploadProductImage = multer({storage:storageProductImage})
 const routerProductos = new Router()
       routerProductos.use(json())      
       routerProductos.get('/api/productos', (req,res) => {
-        res.send(productosFS)                  
+        res.send(ProductsDaoMemory.object)                  
       })      
       routerProductos.get('/api/productos/:id', (req,res) => {
         const id = parseInt(req.params.id)
@@ -29,7 +30,7 @@ const routerProductos = new Router()
         } 
         let prodBool = 0
         let aux
-        productosFS.forEach( o => {
+        ProductsDaoMemory.object.forEach( o => {
           if(parseInt(o.id) === id){
             prodBool = 1
             aux = o          }
@@ -42,9 +43,11 @@ const routerProductos = new Router()
       })      
       routerProductos.post('/api/productos', (req, res) => {
         if(administrador){
-          const newProd = fileP.save(req.body)
+          req.body.ventas = 0
+          req.body.variations=[]
+          const newProd = productsDaoFiles.save(req.body)
               newProd.then( np => {
-                productosFS.push(np)
+                ProductsDaoMemory.object.push(np)
                 return res.send(np)
               })      
         } else {
@@ -56,9 +59,11 @@ const routerProductos = new Router()
           const thumbnail = req.file
           if(thumbnail){
               req.body.thumbnail = `/assets/img/${thumbnail.filename}`            
-              const newProd = fileP.save(req.body)                  
-                    newProd.then( np => {
-                      productosFS.push(np)
+              req.body.ventas = 0
+              req.body.variations=[]
+              const newProd = productsDaoFiles.save(req.body)                  
+                    newProd.then( np => {                      
+                      ProductsDaoMemory.object.push(np)
                       return res.send(np)
                     })                         
           } else {
@@ -73,13 +78,13 @@ const routerProductos = new Router()
       routerProductos.put('/api/productos/:id', (req, res) => {
         if(administrador){
           const id = parseInt(req.params.id)   
-          const newProd = fileP.update(id,req.body)
+          const newProd = productsDaoFiles.update(id,req.body)
                 newProd.then( np => {  
                   if(np.length>0){
-                    productosFS.forEach(p => {
+                    ProductsDaoMemory.object.forEach(p => {
                       if(p.id === id) {
-                        const indexOfItemInArray = productosFS.findIndex(p => p.id === id)
-                        productosFS.splice(indexOfItemInArray, 1, np[0])
+                        const indexOfItemInArray = ProductsDaoMemory.object.findIndex(p => p.id === id)
+                        ProductsDaoMemory.object.splice(indexOfItemInArray, 1, np[0])
                       }
                     })
                   }   
@@ -95,13 +100,13 @@ const routerProductos = new Router()
           if(thumbnail){
             req.body.thumbnail = `/assets/img/${thumbnail.filename}`            
             const id = parseInt(req.params.id)    
-            const newProd = fileP.update(id,req.body)
+            const newProd = productsDaoFiles.update(id,req.body)
                   newProd.then( np => {  
                     if(np.length>0){
-                      productosFS.forEach(p => {
+                      ProductsDaoMemory.object.forEach(p => {
                         if(p.id === id) {
-                          const indexOfItemInArray = productosFS.findIndex(p => p.id === id)
-                          productosFS.splice(indexOfItemInArray, 1, np[0])
+                          const indexOfItemInArray = ProductsDaoMemory.object.findIndex(p => p.id === id)
+                          ProductsDaoMemory.object.splice(indexOfItemInArray, 1, np[0])
                         }
                       })
                     }   
@@ -119,15 +124,15 @@ const routerProductos = new Router()
       routerProductos.delete('/api/productos/:id', (req, res) => {
         if(administrador){
           const id = parseInt(req.params.id)     
-          const newProd = fileP.getById(id)
+          const newProd = productsDaoFiles.getById(id)
                 newProd.then( np => {
                   if(np===null) {
                     return res.send({error: 'producto no encontrado'})
                   }                
-                  const deleteID = fileP.deleteById(id)
+                  const deleteID = productsDaoFiles.deleteById(id)
                   deleteID.then( np => {
-                    const indexOfItemInArray = productosFS.findIndex(p => p.id === id)
-                    productosFS.splice(indexOfItemInArray, 1)
+                    const indexOfItemInArray = ProductsDaoMemory.object.findIndex(p => p.id === id)
+                    ProductsDaoMemory.object.splice(indexOfItemInArray, 1)
                     return res.send(np)
                   })
                 }) 

@@ -14,7 +14,7 @@ const errorAdd = () => {
     })
 }
 
-const successAdd = () => {
+const successAdd = (objeto) => {
     Swal.fire({
         icon: 'success',
         title: 'Producto Añadido',
@@ -24,9 +24,9 @@ const successAdd = () => {
         output.style.display = "flex"
         output.classList.add("exito")
         productsForm.reset()
-        setTimeout(() => {
-            window.location.href = "/pages/tienda.html"
-        },2000)        
+        objeto.then((np) => {
+            window.location.href = `/pages/producto/editProduct.html?id=${np.id}`
+        })
     })
 }
 
@@ -38,7 +38,7 @@ if(productsForm){
             method: "POST",
             body: data
         }).then( res => {
-            res.status === 200 ? successAdd() : errorAdd()            
+            res.status === 200 ? successAdd(res.json()) : errorAdd()            
         }).catch((error) => {
             errorAdd()            
             console.log('error: ', error)            

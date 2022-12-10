@@ -6,7 +6,7 @@ const ProductVariationSchema = new mongoose.Schema({
     color: {type: String, require:true, max:100},
     size: {type: String, require:true, max:100},
     stock: {type: Number, require:true, max:100},
-    ventas: {type: Number, require:true, max:100},
+    
 })
 
 const ProductSchema = new mongoose.Schema({
@@ -16,6 +16,7 @@ const ProductSchema = new mongoose.Schema({
     code: {type: String, require:true, max:100},
     price: {type: Number, require: true},
     stock: {type: Number, require: true},
+    ventas: {type: Number, require:true, max:100},
     thumbnail: {type: String, require:true},
     variations: [ProductVariationSchema]
 })

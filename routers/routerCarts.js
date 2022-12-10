@@ -1,17 +1,17 @@
 import express, { json, urlencoded} from 'express'
-import loadCarritos from './../contenedor/loadCarritos.js'
-import loadProducts from './../contenedor/loadProducts.js'
-
+import ProductsDaoMemory from './../daos/products/ProductsDaoMemory.js'
+import CartDaoFiles from '../daos/carts/CartDaoFiles.js'
+import CartDaoMemory from './../daos/carts/CartDaoMemory.js'
 const { Router } = express
-const { orderFS, fileC } = loadCarritos()
-const { productosFS } = loadProducts()
+
+const cartDaoFile = new CartDaoFiles
 
 const routerCarrito = new Router()
       routerCarrito.use(json())
       routerCarrito.post('/api/carrito/', (req,res) => {
-        const newCart = fileC.save({productos:[]})
+        const newCart = cartDaoFile.save({productos:[]})
               newCart.then( nc => {
-                orderFS.push(nc)
+                CartDaoMemory.object.push(nc)
                 return res.send({id: nc.id})
               })   
       })
@@ -20,15 +20,15 @@ const routerCarrito = new Router()
         if(isNaN(id) || id <= 0){
           return res.send({error: 'carrito no encontrado'})
         } 
-        const newCart = fileC.getById(id)
+        const newCart = cartDaoFile.getById(id)
               newCart.then( nc => {
                 if(nc===null) {
                   return res.send({error: 'carrito no encontrado'})
                 }
-                const deleteID = fileC.deleteById(id)
+                const deleteID = cartDaoFile.deleteById(id)
                 deleteID.then( ncc => {
-                  const indexOfItemInArray = orderFS.findIndex(c => c.id === id)
-                  orderFS.splice(indexOfItemInArray, 1)
+                  const indexOfItemInArray = CartDaoMemory.object.findIndex(c => c.id === id)
+                  CartDaoMemory.object.splice(indexOfItemInArray, 1)
                   return res.send({mensaje:`Carrito ${id} eliminado`})
                 })
               }) 
@@ -38,7 +38,7 @@ const routerCarrito = new Router()
         if(isNaN(id) || id <= 0){
           return res.send({error: 'carrito no encontrado'})
         } 
-        orderFS.forEach( c => {
+        CartDaoMemory.object.forEach( c => {
           if(parseInt(c.id) === id){
             return res.send(c.productos)
           }
@@ -55,12 +55,12 @@ const routerCarrito = new Router()
         if(isNaN(id_prod) || id_prod <= 0){
           return res.send({error: 'producto para agregar al carrito no encontrado'})
         } 
-        const Cart = fileC.getById(id)
+        const Cart = cartDaoFile.getById(id)
               Cart.then(cart => {
                 if(cart===null) {
                   return res.send({error: 'carrito no encontrado'})
                 }
-                orderFS.forEach( c => {
+                CartDaoMemory.object.forEach( c => {
                   if(parseInt(c.id) === id){
                     if(c.productos.length>0) {              
                       let prodBool = 0                                            
@@ -72,13 +72,13 @@ const routerCarrito = new Router()
                       })
                       
                       if(prodBool === 1) {                
-                        const newCart = fileC.update(id,c)
+                        const newCart = cartDaoFile.update(id,c)
                               newCart.then( nc => {
                                 res.send(c)
                               })
                       } else {
                         let prodBool = 0
-                        productosFS.forEach( p => {
+                        ProductsDaoMemory.object.forEach( p => {
                           if(parseInt(p.id) === id_prod){
                             prodBool = 1
                             const objNew = {
@@ -89,7 +89,7 @@ const routerCarrito = new Router()
                           }
                         })
                         if(prodBool == 1){
-                          const newCart = fileC.update(id,c)
+                          const newCart = cartDaoFile.update(id,c)
                                 newCart.then( nc => {
                                   return res.send(c)
                                 })
@@ -99,7 +99,7 @@ const routerCarrito = new Router()
                       }
                     } else {
                       let prodBool = 0
-                      productosFS.forEach( p => {
+                      ProductsDaoMemory.object.forEach( p => {
                         if(parseInt(p.id) === id_prod){
                           prodBool = 1
                           const objNew = {
@@ -110,7 +110,7 @@ const routerCarrito = new Router()
                         }
                       })
                       if(prodBool == 1){
-                        const newCart = fileC.update(id,c)
+                        const newCart = cartDaoFile.update(id,c)
                               newCart.then( nc => {
                                 return res.send(c)
                               })
@@ -132,12 +132,12 @@ const routerCarrito = new Router()
         if(isNaN(id_prod) || id_prod <= 0){
           return res.send({error: 'producto para agregar al carrito no encontrado'})
         } 
-        const Cart = fileC.getById(id)
+        const Cart = cartDaoFile.getById(id)
               Cart.then(cart => {
                 if(cart===null) {
                   return res.send({error: 'carrito no encontrado'})
                 }
-                orderFS.forEach( c => {
+                CartDaoMemory.object.forEach( c => {
                   if(parseInt(c.id) === id){
                     if(c.productos.length>0) {              
                       let prodBool = 0                                            
@@ -151,7 +151,7 @@ const routerCarrito = new Router()
                         const indexOfItemInArray = c.productos.findIndex(cp => cp.id === id_prod)
                         c.productos.splice(indexOfItemInArray, 1)
 
-                        const newCart = fileC.update(id,c)
+                        const newCart = cartDaoFile.update(id,c)
                               newCart.then( nc => {
                                 res.send(c)
                               })

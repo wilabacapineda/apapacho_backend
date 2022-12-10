@@ -7,16 +7,33 @@
     "code": "P0001",
     "price": 20000,
     "stock": 100,
-    "thumbnail": "/assets/img/ModeloNomeolvides.jpg"
+    "ventas": 0,
+    "thumbnail": "/assets/img/ModeloNomeolvides.jpg",
+    "variations": [
+      {
+        "color": "",
+        "size": "",
+        "stock": 0
+      }
+    ]
   },
   {
+    "id": 2,
+    "timestamp": 0,
     "title": "Poleron modelo Amapola",
     "description": "Poleron modelo Amapola",
     "price": "20000",
     "code": "P0002",
     "stock": "101",
     "thumbnail": "/assets/img/ModeloAmapola.jpg",
-    "id": 2
+    "ventas": 0,
+    "variations": [
+      {
+        "color": "",
+        "size": "",
+        "stock": 0
+      }
+    ]
   },
   {
     "id": 3,
@@ -26,7 +43,15 @@
     "code": "P0003",
     "price": 15000,
     "stock": 100,
-    "thumbnail": "/assets/img/ModeloJacinto.jpg"
+    "thumbnail": "/assets/img/ModeloJacinto.jpg",
+    "ventas": 0,
+    "variations": [
+      {
+        "color": "",
+        "size": "",
+        "stock": 0
+      }
+    ]
   },
   {
     "id": 4,
@@ -36,7 +61,15 @@
     "code": "P0004",
     "price": 22500,
     "stock": 100,
-    "thumbnail": "/assets/img/ModeloVioleta.jpg"
+    "thumbnail": "/assets/img/ModeloVioleta.jpg",
+    "ventas": 0,
+    "variations": [
+      {
+        "color": "",
+        "size": "",
+        "stock": 0
+      }
+    ]
   },
   {
     "id": 5,
@@ -46,6 +79,14 @@
     "code": "P0005",
     "price": 21000,
     "stock": 100,
-    "thumbnail": "/assets/img/ModeloAmaranta.jpg"
+    "thumbnail": "/assets/img/ModeloAmaranta.jpg",
+    "ventas": 0,
+    "variations": [
+      {
+        "color": "",
+        "size": "",
+        "stock": 0
+      }
+    ]
   }
 ]

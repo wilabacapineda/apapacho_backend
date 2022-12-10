@@ -1,6 +1,6 @@
 import express, {json, urlencoded} from 'express'
-import routerCarrito from './routers/routerCarrito.js'
-import routerProductos from './routers/routerProductos.js'
+import routerCarts from './routers/routerCarts.js'
+import routerProducts from './routers/routerProducts.js'
 import mongoose from 'mongoose'
 import productsDAO from './models/products.js'
 import ordersDATO from './models/orders.js'
@@ -23,8 +23,8 @@ const app = express()
       app.delete('/api', (req, res) => {
         return res.send({ mensaje: "Bienvenido a la Api de Apapacho"})
       })
-      app.use(routerCarrito)
-      app.use(routerProductos)
+      app.use(routerCarts)
+      app.use(routerProducts)
       app.use('/api/', (req, res, next) => {
         res.status(404).send({error: -2, descripcion: `ruta ${req.originalUrl} método ${req.method} no implementada`})
       })      
@@ -39,8 +39,7 @@ mongoose.connect('mongodb://localhost:27017/ecommerce',{
   useNewUrlParser:true,
   useUnifiedTopology:true,
   serverSelectionTimeoutMS:5000,
-})
-.then(() => {
+}).then(() => {
   inserciones.push(productsDAO.create({})
   const results = await Promise.allSettled(inserciones)
   const rejected = results.filter( res => res.status === 'rejected)
@@ -50,7 +49,11 @@ mongoose.connect('mongodb://localhost:27017/ecommerce',{
   } else {
     console.log("Estudiantes insertados correctamente")
   }
-  await mongoose.disconnect()
+}).catch( err => throw new Error(`Error en la lectura de productos ${err}`))
+.finally(() = {
+  mongoose.disconnect().catch(err => {
+    throw new Error(`Error al desconectar de la Base de Datos ${err}`)
+  })
 })
 
 */

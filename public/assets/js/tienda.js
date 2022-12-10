@@ -25,7 +25,10 @@ const cargarTienda = (productos) => {
 
 if(productosTiendaX) {
     fetch('/api/productos')
-    .then(data => data.json())
+    .then(data => {
+        console.log(data)
+        return data.json()
+    } )
     .then(data => {
         productosTiendaX.innerHTML = cargarTienda(data)
     })
