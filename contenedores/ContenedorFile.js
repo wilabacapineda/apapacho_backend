@@ -97,7 +97,7 @@ export default class ContenedorFile {
                     } else {
                         return c
                     }
-                })
+                })                
                 fs.promises.writeFile(this.file,JSON.stringify(updateID,null,2))                          
                 return returnObject
             })
@@ -124,6 +124,38 @@ export default class ContenedorFile {
         catch (error) {
             console.warn(`getById error, ${error}`)
         }        
+    }
+
+    async deleteProducts(id,id_prod){
+        try {                         
+            const content = this.getAll()      
+            const updateObject = content.then( resp => {                
+                const returnObject = []
+                resp.forEach( c => {                
+                    if(parseInt(c.id)===parseInt(id)){  
+                        if(c.products.length>0){
+                            const result = c.products.filter( cp => {
+                                if(parseInt(cp.id) !== parseInt(id_prod)) {                                    
+                                    return cp
+                                }            
+                            })  
+                            c.products = result
+                            returnObject.push(c) 
+                        } else {
+                            returnObject.push(c)                           
+                        }         
+                    } else {
+                        returnObject.push(c)
+                    }
+                })                
+                fs.promises.writeFile(this.file,JSON.stringify(returnObject,null,2))                          
+                return returnObject
+            })
+            return await updateObject
+        }
+        catch (error) {
+            console.warn(`updateProducts error, ${error}`)
+        }
     }
 
     async deleteById(id) {
