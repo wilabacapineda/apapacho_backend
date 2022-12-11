@@ -22,7 +22,7 @@ const OrderProductSchema = new mongoose.Schema({
 
 const OrderSchema = new mongoose.Schema({
     buyer : [OrderBuyerSchema],
-    dateCreate : { type: Date, default: Date.now , require:true },
+    timestamp : { type: Date, default: Date.now , require:true },
     dateUpdate : { type: Date, default: Date.now , require:true },
     products : [OrderProductSchema],
     total : {type: Number, require:true}

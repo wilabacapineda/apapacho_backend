@@ -19,7 +19,7 @@ const verProducto = (data) => {
             </div>
             <form id="productoForm" method="post" name="productos">
                 <input name="id_prod" id="id_prod" type="hidden" value="${data.id}" />
-                <input id="productoCantidad" name="cantidad" type="number" value="1" min="1" step="1" max="${data.stock}">
+                <input id="productoCantidad" name="cartCount" type="number" value="1" min="1" step="1" max="${data.stock}">
                 <input id="productoSubmit" name="productoSubmit" type="submit" class="btn btn-primary" value="Agregar">
             </form>
             <div id="productoAlert"></div>
@@ -91,7 +91,7 @@ if(productoTiendaX){
             if(productoForm) {
                 productoForm.addEventListener('submit', (e) => {
                     e.preventDefault()                    
-                    const data = { cantidad: document.getElementById("productoCantidad").value }                     
+                    const data = { cartCount: document.getElementById("productoCantidad").value }                     
                     if(!localStorage.getItem("idCarrito")){
                         fetch('/api/carrito/', {
                             method: "POST"

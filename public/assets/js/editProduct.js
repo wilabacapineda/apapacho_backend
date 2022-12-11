@@ -48,7 +48,7 @@ if(productsForm){
             document.getElementById("price").value=data.price
             document.getElementById("code").value=data.code
             document.getElementById("stock").value=data.stock
-            document.getElementById("ventas").value=data.ventas
+            document.getElementById("sales").value=data.sales
             document.getElementById("thumbnail_preview").setAttribute('src',thumbnailVal)           
             
             productsForm.addEventListener('submit', (e) => {
@@ -71,7 +71,7 @@ if(productsForm){
                         price: parseInt(document.getElementById("price").value),
                         code: document.getElementById("code").value,
                         stock: parseInt(document.getElementById("stock").value),
-                        ventas: parseInt(document.getElementById("ventas").value),
+                        sales: parseInt(document.getElementById("sales").value),
                         thumbnail: thumbnailVal
                     }                     
                     

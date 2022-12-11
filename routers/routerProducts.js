@@ -33,7 +33,7 @@ const routerProductos = new Router()
       })  
       routerProductos.post('/api/productos', (req, res) => {
         if(administrador){
-          req.body.ventas = 0
+          req.body.sales = 0
           req.body.variations=[] 
           req.body.price=parseInt(req.body.price)
           req.body.stock=parseInt(req.body.stock)         
@@ -51,7 +51,7 @@ const routerProductos = new Router()
           const thumbnail = req.file
           if(thumbnail){
               req.body.thumbnail = `/assets/img/${thumbnail.filename}`            
-              req.body.ventas = 0
+              req.body.sales = 0
               req.body.price=parseInt(req.body.price)
               req.body.stock=parseInt(req.body.stock)
               req.body.variations=[]

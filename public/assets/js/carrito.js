@@ -4,7 +4,7 @@ const idCarrito = localStorage.getItem("idCarrito")
 const cargarCarrito = (carrito) => {
     let total = 0 
     const resultado = carrito.map( (p) => {
-        total = total + (p.price*p.cantidad)
+        total = total + (p.price*p.cartCount)
         return(`<span>
                     <a href="/pages/producto/?id=${p.id}">
                         <img src="${p.thumbnail}" width="0">
@@ -17,9 +17,9 @@ const cargarCarrito = (carrito) => {
                             <div id="carritoInfo-start">
                                 <span id="carritoInfo-start-cantidad">
                                     <span>Cantidad:</span>
-                                    <input type="number" value="${p.cantidad}" id="ProductoCantidadCarro${p.id}" name="ProductoCantidadCarro" min="1" step="1" max="${p.stock}">
+                                    <input type="number" value="${p.cartCount}" id="ProductoCantidadCarro${p.id}" name="ProductoCantidadCarro" min="1" step="1" max="${p.stock}">
                                 </span>
-                                <span>Subtotal: $${(p.price*p.cantidad).toLocaleString()}</span>
+                                <span>Subtotal: $${(p.price*p.cartCount).toLocaleString()}</span>
                             </div>
                             <div id="carritoInfo-del">
                                 <a class="btn deleteProdCart" id="deleteProducto_${p.id}" data-target="${p.id}">
@@ -73,7 +73,7 @@ if(productosCarritoX) {
                         a.addEventListener('click', (e) => {
                             e.preventDefault()
                             const id_prod = parseInt(e.currentTarget.getAttribute('data-target'))
-                            const data = { cantidad: document.getElementById("ProductoCantidadCarro"+id_prod).value }                     
+                            const data = { cartCount: document.getElementById("ProductoCantidadCarro"+id_prod).value }                     
                             fetch(`/api/carrito/${parseInt(localStorage.getItem("idCarrito"))}/productos/${id_prod}`, {
                                 method: 'POST', // or 'PUT'
                                 headers: {

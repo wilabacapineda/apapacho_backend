@@ -28,7 +28,7 @@ const routerCarrito = new Router()
       routerCarrito.post('/api/carrito/:id/productos/:id_prod', (req,res) => {        
         const id = parseInt(req.params.id)
         const id_prod = parseInt(req.params.id_prod)
-        let addCant = req.body.cantidad ? parseInt(req.body.cantidad) : 1
+        let addCant = req.body.cartCount ? parseInt(req.body.cartCount) : 1
 
         if(isNaN(id) || id <= 0){
           return res.send({error: 'carrito no encontrado'})
@@ -46,7 +46,7 @@ const routerCarrito = new Router()
                 if(cart.productos.length>0) {                   
                   const result = cart.productos.find(cp => cp.id === id_prod )
                   if(result){                
-                    result.cantidad = addCant
+                    result.cartCount = addCant
                     cart.productos.forEach(cp => cp.id === id_prod ? cp = result : "")                    
                     const newCart = cartDaoFile.update(id,cart)
                           newCart.then( () => {                            
@@ -58,7 +58,7 @@ const routerCarrito = new Router()
                     if(result){
                       cart.productos.push({
                         ... result,
-                        cantidad: addCant
+                        cartCount: addCant
                       })  
                       const newCart = cartDaoFile.update(id,cart)
                             newCart.then( () => {
@@ -74,7 +74,7 @@ const routerCarrito = new Router()
                   if(result){
                     cart.productos.push({
                       ... result,
-                      cantidad: addCant
+                      cartCount: addCant
                     })  
                     const newCart = cartDaoFile.update(id,cart)
                           newCart.then( () => {
