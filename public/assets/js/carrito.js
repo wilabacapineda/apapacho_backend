@@ -64,7 +64,6 @@ if(productosCarritoX) {
         .then(data => data.json())
         .then(data => {
             if(data.length>0){
-                console.log(data)
                 productosCarritoX.innerHTML = cargarCarrito(data)
                 const vaciarCarro = '<div id="vaciarCarritoDiv" class="row"><button id="emptyCart" class="btn btn-primary">Vaciar Carrito</button></div>'
                 productosCarritoX.innerHTML += vaciarCarro
@@ -95,7 +94,7 @@ if(productosCarritoX) {
                             const id_prod = parseInt(e.currentTarget.getAttribute('data-target'))
                             fetch(`/api/carrito/${parseInt(localStorage.getItem("idCarrito"))}/productos/${id_prod}`, {
                                 method: 'DELETE', // or 'PUT'
-                            }).then( res => res.json()).then(res => {
+                            }).then( res => res.json()).then(res => {                                                                
                                 location.reload()
                             })
                         })

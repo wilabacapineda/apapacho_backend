@@ -113,11 +113,43 @@ export default class ContenedorMongoDb {
     async deleteById(id){
         try {
             const newCol = await this.db.deleteOne({ id : id }).then( () => {
-                return this.db.getAll()
+                return this.getAll()
             })
             return newCol
         } catch (err) {
             console.warn(`save error, ${err}`)
+        }
+    }
+
+    async deleteProducts(id,id_prod){
+        try {                         
+            const updateObject = await this.getAll().then( resp => {                
+                const returnObject = []
+                resp.forEach( c => {                
+                    if(parseInt(c.id)===parseInt(id)){  
+                        if(c.products.length>0){
+                            const result = c.products.filter( cp => {
+                                if(parseInt(cp.id) !== parseInt(id_prod)) {                                    
+                                    return cp
+                                }            
+                            })  
+                            c.products = result
+                            returnObject.push(c) 
+                        } else {
+                            returnObject.push(c)                           
+                        }         
+                    } else {
+                        returnObject.push(c)
+                    }
+                })                
+                return returnObject
+            })
+            
+            const newCart = this.update(id,updateObject[0])                      
+            return await newCart
+        }
+        catch (error) {
+            console.warn(`updateProducts error, ${error}`)
         }
     }
 

@@ -81,11 +81,10 @@ import('../daos/index.js').then(module => {
       const id = parseInt(req.params.id)   
       const newProd = din.productsDao.update(id,req.body)
             newProd.then( np => {                
-              console.log(np.length)
               if(np.length>0){                                
                 din.ProductsDaoMemory.update(id,np)                    
               }   
-              np.length === 0 ? res.send({error: 'producto no encontrado'}) : res.send(np[0])                
+              np.length === 0 ? res.send({error: 'producto no encontrado'}) : res.send(np)                
             })      
     } else {
       res.send({ error : -1, descripcion: "Ruta '/api/productos/:id', metodo PUT no autorizado"})
@@ -100,9 +99,9 @@ import('../daos/index.js').then(module => {
         const newProd = din.productsDao.update(id,req.body)
               newProd.then( np => {  
                 if(np.length>0){
-                  din.ProductsDaoMemory.update(id,np[0])                    
+                  din.ProductsDaoMemory.update(id,np)                    
                 }   
-                np.length === 0 ? res.send({error: 'producto no encontrado'}) : res.send(np[0])                
+                np.length === 0 ? res.send({error: 'producto no encontrado'}) : res.send(np)                
               })      
       } else {
         const error = new Error('Por favor sube un archivo')
@@ -132,8 +131,7 @@ import('../daos/index.js').then(module => {
     }    
   })
 
-  routerCarts.get('/api/carrito/:id/productos', (req, res) => {
-    
+  routerCarts.get('/api/carrito/:id/productos', (req, res) => {    
       const id = parseInt(req.params.id)    
       if(isNaN(id) || id <= 0){
         return res.send({error: 'carrito no encontrado'})
@@ -143,9 +141,7 @@ import('../daos/index.js').then(module => {
               res.send(r.products)  
             }).catch( (r) => {
               res.send({error: 'carrito no encontrado'})
-            })
-      
-                 
+            })   
   })      
   routerCarts.post('/api/carrito/', (req,res) => {
     const newCart = din.cartDao.save({products:[]})
@@ -167,6 +163,9 @@ import('../daos/index.js').then(module => {
     } 
     const result = din.ProductsDaoMemory.getById(id_prod)  
           result.then( r => {
+            if(r===null) {
+              return res.send({error: 'producto para agregar al carrito no encontrado'})
+            }
             const newCart = din.cartDao.updateProducts(id, id_prod, r, cartCount)
                   newCart.then( (c) => {  
                     din.CartDaoMemory.update(id,c)
@@ -188,12 +187,13 @@ import('../daos/index.js').then(module => {
               return res.send({error: 'carrito no encontrado'})
             }
             const deleteID = din.cartDao.deleteById(id)
-            deleteID.then( () => {
-              din.CartDaoMemory.deleteById(id)
-              return res.send({mensaje:`Carrito ${id} eliminado`})
-            })
+                  deleteID.then( () => {
+                    din.CartDaoMemory.deleteById(id)
+                    return res.send({mensaje:`Carrito ${id} eliminado`})
+                  })
           }) 
   })
+
   routerCarts.delete('/api/carrito/:id/productos/:id_prod', (req, res) => {
     const id = parseInt(req.params.id)
     const id_prod = parseInt(req.params.id_prod)
@@ -203,31 +203,23 @@ import('../daos/index.js').then(module => {
     } 
     if(isNaN(id_prod) || id_prod <= 0){
       return res.send({error: 'producto para agregar al carrito no encontrado'})
-    } 
+    }      
+
     const Cart = din.cartDao.getById(id)
           Cart.then(cart => {
             if(cart===null) {
               return res.send({error: 'carrito no encontrado'})
             }
-
-            if(cart.products.length>0) {                   
-              const indexOfItemInArray = cart.products.findIndex(cp => cp.id === id_prod)
-              cart.products.splice(indexOfItemInArray, 1)
-              const newCart = din.cartDao.update(id,cart)
-                    newCart.then( () => {
-                      din.CartDaoMemory.update(id,cart)
-                      res.send(cart)
-                    })              
-            } else {
-              return res.send({error: 'carrito no contiene productos'})                                     
-            }                   
-          })
+            const newCart = din.cartDao.deleteProducts(id, id_prod)
+                  newCart.then( (c) => {  
+                    din.CartDaoMemory.update(id,c)
+                    res.send(c)
+                  })                                
+          }).catch(r => {
+            return res.send({error: 'carrito no encontrado'})
+          }) 
   })
 
 })     
 
 export default { routerProducts , routerCarts }
-
-
-
-
