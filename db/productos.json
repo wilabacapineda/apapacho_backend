@@ -45,9 +45,9 @@
     "stock": 100,
     "thumbnail": "/assets/img/ModeloJacinto.jpg",
     "id": 3,
-    "sales": 0,
+    "sales": 1,
     "timestamp": 1670683322011,
-    "dateUpdate": 1670683322011,
+    "dateUpdate": 1670740579551,
     "variations": [
       {
         "color": "",
@@ -63,7 +63,7 @@
     "description": "Poleron modelo Violeta",
     "code": "P0004",
     "price": 22500,
-    "stock": 100,
+    "stock": 101,
     "thumbnail": "/assets/img/ModeloVioleta.jpg",
     "sales": 0,
     "variations": [
@@ -73,7 +73,7 @@
         "stock": 0
       }
     ],
-    "dateUpdate": 1670683637135
+    "dateUpdate": 1670770513953
   },
   {
     "id": 5,

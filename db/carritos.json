@@ -1,6 +1,6 @@
 [
   {
-    "productos": [
+    "products": [
       {
         "id": 2,
         "timestamp": 1670683322011,
@@ -19,39 +19,19 @@
             "stock": 0
           }
         ],
-        "cartCount": 3
-      },
-      {
-        "id": 4,
-        "timestamp": 1670683322011,
-        "title": "Poleron modelo Violeta",
-        "description": "Poleron modelo Violeta",
-        "code": "P0004",
-        "price": 22500,
-        "stock": 100,
-        "thumbnail": "/assets/img/ModeloVioleta.jpg",
-        "sales": 0,
-        "variations": [
-          {
-            "color": "",
-            "size": "",
-            "stock": 0
-          }
-        ],
-        "dateUpdate": 1670683637135,
         "cartCount": 1
       },
       {
-        "id": 5,
+        "id": 1,
         "timestamp": 1670683322011,
         "dateUpdate": 1670683322011,
-        "title": "Poleron modelo Amaranta",
-        "description": "Poleron modelo Amaranta",
-        "code": "P0005",
-        "price": 21000,
+        "title": "Poleron No me olvides",
+        "description": "Poleron modelo No me Olvides",
+        "code": "P0001",
+        "price": 20000,
         "stock": 100,
-        "thumbnail": "/assets/img/ModeloAmaranta.jpg",
         "sales": 0,
+        "thumbnail": "/assets/img/ModeloNomeolvides.jpg",
         "variations": [
           {
             "color": "",
@@ -63,7 +43,7 @@
       }
     ],
     "id": 1,
-    "timestamp": 1670683853765,
-    "dateUpdate": 1670728124357
+    "timestamp": 1670762761255,
+    "dateUpdate": 1670767155741
   }
 ]
