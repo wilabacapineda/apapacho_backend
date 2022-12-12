@@ -2,10 +2,7 @@ import ContenedorFile from './../../contenedores/ContenedorFile.js'
 
 class ProductsDaoFiles extends ContenedorFile {
     constructor() {
-        super('./db/productos.json')
-    }
-
-    async disconnect () {
+        super('./db_json/productos.json')
     }
 }
 

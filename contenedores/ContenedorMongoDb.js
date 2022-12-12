@@ -1,10 +1,5 @@
-import mongoose from "mongoose"
-
-mongoose.connect('mongodb://localhost:27017/ecommerce',{
-    useNewUrlParser:true,
-    useUnifiedTopology:true,
-    serverSelectionTimeoutMS:5000,
-})
+import mongoose from "mongoose" 
+import './../config/mongoDb.js'
 
 export default class ContenedorMongoDb {
     constructor(collection, schema) {        

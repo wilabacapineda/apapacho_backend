@@ -20,8 +20,8 @@ const routerCarts = new Router()
       routerCarts.use(json())   
 
 import('../daos/index.js').then(module => {
-  const din = module.daoFiles()  
-  //const din = module.daoMongoDb() 
+  //const din = module.daoFiles()  
+  const din = module.daoMongoDb() 
 
   routerProducts.get('/api/productos', (req,res) => {
     res.send(din.ProductsDaoMemory.object)                  
