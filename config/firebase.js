@@ -1,7 +1,11 @@
-import { initializeApp, credential as _credential } from "firebase-admin";
+import admin from "firebase-admin"
+import fs from 'fs'
 
-import serviceAccount from "./../private/apapacho-53525-firebase-adminsdk-kj7c2-bf3e4faa4f.json";
+const serviceAccount = JSON.parse(fs.readFileSync('./nopublic/firebaseServiceAccountKey.json','utf8'))
 
-initializeApp({
-  credential: _credential.cert(serviceAccount)
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: 'https://apapacho-53525.firebaseio.com'
 });
+
+console.log('Base Firebase conectada')

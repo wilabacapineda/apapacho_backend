@@ -10,7 +10,7 @@ export default class ContenedorMongoDb {
         try {
             return await this.db.find({})
         } catch (err) {
-            console.warn(`save error, ${err}`)
+            console.warn(`MongoDb getAll error, ${err}`)
         }
     }
 
@@ -31,7 +31,7 @@ export default class ContenedorMongoDb {
             })            
             return await newObject
         } catch (err) {
-            console.warn(`save error, ${err}`)
+            console.warn(`MongoDb save error, ${err}`)
         }        
     }
 
@@ -46,7 +46,7 @@ export default class ContenedorMongoDb {
             )           
             return [await aux]
         } catch (err) {
-            console.warn(`save error, ${err}`)
+            console.warn(`MongoDb update error, ${err}`)
         }
     }
 
@@ -84,7 +84,7 @@ export default class ContenedorMongoDb {
             return await newCart
         }
         catch (error) {
-            console.warn(`updateProducts error, ${error}`)
+            console.warn(`MongoDb updateProducts error, ${error}`)
         }
     }
 
@@ -93,15 +93,7 @@ export default class ContenedorMongoDb {
             const aux = this.db.findOne({query: { id : id }})
             return await aux
         } catch (err) {
-            console.warn(`save error, ${err}`)
-        }
-    }
-
-    async getByObjectId(id){   
-        try {
-            return await this.db.findOne({query: { _id : id }})
-        } catch (err) {
-            console.warn(`save error, ${err}`)
+            console.warn(`MongoDb getById error, ${err}`)
         }
     }
 
@@ -112,7 +104,7 @@ export default class ContenedorMongoDb {
             })
             return newCol
         } catch (err) {
-            console.warn(`save error, ${err}`)
+            console.warn(`MongoDb deleteById error, ${err}`)
         }
     }
 
@@ -144,18 +136,7 @@ export default class ContenedorMongoDb {
             return await newCart
         }
         catch (error) {
-            console.warn(`updateProducts error, ${error}`)
-        }
-    }
-
-    async deleteByObjectId(id){
-        try {
-            const newCol = await this.db.deleteOne({ _id : id }).then( () => {
-                return this.db.getAll()
-            })
-            return newCol
-        } catch (err) {
-            console.warn(`save error, ${err}`)
+            console.warn(`MongoDb deleteProducts error, ${error}`)
         }
     }
 
@@ -164,7 +145,7 @@ export default class ContenedorMongoDb {
             await this.db.deleteMany({ })
             return []
         } catch (err) {
-            console.warn(`save error, ${err}`)
+            console.warn(`MongoDb deleteAll error, ${err}`)
         }
     }
 

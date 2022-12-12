@@ -4,29 +4,54 @@ export default class ContenedorMemory {
     } 
 
     create(object) {
-        this.object = object
+        try {
+            this.object = object
+        } catch(err){
+            console.warn(`Memory Persistence create error, ${err}`)
+        }        
     }
     
-    save(Object){
-        this.object.push(Object)
+    save(object){
+        try {
+            this.object.push(object)
+        } catch(err){
+            console.warn(`Memory Persistence save error, ${err}`)
+        }  
+        
     }
 
-    update(id,Object){        
-        const indexOfItemInArray = this.object.findIndex(p => p.id === id)
-        this.object.splice(indexOfItemInArray, 1, Object[0])
+    update(id,Object){                
+        try {
+            const indexOfItemInArray = this.object.findIndex(p => p.id === id)
+            this.object.splice(indexOfItemInArray, 1, Object[0])
+        } catch(err){
+            console.warn(`Memory Persistence update error, ${err}`)
+        } 
     }
 
-    async getById(id){        
-        const result = this.object.filter( o => parseInt(o.id) === id )  
-        return await result[0]
+    async getById(id){                
+        try {
+            const result = this.object.filter( o => parseInt(o.id) === id )  
+            return await result[0]
+        } catch(err){
+            console.warn(`Memory Persistence getById error, ${err}`)
+        } 
     }
 
-    deleteById(id){
-        const indexOfItemInArray = this.object.findIndex(p => p.id === id)
-        this.object.splice(indexOfItemInArray, 1)
+    deleteById(id){        
+        try {
+            const indexOfItemInArray = this.object.findIndex(p => p.id === id)
+            this.object.splice(indexOfItemInArray, 1)
+        } catch(err){
+            console.warn(`Memory Persistence deleteById error, ${err}`)
+        } 
     }
 
-    deleteAll() {
-        this.object=[]         
+    deleteAll() {        
+        try {
+            this.object=[]         
+        } catch(err){
+            console.warn(`Memory Persistence deleteAll error, ${err}`)
+        } 
     }
 }

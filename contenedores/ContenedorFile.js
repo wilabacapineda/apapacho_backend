@@ -11,7 +11,7 @@ export default class ContenedorFile {
             return JSON.parse(content)       
         }
         catch (error) {
-            console.warn(`getAll error: ${error}`)
+            console.warn(`File getAll error: ${error}`)
         }
     }
 
@@ -34,7 +34,7 @@ export default class ContenedorFile {
             return newID
         }
         catch (error) {
-            console.warn(`readFile error, ${error}`)
+            console.warn(`File save error, ${error}`)
         }
     }
 
@@ -62,7 +62,7 @@ export default class ContenedorFile {
         return updateObject
       }
       catch (error) {
-          console.warn(`readFile error, ${error}`)
+          console.warn(`File update error, ${error}`)
       }
     }
 
@@ -104,7 +104,7 @@ export default class ContenedorFile {
             return await updateObject
         }
         catch (error) {
-            console.warn(`updateProducts error, ${error}`)
+            console.warn(`File updateProducts error, ${error}`)
         }
     }
 
@@ -122,7 +122,7 @@ export default class ContenedorFile {
             
         }
         catch (error) {
-            console.warn(`getById error, ${error}`)
+            console.warn(`File getById error, ${error}`)
         }        
     }
 
@@ -154,7 +154,7 @@ export default class ContenedorFile {
             return await updateObject
         }
         catch (error) {
-            console.warn(`updateProducts error, ${error}`)
+            console.warn(`File deleteProducts error, ${error}`)
         }
     }
 
@@ -169,7 +169,7 @@ export default class ContenedorFile {
             return(data)
         }
         catch (error) {
-            console.warn(`deleteById error, ${error}`)
+            console.warn(`File deleteById error, ${error}`)
         } 
     }
 
@@ -178,7 +178,7 @@ export default class ContenedorFile {
             await fs.promises.writeFile(this.file,JSON.stringify([],null,2))             
         }
         catch (error) {
-            console.warn(`deleteAll error, ${error}`)
+            console.warn(`File deleteAll error, ${error}`)
         } 
     }
 
