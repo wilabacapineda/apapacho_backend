@@ -132,7 +132,7 @@ export default class ContenedorFirebase {
             return await newCart
         }
         catch (error) {
-            console.warn(`updateProducts error, ${error}`)
+            console.warn(`Firebase deleteProducts error, ${error}`)
         }
     }
 
