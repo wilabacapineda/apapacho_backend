@@ -9,7 +9,7 @@ const connectionParams={
 }
 
 //ATLAS
-const connectionStringUrl = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@${process.env.MONGO_HOST}/ecommerce?retryWrites=true&w=majority`
+const connectionStringUrl = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@${process.env.MONGO_HOST}/${process.env.MONGO_DBNAME}?retryWrites=true&w=majority`
 mongoose.connect(connectionStringUrl,connectionParams)
 .then(() => {
     console.log('Base de Datos Conectada')
