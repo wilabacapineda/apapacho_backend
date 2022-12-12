@@ -32,7 +32,7 @@ export const daoMongoDb = () => {
 export const daoFirebase = () => {
       const productsDao = new ProductDaoFirebase
             productsDao.loadFirstinsertions()    
-      const cartDao = new CartDaoFirebase     
+      const cartDao = new CartDaoFirebase
       
       const data = productsDao.getAll()
             data.then( d => ProductsDaoMemory.create(d))

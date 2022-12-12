@@ -38,26 +38,26 @@ export default class ContenedorFirebase {
                 }            
                 object.timestamp=Date.now()
                 object.dateUpdate=object.timestamp
-
-                const aux = this.collection.doc(`${object.id}`).create(object)                
-                return aux                       
+                this.collection.doc(`${object.id}`).create(object)                
+                return this.getById(object.id)
             })            
             return await newObject
         } catch (err) {
-            console.warn(`save error, ${err}`)
+            console.warn(`Firebase save error, ${err}`)
         }        
     }
 
     async update(id,object){
         try {
-            const response = await this.collection.doc(`${id}`).update(object)          
-            return [response]
+            await this.collection.doc(`${id}`).update(object)          
+            const updateObject = this.getById(id)
+            return [await updateObject]
         } catch (err) {
             console.warn(`Firebase update error, ${err}`)
         }
     }
 
-    /*
+    
     async updateProducts(id,id_prod,object,cartCount){
         try {                         
             const updateObject = await this.getAll().then( resp => {                
@@ -73,13 +73,13 @@ export default class ContenedorFirebase {
                             })  
                             if(result.length===0){      
                                 c.products.push({
-                                    ...object._doc,
+                                    ...object,
                                     cartCount : cartCount                
                                 })
                             }
                         } else {
                             c.products.push({
-                                ...object._doc,
+                                ...object,
                                 cartCount : cartCount                
                             })                             
                         }                        
@@ -87,23 +87,21 @@ export default class ContenedorFirebase {
                     } 
                 })                
                 return returnObject
-            })            
+            }) 
             const newCart = this.update(id,updateObject[0])                      
             return await newCart
         }
         catch (error) {
-            console.warn(`updateProducts error, ${error}`)
+            console.warn(`Firebase updateProducts error, ${error}`)
         }
     }
 
     async deleteById(id){
         try {
-            const newCol = await this.db.deleteOne({ id : id }).then( () => {
-                return this.getAll()
-            })
-            return newCol
+            await this.collection.doc(`${id}`).delete()                  
+            return this.getAll()
         } catch (err) {
-            console.warn(`save error, ${err}`)
+            console.warn(`Firebase deleteById error, ${err}`)
         }
     }
 
@@ -129,8 +127,7 @@ export default class ContenedorFirebase {
                     }
                 })                
                 return returnObject
-            })
-            
+            })            
             const newCart = this.update(id,updateObject[0])                      
             return await newCart
         }
@@ -141,12 +138,10 @@ export default class ContenedorFirebase {
 
     async deleteAll() {
         try {
-            await this.db.deleteMany({ })
+            await this.collection.doc().delete()                  
             return []
         } catch (err) {
-            console.warn(`save error, ${err}`)
+            console.warn(`Firebase deleteAll error, ${err}`)
         }
     }
-    */
-    
 }
