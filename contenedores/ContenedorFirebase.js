@@ -1,4 +1,3 @@
-import { query } from 'express'
 import admin from 'firebase-admin'
 import './../config/firebase.js'
 
