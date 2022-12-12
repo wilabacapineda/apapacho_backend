@@ -175,8 +175,7 @@ import('../daos/index.js').then(module => {
           }).catch(r => {
             return res.send({error: 'producto para agregar al carrito no encontrado'})
           })            
-  })
-  
+  })  
   routerCarts.delete('/api/carrito/:id', (req, res) => {
     const id = parseInt(req.params.id)    
     if(isNaN(id) || id <= 0){
@@ -194,7 +193,6 @@ import('../daos/index.js').then(module => {
                   })
           }) 
   })
-
   routerCarts.delete('/api/carrito/:id/productos/:id_prod', (req, res) => {
     const id = parseInt(req.params.id)
     const id_prod = parseInt(req.params.id_prod)
