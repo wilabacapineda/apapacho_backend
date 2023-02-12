@@ -48,6 +48,7 @@
                                     <th scope="col">Nombre</th>
                                     <th scope="col">Precio</th>
                                     <th scope="col">Imagen</th>
+                                    <th scope="col">Editar</th>
                                 </tr>
                             </thead>
                             <tbody id="tableProductos">
@@ -55,13 +56,18 @@
                                     <tr id="prod_{{id}}" class="text-center">                                    
                                         <td>
                                             <a href="/tienda/producto/{{id}}">
-                                                {{title}}
+                                                <i class="fa-solid fa-eye"></i> {{title}}
                                             </a>
                                         </td>
                                         <td>${{price}}</td>
                                         <td>
                                             <img src="{{thumbnail}}" class="card-img-top" alt="Poleron Amaranta">
-                                        </td>                                    
+                                        </td> 
+                                        <td>
+                                            <a href="/productos/{{id}}">
+                                                <i class="fa-solid fa-pen-to-square"></i>Editar
+                                            </a>
+                                        </td>                             
                                     </tr>
                                 {{/each}}         
                             </tbody>

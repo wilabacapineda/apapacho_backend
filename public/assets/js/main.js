@@ -169,7 +169,6 @@ if(productoTiendaX){
             output.classList.add("fallo")
         })
     }
-
     const successAdd = () => {
         Swal.fire({
             icon: 'success',
@@ -190,27 +189,8 @@ if(productoTiendaX){
         })
     }
 
-    const errorDelete = () => {
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Ocurrió un error al eliminar el producto!',
-        })
-    }
-
-    const successDelete = () => {
-        Swal.fire({
-            icon: 'success',
-            title: 'Producto Eliminado',
-            showConfirmButton: true
-        }).then(res => {
-            window.location.href = "/tienda"
-        })
-    }
-
     const productoForm = document.getElementById("productoForm")
-    const deleteProduct = document.getElementById("deleteProduct")
-    if(productoForm) {
+    if(productoForm) {        
         productoForm.addEventListener('submit', (e) => {
             e.preventDefault()                    
             const data = { cartCount: document.getElementById("productoCantidad").value }                     
@@ -247,30 +227,6 @@ if(productoTiendaX){
                     errorAdd()                                        
                 })
             }                    
-        })
-    }
-    if(deleteProduct){
-        deleteProduct.addEventListener("click", (e) => {
-            e.preventDefault()
-            Swal.fire({
-                title: '¿Deseas eliminar el producto?',
-                showDenyButton: true,
-                showCancelButton: false,
-                confirmButtonText: 'Si',
-                denyButtonText: `No`,
-            }).then((result) => {
-                /* Read more about isConfirmed, isDenied below */
-                if (result.isConfirmed){
-                    fetch(`/api/products/${id}`, {
-                        method: "DELETE"
-                    }).then( res => {                        
-                        res.status === 200 ? successDelete() : errorDelete()
-                    }).catch((error) => {
-                        console.log('error: ', error)
-                        errorDelete()
-                    })
-                }                        
-            })                     
         })
     }
 }
@@ -461,9 +417,9 @@ const editProductsForm = document.getElementById('editProductsForm')
 if(editProductsForm){
     let url = window.location.href
     let id = url.substring(parseInt(url.indexOf('/productos/'))+11)
-        if(id.search(/[^0-9]/g)>=0){
-            id = id.substring(0,id.search(/[^0-9]/g))
-        }  
+    if(id.search(/[^0-9]/g)>=0){
+        id = id.substring(0,id.search(/[^0-9]/g))
+    }  
     const thumbnailVal = document.getElementById("thumbnail_preview").getAttribute('src')
     const output = document.querySelector("#enviando")
 
@@ -533,5 +489,54 @@ if(editProductsForm){
                 console.log('error: ', error)            
             })  
         }        
+    })
+}
+
+const deleteProduct = document.getElementById("deleteProduct")
+if(deleteProduct){
+    let url = window.location.href
+    let id = url.substring(parseInt(url.indexOf('/productos/'))+11)
+    if(id.search(/[^0-9]/g)>=0){
+        id = id.substring(0,id.search(/[^0-9]/g))
+    }  
+    const errorDelete = () => {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Ocurrió un error al eliminar el producto!',
+        })
+    }
+    
+    const successDelete = () => {
+        Swal.fire({
+            icon: 'success',
+            title: 'Producto Eliminado',
+            showConfirmButton: true
+        }).then(res => {
+            window.location.href = "/tienda"
+        })
+    }
+    
+    deleteProduct.addEventListener("click", (e) => {
+        e.preventDefault()
+        Swal.fire({
+            title: '¿Deseas eliminar el producto?',
+            showDenyButton: true,
+            showCancelButton: false,
+            confirmButtonText: 'Si',
+            denyButtonText: `No`,
+        }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed){
+                fetch(`/api/products/${id}`, {
+                    method: "DELETE"
+                }).then( res => {                        
+                    res.status === 200 ? successDelete() : errorDelete()
+                }).catch((error) => {
+                    console.log('error: ', error)
+                    errorDelete()
+                })
+            }                        
+        })                     
     })
 }
