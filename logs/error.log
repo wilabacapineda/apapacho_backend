@@ -12,3 +12,4 @@
 {"level":"error","message":"{Error:400, Route:/, Message:Homepage Error: Unreacheable Products, Error: TypeError: users.getBy_Id is not a function}","timestamp":"2023-02-12T02:05:07.709Z"}
 {"level":"error","message":"{Error:400, Route:/tienda/producto/$%7Bdata.thumbnail%7D, Message:Single Product Page Error, Error: ReferenceError: err is not defined}","timestamp":"2023-02-12T02:46:05.306Z"}
 {"level":"error","message":"{Error:400, Route:/productos/id=%22thumbnail_preview%22, Message:Single Product Page Error, Error: ReferenceError: err is not defined}","timestamp":"2023-02-12T05:48:24.684Z"}
+{"level":"error","message":"{Error:523, Route:/tienda, Message:Store Page Error: Unreacheable Store, Error: SyntaxError: Unexpected end of JSON input}","timestamp":"2023-02-12T06:49:55.467Z"}

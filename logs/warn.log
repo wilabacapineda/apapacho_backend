@@ -104,3 +104,4 @@
 {"level":"warn","message":"{Error:404, Route:/pages/producto/editProduct.html?id=6, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T06:32:15.903Z"}
 {"level":"warn","message":"{Error:404, Route:/producto/2, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T06:35:27.838Z"}
 {"level":"warn","message":"{Error:404, Route:/assets/img/Ricardo, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T06:38:55.890Z"}
+{"level":"error","message":"{Error:523, Route:/tienda, Message:Store Page Error: Unreacheable Store, Error: SyntaxError: Unexpected end of JSON input}","timestamp":"2023-02-12T06:49:55.467Z"}
