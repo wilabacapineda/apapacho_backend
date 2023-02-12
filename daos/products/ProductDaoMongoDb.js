@@ -33,7 +33,7 @@ class ProductsDaoMongoDb extends ContenedorMongoDb  {
                       "price": 20000,
                       "stock": 100,
                       "sales": 0,
-                      "thumbnail": "/assets/img/ModeloNomeolvides.jpg",
+                      "thumbnail": "/assets/img/products/ModeloNomeolvides.jpg",
                       "variations": [
                         {
                           "color": "",
@@ -51,7 +51,7 @@ class ProductsDaoMongoDb extends ContenedorMongoDb  {
                       "price": 20000,
                       "code": "P0002",
                       "stock": 101,
-                      "thumbnail": "/assets/img/ModeloAmapola.jpg",
+                      "thumbnail": "/assets/img/products/ModeloAmapola.jpg",
                       "sales": 0,
                       "variations": [
                         {
@@ -67,7 +67,7 @@ class ProductsDaoMongoDb extends ContenedorMongoDb  {
                       "price": 15000,
                       "code": "P0003",
                       "stock": 100,
-                      "thumbnail": "/assets/img/ModeloJacinto.jpg",
+                      "thumbnail": "/assets/img/products/ModeloJacinto.jpg",
                       "id": 3,
                       "sales": 0,
                       "timestamp": 1670683322011,
@@ -88,7 +88,7 @@ class ProductsDaoMongoDb extends ContenedorMongoDb  {
                       "code": "P0004",
                       "price": 22500,
                       "stock": 100,
-                      "thumbnail": "/assets/img/ModeloVioleta.jpg",
+                      "thumbnail": "/assets/img/products/ModeloVioleta.jpg",
                       "sales": 0,
                       "variations": [
                         {
@@ -108,7 +108,7 @@ class ProductsDaoMongoDb extends ContenedorMongoDb  {
                       "code": "P0005",
                       "price": 21000,
                       "stock": 100,
-                      "thumbnail": "/assets/img/ModeloAmaranta.jpg",
+                      "thumbnail": "/assets/img/products/ModeloAmaranta.jpg",
                       "sales": 0,
                       "variations": [
                         {

@@ -6,7 +6,7 @@ import { checkAuth } from '../../utils/sessionFunctions.js'
 const { Router } = express
 const storageProductImage = diskStorage({
     destination: (req, file, cb) => {
-        cb(null,'public/assets/img/')
+        cb(null,'public/assets/img/products/')
     },
     filename: (req, file, cb) => {
         cb(null,file.originalname)

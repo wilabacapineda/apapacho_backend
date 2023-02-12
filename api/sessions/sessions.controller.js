@@ -28,6 +28,13 @@ const controller = {
         try {
           sessionCounter(req)                 
           runLogger(req)
+          let thumbnail = ''
+          if(req.file){
+            thumbnail =  req.file
+          } else {
+            thumbnail.filename = 'avatar.jpg'
+          }
+          req.body.avatar = `/assets/img/avatars/${thumbnail.filename}`            
           const findEmail = users.getByEmail(req.body.email)
                 findEmail.then( r => {
                   if(r === null) {                    
@@ -45,8 +52,7 @@ const controller = {
                   }
                 }).catch( r => {
                   res.send({error: 'error al registrar usuario'})
-                })
-          
+                })             
         } catch (err) {
           const error = new Error(err)
           error.httpStatusCode = 400          

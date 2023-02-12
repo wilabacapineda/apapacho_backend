@@ -8,7 +8,7 @@
             {{else}}
                 <h2 class="text-center">Formulario de Registro</h2>            
                 <article>
-                    <form class="row g-3" action="/session/register" id="registerForm" method="post" name="register">
+                    <form class="row g-3" action="/session/register" id="registerForm" method="post" name="register" enctype="multipart/form-data">
                         <div class="col-12">
                             <label for="name" class="form-label">Nombre<span class="requerido">*</span></label>
                             <input required type="text" name="name" id="name" class="form-control" placeholder="Nombre" aria-label="Nombre">                                                
@@ -30,8 +30,20 @@
                             <input required type="password" name="password2" id="password2" class="form-control" placeholder="****" aria-label="Password2">                                                
                         </div>
                         <div class="col-12">
+                            <label for="phone" class="form-label">Telefono<span class="requerido">*</span></label>
+                            <input type="number" name="phone" id="phone" class="form-control" placeholder="987654321" aria-label="Telefono">                                                
+                        </div> 
+                        <div class="col-12">
                             <label for="age" class="form-label">Edad</label>
                             <input type="number" name="age" id="age" class="form-control" placeholder="Edad" aria-label="Edad">                                                
+                        </div>                           
+                        <div class="col-12">
+                            <label for="address" class="form-label">Dirección</label>
+                            <input type="text" name="address" id="address" class="form-control" placeholder="221B Baker Street" aria-label="Telefono">                                                
+                        </div>                        
+                        <div class="col-12">
+                            <label for="thumbnail" class="form-label">Avatar</label>
+                            <input type="file" name="thumbnail" id="thumbnail" class="form-control" aria-label="Imagen">                                                        
                         </div>            
                         <div class="col-12 requerido" id="loginFormVR">*Valor requerido</div>
                         <div class="col-12">

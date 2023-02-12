@@ -122,3 +122,13 @@
 {"level":"error","message":"{Error:400, Route:/login, Message:Login Page Error, Error: TypeError: Cannot read properties of undefined (reading 'user')}","timestamp":"2023-02-12T14:49:02.043Z"}
 {"level":"error","message":"{Error:400, Route:/, Message:Homepage Error: Unreacheable Products, Error: TypeError: Cannot read properties of undefined (reading 'user')}","timestamp":"2023-02-12T14:49:06.331Z"}
 {"level":"warn","message":"{Error:404, Route:/favicon.ico, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T19:37:11.490Z"}
+{"level":"warn","message":"{Error:404, Route:/assets/img/ModeloAmapola.jpg, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T22:48:25.712Z"}
+{"level":"warn","message":"{Error:404, Route:/assets/img/ModeloJacinto.jpg, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T22:48:25.762Z"}
+{"level":"warn","message":"{Error:404, Route:/assets/img/ModeloVioleta.jpg, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T22:48:25.900Z"}
+{"level":"warn","message":"{Error:404, Route:/assets/img/ModeloAmaranta.jpg, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T22:48:25.932Z"}
+{"level":"warn","message":"{Error:404, Route:/assets/img/ModeloNomeolvides.jpg, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T22:48:25.955Z"}
+{"level":"warn","message":"{Error:404, Route:/assets/img/ModeloNomeolvides.jpg, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T22:48:29.975Z"}
+{"level":"warn","message":"{Error:404, Route:/assets/img/ModeloJacinto.jpg, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T22:48:30.087Z"}
+{"level":"warn","message":"{Error:404, Route:/assets/img/ModeloAmapola.jpg, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T22:48:30.090Z"}
+{"level":"warn","message":"{Error:404, Route:/assets/img/ModeloVioleta.jpg, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T22:48:30.105Z"}
+{"level":"warn","message":"{Error:404, Route:/assets/img/ModeloAmaranta.jpg, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T22:48:30.126Z"}

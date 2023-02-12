@@ -333,7 +333,7 @@ header .menu_tienda {
       padding: 0 2rem; }
 
 #slide1 {
-  background-image: url(./../img/image1.jpg); }
+  background-image: url(./../img/site/image1.jpg); }
 
 /* Tienda */
 .mostrar_error {
@@ -562,7 +562,7 @@ header .menu_tienda {
 
 .instagram {
   min-height: 500px;
-  background-image: url(./../img/image1.jpg); }
+  background-image: url(./../img/site/image1.jpg); }
   .instagram .tela {
     background-color: rgba(0, 0, 0, 0.7);
     min-height: 500px;

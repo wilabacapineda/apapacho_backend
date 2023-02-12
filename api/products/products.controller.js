@@ -37,7 +37,7 @@ const controller = {
         if(administrador){
             const thumbnail = req.file
             if(thumbnail){
-                req.body.thumbnail = `/assets/img/${thumbnail.filename}`            
+                req.body.thumbnail = `/assets/img/products/${thumbnail.filename}`            
                 req.body.sales = 0
                 req.body.price=parseInt(req.body.price)
                 req.body.stock=parseInt(req.body.stock)
@@ -74,7 +74,7 @@ const controller = {
         if(administrador){
             const thumbnail = req.file
             if(thumbnail){
-            req.body.thumbnail = `/assets/img/${thumbnail.filename}`  
+            req.body.thumbnail = `/assets/img/products/${thumbnail.filename}`  
             const id = parseInt(req.params.id)    
             const newProd = din.productsDao.update(id,req.body)
                     newProd.then( np => {  

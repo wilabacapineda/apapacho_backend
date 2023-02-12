@@ -107,41 +107,70 @@ if(registerForm){
         e.preventDefault()
         if(verifyPassword()){
             const output = document.querySelector("#enviando")
-            const formData = new FormData(registerForm)
-            const data = {
-                name: formData.get('name'),
-                lastname: formData.get('lastname'),
-                age: formData.get('age'),
-                email: formData.get('email'),
-                password: formData.get('password'),
-            }
             const action = registerForm.getAttribute('action')
             if(action==="/session/register"){
-                fetch("/session/register", {
-                    method: "POST",                                
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify(data),
-                }).then( res => {         
-                    if(res.status === 200) {
-                        output.innerHTML = "Registro exitoso!"
-                    } else if(res.status === 302) {
-                        output.innerHTML = "Usuario ya Existe!"
-                    } else {
+                if(document.getElementById("thumbnail").value){
+                    const data = new FormData(registerForm) 
+                    fetch("/session/register", {
+                        method: "POST",                                
+                        body: data,
+                    }).then( res => {         
+                        if(res.status === 200) {
+                            output.innerHTML = "Registro exitoso!"
+                        } else if(res.status === 302) {
+                            output.innerHTML = "Usuario ya Existe!"
+                        } else {
+                            output.innerHTML = "Error al registrar, intente nuevamente"
+                        }
+                        output.style.display = "flex"
+                        output.classList.add(res.status === 200 ? "exito" : "fallo")
+                        if(res.status === 200) {
+                            setTimeout(() => {
+                                location.href = '/login'
+                            },2000)
+                        }                    
+                    }).catch((error) => {
                         output.innerHTML = "Error al registrar, intente nuevamente"
-                    }
-                    output.style.display = "flex"
-                    output.classList.add(res.status === 200 ? "exito" : "fallo")
-                    if(res.status === 200) {
-                        setTimeout(() => {
-                            location.href = '/login'
-                        },2000)
-                    }                    
-                }).catch((error) => {
-                    output.innerHTML = "Error al registrar, intente nuevamente"
-                    output.style.display = "flex"
-                    output.classList.add("fallo")
-                    console.log('error: ', error)
-                })
+                        output.style.display = "flex"
+                        output.classList.add("fallo")
+                        console.log('error: ', error)
+                    })      
+                } else {
+                    const data = { 
+                        name: document.getElementById("name").value,
+                        lastname: document.getElementById("lastname").value,
+                        age: parseInt(document.getElementById("age").value),
+                        email: document.getElementById("email").value,
+                        address: document.getElementById("address").value,
+                        phone: document.getElementById("phone").value,
+                        password: document.getElementById("password").value
+                    }  
+                    fetch("/session/register", {
+                        method: "POST",                                
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify(data),
+                    }).then( res => {         
+                        if(res.status === 200) {
+                            output.innerHTML = "Registro exitoso!"
+                        } else if(res.status === 302) {
+                            output.innerHTML = "Usuario ya Existe!"
+                        } else {
+                            output.innerHTML = "Error al registrar, intente nuevamente"
+                        }
+                        output.style.display = "flex"
+                        output.classList.add(res.status === 200 ? "exito" : "fallo")
+                        if(res.status === 200) {
+                            setTimeout(() => {
+                                location.href = '/login'
+                            },2000)
+                        }                    
+                    }).catch((error) => {
+                        output.innerHTML = "Error al registrar, intente nuevamente"
+                        output.style.display = "flex"
+                        output.classList.add("fallo")
+                        console.log('error: ', error)
+                    })
+                }
             } 
         }    
     })
