@@ -1,26 +1,10 @@
-import users from '../../daos/loadUsers.js'
 import instagramFeed from '../../utils/getInstagramFeed.js'
-//import { mensajes, users } from '../../daos/load.js'
 import fetch from "node-fetch"
 import dotenv from 'dotenv'
-//import { denormalizar } from '../../utils/normalizar.js'
 import context from '../../utils/context.js'
-import { sessionCounter, verifySession } from '../../utils/sessionFunctions.js'
+import { parametersSession,getCurrentUser } from '../../utils/sessionFunctions.js'
 import {customCreateError, dataCreateError} from '../../utils/errors.js'
-import logger from '../../utils/winston.js'
 dotenv.config()
-
-const administrador = true 
-
-const fContextAdd = (req) => {
-  sessionCounter(req)   
-  const routex = req.user ? ` ${req.url}, user:${req.user.email}` : `${req.url}`
-  logger.info(`{route:${routex}, method:${req.method}}`)
-  context.path=req.url
-  const validador = verifySession(req)
-  validador ? context.loginURL = { url:'/logout', title:'Logout'} : context.loginURL = { url:'/login', title:'Login' }
-  return validador
-}
 
 const fullhostname = (req) => {
   return req.protocol + '://' + req.get('host')
@@ -28,46 +12,33 @@ const fullhostname = (req) => {
 
 const controller = {
     error: async (req, res) => {
-      const validador = fContextAdd(req)      
+      parametersSession(req)      
       const err = "PAGE NOT FOUND"
       res.render("error",dataCreateError(err,'Error 404',404,context,req,'warn'))                                       
     },
     home: async (req, res) => {   
       try{
-        const validador = fContextAdd(req)
-        //const mensajesDeN = denormalizar(mensajes)           
-        const mensajesDeN = ''           
+        parametersSession(req)
         fetch(`${fullhostname(req)}/api/products/`).then(prod => prod.json()).then( prod => {          
-          if(validador){               
-            const user = users.getBy_Id(req.session.passport.user)
-                  user.then( r => {
-                    delete r.password
-                    const data = {
-                        ...context,
-                        productos:prod,
-                        instagram: instagramFeed,
-                        mensajes:mensajesDeN,                        
-                        user: {
-                            name: r.name,
-                            lastname: r.lastname,
-                            email: r.email,
-                            age: r.age
-                        }
-                    } 
-                    res.render('home',data)
-                  })
+          if(req.isAuthenticated()){               
+            const data = {
+                ...context,
+                productos:prod,
+                instagram: instagramFeed,
+                user: getCurrentUser(req)
+            } 
+            console.log('data',data.user.is_admin)
+            res.render('home',data)                  
           } else {
-              const data = {
-                  ...context,
-                  productos:prod,
-                  instagram: instagramFeed,
-                  mensajes:mensajesDeN,
-              }
-              res.render('home',data)
+            const data = {
+                ...context,
+                productos:prod,
+                instagram: instagramFeed
+            }
+            res.render('home',data)
           }
         }).catch( err => {                    
           const data = dataCreateError(err,'Homepage Error: Unreacheable Products',400,context,req)
-                data.mensajes=mensajesDeN          
           res.render('home',data)          
         })
       } catch (err) {        
@@ -76,24 +47,15 @@ const controller = {
     },
     tienda: async (req, res) => {  
       try{
-        const validador = fContextAdd(req)
+        parametersSession(req)
         fetch(`${fullhostname(req)}/api/products/`).then(prod => prod.json()).then( prod => {
-          if(validador){
-            const user = users.getBy_Id(req.session.passport.user)
-                  user.then( r => {
-                    delete r.password
-                    const data = {
-                        ...context,
-                        productos:prod,                    
-                        user: {
-                            name: r.name,
-                            lastname: r.lastname,
-                            email: r.email,
-                            age: r.age
-                        }
-                    } 
-                    res.render("tienda",data)
-                  })            
+          if(req.isAuthenticated()){
+            const data = {
+                ...context,
+                productos:prod,                    
+                user: getCurrentUser(req)
+            } 
+            res.render("tienda",data)                              
           } else {
             const data = {
               ...context,
@@ -101,7 +63,6 @@ const controller = {
             }
             res.render("tienda",data)
           }
-
         }).catch( err => {
           res.render("error",dataCreateError(err,'Store Page Error: Unreacheable Store',523,context,req))                      
         })
@@ -111,22 +72,13 @@ const controller = {
     },
     carrito: async (req,res) => {
       try{
-        const validador = fContextAdd(req)   
-        if(validador){
-          const user = users.getBy_Id(req.session.passport.user)
-          user.then( r => {
-            delete r.password
-            const data = {
-                ...context,
-                user: {
-                    name: r.name,
-                    lastname: r.lastname,
-                    email: r.email,
-                    age: r.age
-                }
-            } 
-            res.render("carrito",data)
-          }) 
+        parametersSession(req)   
+        if(req.isAuthenticated()){
+          const data = {
+              ...context,
+              user: getCurrentUser(req)
+          } 
+          res.render("carrito",data)          
         } else {
           const data = {
             ...context,
@@ -142,40 +94,22 @@ const controller = {
     },
     products: async (req, res) => {  
       try {
-        const validador = fContextAdd(req)   
-        if(validador){
+        parametersSession(req)   
+        if(req.isAuthenticated()){
           fetch(`${fullhostname(req)}/api/products/`).then(prod => prod.json()).then( prod => {
             if(prod.length>0){
-              const user = users.getBy_Id(req.session.passport.user)
-              user.then( r => {
-                delete r.password
-                const data = {
-                    ...context,
-                    productos:prod,
-                    user: {
-                        name: r.name,
-                        lastname: r.lastname,
-                        email: r.email,
-                        age: r.age
-                    }
-                } 
-                res.render("productos",data)
-              })               
+              const data = {
+                  ...context,
+                  productos:prod,
+                  user: getCurrentUser(req)
+              } 
+              res.render("productos",data)                            
             } else {
-              const user = users.getBy_Id(req.session.passport.user)
-              user.then( r => {
-                delete r.password
-                const data = {
-                    ...context,
-                    user: {
-                        name: r.name,
-                        lastname: r.lastname,
-                        email: r.email,
-                        age: r.age
-                    }
-                } 
-                res.render("productos",data)
-              })                          
+              const data = {
+                  ...context,
+                  user: getCurrentUser(req)
+              } 
+              res.render("productos",data)
             }        
           }).catch( err => {
             res.render("error",dataCreateError(err,'Products Page Error: Unreacheable Products',523,context,req))                      
@@ -189,29 +123,20 @@ const controller = {
     },
     editProducts: async (req,res) => {
       try {
-        const validador = fContextAdd(req)
-        if(validador){
+        parametersSession(req)
+        if(req.isAuthenticated() && req.user.is_admin===true){
           const id = parseInt(req.params.id)
           if(isNaN(id) || id <= 0){          
             res.render("error",dataCreateError(err,"Imposible Product",404,context,req,'warn'))                                  
           }    
           fetch(`${fullhostname(req)}/api/products/${id}`).then( prod => prod.json()).then( prod => {          
             if(prod.id){
-              const user = users.getBy_Id(req.session.passport.user)
-              user.then( r => {
-                delete r.password
-                const data = {
-                    ...context,
-                    productos:prod,
-                    user: {
-                        name: r.name,
-                        lastname: r.lastname,
-                        email: r.email,
-                        age: r.age
-                    }
-                } 
-                res.render("editProduct",data)
-              })              
+              const data = {
+                  ...context,
+                  productos:prod,
+                  user: getCurrentUser(req)
+              } 
+              res.render("editProduct",data)                          
             } else {
               res.render("error",dataCreateError(err,"Non-existent Product",404,context,req,'warn'))                                  
             }          
@@ -227,30 +152,21 @@ const controller = {
     },
     productById: async (req, res) => {
       try {
+        parametersSession(req)        
         const id = parseInt(req.params.id)
         if(isNaN(id) || id <= 0){          
           res.render("error",dataCreateError(err,"Imposible Product",404,context,req,'warn'))                                  
         }               
-        const validador = fContextAdd(req)        
         fetch(`${fullhostname(req)}/api/products/${id}`).then(prod => prod.json()).then( prod => {          
           if(prod.id){
             prod.price = prod.price.toLocaleString()
-            if(validador){
-              const user = users.getBy_Id(req.session.passport.user)
-              user.then( r => {
-                delete r.password
-                const data = {
-                    ...context,
-                    productos:prod,
-                    user: {
-                        name: r.name,
-                        lastname: r.lastname,
-                        email: r.email,
-                        age: r.age
-                    }
-                } 
-                res.render("producto",data)
-              })
+            if(req.isAuthenticated()){
+              const data = {
+                  ...context,
+                  productos:prod,
+                  user: getCurrentUser(req)
+              } 
+              res.render("producto",data)
             } else {
               const data = {
                 ...context,
@@ -270,8 +186,8 @@ const controller = {
     },
     postProduct: async (req, res,next) => {        
         try {     
-            const validador = fContextAdd(req)       
-            if(validador){                
+            parametersSession(req)       
+            if(req.isAuthenticated() && req.user.is_admin===true){                
                 if(req.file){
                   req.body.file=req.file
                   fetch(`${fullhostname(req)}/api/products/form`,{
@@ -302,27 +218,17 @@ const controller = {
     },
     login: async (req, res) => { 
       try{
-        const validador = fContextAdd(req)    
-        if(validador){
-          const user = users.getBy_Id(req.session.passport.user)
-          user.then( r => {
-            delete r.password
-            const data = {
-                ...context,
-                name: req.isAuthenticated() ? req.user.name : false,
-                user: {
-                    name: r.name,
-                    lastname: r.lastname,
-                    email: r.email,
-                    age: r.age
-                }
-            } 
-            res.render("login",data)
-          })
+        parametersSession(req)    
+        if(req.isAuthenticated()){
+          const data = {
+              ...context,
+              user: getCurrentUser(req)
+          } 
+          res.render("login",data)          
         } else {
           const data = {
             ...context,
-            name: req.isAuthenticated() ? req.user.name : false
+            name: false
           }
           res.render("login",data)
         }      
@@ -332,27 +238,18 @@ const controller = {
     },
     logout: async (req, res) => {                  
       try {
-        const validador = fContextAdd(req)   
-        if(validador){
-          const user = users.getBy_Id(req.session.passport.user)
-          user.then( r => {
-            delete r.password
+        parametersSession(req)   
+        if(req.isAuthenticated()){
             const data = {
                 ...context,
-                name: req.isAuthenticated() ? req.user.name : false,
-                user: {
-                    name: r.name,
-                    lastname: r.lastname,
-                    email: r.email,
-                    age: r.age
-                }
+                name: req.user.name,
+                user: getCurrentUser(req)
             } 
-            res.render("logout",data)
-          })
+            res.render("logout",data)          
         } else {
           const data = {
             ...context,
-            name: req.isAuthenticated() ? req.user.name : false
+            name: false
           }
           res.render("logout",data)
         } 
@@ -362,31 +259,20 @@ const controller = {
     },
     register: async (req, res) => {   
       try{   
-        const validador = fContextAdd(req)  
-        if(validador){
-          const user = users.getBy_Id(req.session.passport.user)
-          user.then( r => {
-            delete r.password
+        parametersSession(req)  
+        if(req.isAuthenticated()){
             const data = {
                 ...context,
-                name: req.isAuthenticated() ? req.user.name : false,
-                user: {
-                    name: r.name,
-                    lastname: r.lastname,
-                    email: r.email,
-                    age: r.age
-                }
+                user: getCurrentUser(req)
             } 
-            res.render("register",data)
-          })
+            res.render("register",data)          
         } else {
           const data = {
             ...context,
-            name: req.isAuthenticated() ? req.user.name : false
+            name: false
           }
           res.render("register",data)
-        }          
-        
+        }
       } catch (err) {
         res.render("error",dataCreateError(err,'Register Page Error',400,context,req))                      
       }

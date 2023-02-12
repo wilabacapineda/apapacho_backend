@@ -17,7 +17,7 @@
                             <a href="{{loginURL.url}}" class="nav-link {{ active loginURL.url path }}" aria-current="page">{{loginURL.title}}</a>
                         </li> 
                     {{/if}}     
-                    {{#if user}}
+                    {{#if user.is_admin}}
                         {{#each navbarLinksSession}}
                             <li class="nav-item">
                                 <a href="{{url}}" class="nav-link {{ active url ../path }}" aria-current="page">{{title}}</a>

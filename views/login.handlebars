@@ -3,14 +3,14 @@
     <div class="row bs_gutter-x-0 justify-content-center">
         <!-- Pagina: Contacto -->
         <section class="col-md-9 pad-right-1p5 pad-bottom-2" id="sectionSessionLogin">
-            <h2 class="text-center">{{#if name }}Cerrar Sesión{{else}}Iniciar Sesión{{/if}}</h2>            
+            <h2 class="text-center">{{#if user }}Cerrar Sesión{{else}}Iniciar Sesión{{/if}}</h2>            
             <article>
-                <form class="row g-3" action="{{#if name }}/session/logout{{else}}/session/login{{/if}}" id="sessionForm" method="post" name="{{#if name }}logout{{else}}login{{/if}}">
+                <form class="row g-3" action="{{#if user }}/session/logout{{else}}/session/login{{/if}}" id="sessionForm" method="post" name="{{#if user }}logout{{else}}login{{/if}}">
                     <div class="col-12">
-                        <label for="title" class="form-label">Nombre de Usuario{{#if name }}: {{else}}<span class="requerido">*</span> {{/if}}</label>
-                        <input placeholder="usuario@correo.com" {{#if name }}readonly{{else}}required{{/if}} type="text" name="username" id="username" class="form-control {{#if name }}logout{{/if}}" placeholder="Nombre de usuario" aria-label="Nombre" value="{{#if name }}{{name}}{{/if}}">                                                
+                        <label for="title" class="form-label">Nombre de Usuario{{#if user }}: {{else}}<span class="requerido">*</span> {{/if}}</label>
+                        <input placeholder="usuario@correo.com" {{#if user }}readonly{{else}}required{{/if}} type="text" name="username" id="username" class="form-control {{#if user }}logout{{/if}}" placeholder="Nombre de usuario" aria-label="Nombre" value="{{#if user }}{{user.name}}{{/if}}">                                                
                     </div>
-                    {{#if name }}
+                    {{#if user }}
                         <div class="col-12 requerido">
                             cambio de contraseña no activo por el momento
                         </div>
@@ -20,14 +20,14 @@
                             <input required type="password" name="password" id="password" class="form-control" placeholder="****" aria-label="Password">                                                
                         </div>
                     {{/if}}
-                    <div class="col-12 requerido" id="loginFormVR">{{#if name }}{{else}}*Valor requerido{{/if}}</div>
+                    <div class="col-12 requerido" id="loginFormVR">{{#if user }}{{else}}*Valor requerido{{/if}}</div>
                     <div class="col-12">
-                        <button type="submit" class="btn btn-primary">{{#if name }}Cerrar Sesión{{else}}Iniciar Sesión{{/if}}</button>
+                        <button type="submit" class="btn btn-primary">{{#if user }}Cerrar Sesión{{else}}Iniciar Sesión{{/if}}</button>
                     </div>
                 </form> 
             </article>
             <div id="enviando"></div>
-            {{#if name }}
+            {{#if user }}
             {{else}}
                 <h4 class="text-center">¿No tienes una cuenta todavia? <a href="/register" class="btn btn-primary">Registrate Aquí</a> </h4>            
             {{/if}}

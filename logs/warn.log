@@ -116,3 +116,8 @@
 {"level":"warn","message":"{Error:404, Route:/assets/img/WhatsApp%20Image%202022-06-07%20at%209.13.38%20AM.jpeg, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T06:52:56.999Z"}
 {"level":"warn","message":"{Error:404, Route:/assets/img/Ricardo%20Lopez%20y%20Yo.jpeg, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T06:52:57.062Z"}
 {"level":"warn","message":"{Error:404, Route:/favicon.ico, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T07:06:29.907Z"}
+{"level":"error","message":"{Error:400, Route:/, Message:Homepage Error: Unreacheable Products, Error: TypeError: Cannot read properties of undefined (reading 'user')}","timestamp":"2023-02-12T14:48:21.575Z"}
+{"level":"error","message":"{Error:400, Route:/, Message:Homepage Error: Unreacheable Products, Error: TypeError: Cannot read properties of undefined (reading 'user')}","timestamp":"2023-02-12T14:48:46.508Z"}
+{"level":"error","message":"{Error:400, Route:/, Message:Homepage Error: Unreacheable Products, Error: TypeError: Cannot read properties of undefined (reading 'user')}","timestamp":"2023-02-12T14:48:56.061Z"}
+{"level":"error","message":"{Error:400, Route:/login, Message:Login Page Error, Error: TypeError: Cannot read properties of undefined (reading 'user')}","timestamp":"2023-02-12T14:49:02.043Z"}
+{"level":"error","message":"{Error:400, Route:/, Message:Homepage Error: Unreacheable Products, Error: TypeError: Cannot read properties of undefined (reading 'user')}","timestamp":"2023-02-12T14:49:06.331Z"}

@@ -3,6 +3,8 @@ import session from 'express-session'
 import MongoStore from 'connect-mongo'
 import { Strategy } from 'passport-local'
 import  users from '../daos/loadUsers.js'
+import logger from './winston.js'
+import context from './context.js'
 import dotenv from 'dotenv'
 dotenv.config()
 
@@ -35,6 +37,16 @@ const sessionCounter = (req) => {
 const getSessionName = req => req.isAuthenticated() ? req.user.name : 'Invitado'
 const verifySession = req => req.session.passport ? ( req.session.passport.user ? req.session.passport.user : null ) : null 
 
+const parametersSession = (req) => {
+  sessionCounter(req)   
+  const routex = req.user ? ` ${req.url}, user:${req.user.email}` : `${req.url}`
+  logger.info(`{route:${routex}, method:${req.method}}`)
+  context.path=req.url
+  const validador = verifySession(req)
+  validador ? context.loginURL = { url:'/logout', title:'Logout'} : context.loginURL = { url:'/login', title:'Login' }
+  return validador ? true : false 
+}
+
 const localStrategy = new Strategy( (username, password, done) => {
     users.db.findOne({ email: username }, (err, user) => {
       if (err) { 
@@ -65,6 +77,16 @@ const sessionOptions = session({
     cookie: {maxAge: 1000*60*10},
 })
 
+const getCurrentUser = (req) => {
+  return({
+    name: req.user.name,
+    email: req.user.email,
+    lastname: req.user.lastname,
+    is_admin: req.user.is_admin,
+    age: req.user.age
+  })
+}
+
 export {
     verifyPassword,
     hashPassword,
@@ -75,5 +97,7 @@ export {
     verifySession,
     localStrategy,
     advanceOptions,
-    saltRounds
+    saltRounds,
+    parametersSession,
+    getCurrentUser
 }

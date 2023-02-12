@@ -6,8 +6,12 @@ const userSchema = {
     lastname: {type: String, max: 250, require:true},
     password: {type: String, require:true},
     type: {type:Number, default: 4},
+    address: {type: String, require: false},
+    telephone: {type: String, require: true},
+    avatar: {type:String, require:false},
     age: {type: String, min: 0, max:200, default: 0},
     timestamp:  { type: Date, default: Date.now , require:true },
+    is_admin: { type: Boolean, default: false, require:false},
     dateUpdate: { type: Date, default: Date.now , require:true },
 }
 
