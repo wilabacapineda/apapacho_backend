@@ -1,7 +1,7 @@
-const urlSearchParams = new URLSearchParams(window.location.search);
-const params = Object.fromEntries(urlSearchParams.entries());
+const urlSearchParams = new URLSearchParams(window.location.search)
+const params = Object.fromEntries(urlSearchParams.entries())
 const productsForm = document.getElementById('productsForm')
-const output = document.querySelector("#enviando");
+const output = document.querySelector("#enviando")
 
 const errorAdd = () => {
     Swal.fire({
@@ -35,6 +35,7 @@ const successAdd = () => {
 if(isNaN(params.id) || params.id <= 0){
     window.location.href = "/pages/addProductos.html"
 }
+
 if(productsForm){
     fetch(`/api/productos/${params.id}`)
     .then(data => data.json())

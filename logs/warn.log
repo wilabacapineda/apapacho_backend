@@ -1,0 +1,102 @@
+{"level":"error","message":"{Error:400, Route:/, Message:Homepage Error, Error: ReferenceError: denormalizar is not defined}","timestamp":"2023-02-11T19:41:38.185Z"}
+{"level":"error","message":"{Error:400, Route:/, Message:Homepage Error, Error: ReferenceError: denormalizar is not defined}","timestamp":"2023-02-11T19:42:26.186Z"}
+{"level":"warn","message":"{Error:404, Route:/assets/js/main.js, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-11T19:42:27.014Z"}
+{"level":"warn","message":"{Error:404, Route:/assets/js/main.js, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-11T19:44:36.312Z"}
+{"level":"warn","message":"{Error:404, Route:/api/productos, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-11T19:44:36.839Z"}
+{"level":"warn","message":"{Error:404, Route:/api/productos, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-11T19:47:17.178Z"}
+{"level":"warn","message":"{Error:404, Route:/api/productos, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-11T19:47:36.638Z"}
+{"level":"warn","message":"{Error:404, Route:/assets/js/index.js, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-11T19:50:38.796Z"}
+{"level":"warn","message":"{Error:404, Route:/assets/js/index.js, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-11T19:50:53.870Z"}
+{"level":"warn","message":"{Error:404, Route:/assets/js/instagram.js, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-11T23:50:56.972Z"}
+{"level":"warn","message":"{Error:404, Route:/assets/js/instagram.js, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-11T23:52:06.041Z"}
+{"level":"warn","message":"{Error:404, Route:/favicon.ico, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T00:40:37.401Z"}
+{"level":"warn","message":"{Error:404, Route:/favicon.ico, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T00:40:56.640Z"}
+{"level":"warn","message":"{Error:404, Route:/favicon.ico, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T00:41:21.492Z"}
+{"level":"warn","message":"{Error:404, Route:/session/login, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T01:37:02.269Z"}
+{"level":"warn","message":"{Error:404, Route:/session/assets/css/bootstrap.min.css, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T01:37:02.485Z"}
+{"level":"warn","message":"{Error:404, Route:/session/assets/js/bootstrap.bundle.min.js, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T01:37:02.664Z"}
+{"level":"warn","message":"{Error:404, Route:/session/assets/js/main.js, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T01:37:02.730Z"}
+{"level":"warn","message":"{Error:404, Route:/session/assets/img/Logo_blanco.png, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T01:37:02.797Z"}
+{"level":"warn","message":"{Error:404, Route:/session/assets/css/style.css, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T01:37:02.837Z"}
+{"level":"warn","message":"{Error:404, Route:/session/assets/img/icon.png, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T01:37:03.371Z"}
+{"level":"warn","message":"{Error:404, Route:/socket.io/socket.io.js, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T01:39:14.747Z"}
+{"level":"error","message":"{Error:400, Route:/, Message:Homepage Error: Unreacheable Products, Error: TypeError: users.getBy_Id is not a function}","timestamp":"2023-02-12T01:50:51.179Z"}
+{"level":"error","message":"{Error:400, Route:/, Message:Homepage Error: Unreacheable Products, Error: TypeError: users.getBy_Id is not a function}","timestamp":"2023-02-12T01:53:26.049Z"}
+{"level":"warn","message":"{Error:404, Route:/favicon.ico, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T01:53:37.634Z"}
+{"level":"warn","message":"{Error:404, Route:/favicon.ico, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T01:53:41.989Z"}
+{"level":"warn","message":"{Error:404, Route:/carrito, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T01:53:44.998Z"}
+{"level":"error","message":"{Error:400, Route:/, Message:Homepage Error: Unreacheable Products, Error: TypeError: users.getBy_Id is not a function}","timestamp":"2023-02-12T01:58:29.056Z"}
+{"level":"error","message":"{Error:400, Route:/, Message:Homepage Error: Unreacheable Products, Error: TypeError: users.getBy_Id is not a function}","timestamp":"2023-02-12T01:59:11.746Z"}
+{"level":"error","message":"{Error:400, Route:/, Message:Homepage Error: Unreacheable Products, Error: TypeError: users.getBy_Id is not a function}","timestamp":"2023-02-12T01:59:55.287Z"}
+{"level":"error","message":"{Error:400, Route:/, Message:Homepage Error: Unreacheable Products, Error: TypeError: users.getBy_Id is not a function}","timestamp":"2023-02-12T02:01:40.557Z"}
+{"level":"error","message":"{Error:400, Route:/, Message:Homepage Error: Unreacheable Products, Error: TypeError: users.getBy_Id is not a function}","timestamp":"2023-02-12T02:02:09.664Z"}
+{"level":"error","message":"{Error:400, Route:/, Message:Homepage Error: Unreacheable Products, Error: TypeError: users.getBy_Id is not a function}","timestamp":"2023-02-12T02:03:25.401Z"}
+{"level":"error","message":"{Error:400, Route:/, Message:Homepage Error: Unreacheable Products, Error: TypeError: users.getBy_Id is not a function}","timestamp":"2023-02-12T02:03:58.106Z"}
+{"level":"error","message":"{Error:400, Route:/, Message:Homepage Error: Unreacheable Products, Error: TypeError: users.getBy_Id is not a function}","timestamp":"2023-02-12T02:05:07.709Z"}
+{"level":"warn","message":"{Error:404, Route:/favicon.ico, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T02:08:03.018Z"}
+{"level":"warn","message":"{Error:404, Route:/tienda/producto/assets/css/style.css, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T02:18:24.735Z"}
+{"level":"warn","message":"{Error:404, Route:/tienda/producto/assets/css/bootstrap.min.css, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T02:18:24.741Z"}
+{"level":"warn","message":"{Error:404, Route:/tienda/producto/assets/js/main.js, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T02:18:24.920Z"}
+{"level":"warn","message":"{Error:404, Route:/tienda/producto/assets/js/bootstrap.bundle.min.js, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T02:18:24.923Z"}
+{"level":"warn","message":"{Error:404, Route:/tienda/producto/assets/img/icon.png, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T02:18:25.171Z"}
+{"level":"warn","message":"{Error:404, Route:/tienda/producto/assets/js/main.js, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T02:18:34.024Z"}
+{"level":"warn","message":"{Error:404, Route:/tienda/producto/assets/css/bootstrap.min.css, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T02:18:34.029Z"}
+{"level":"warn","message":"{Error:404, Route:/tienda/producto/assets/css/style.css, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T02:18:34.033Z"}
+{"level":"warn","message":"{Error:404, Route:/tienda/producto/assets/js/bootstrap.bundle.min.js, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T02:18:34.088Z"}
+{"level":"warn","message":"{Error:404, Route:/tienda/producto/assets/img/icon.png, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T02:18:34.734Z"}
+{"level":"warn","message":"{Error:404, Route:/tienda/producto/assets/css/bootstrap.min.css, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T02:18:44.365Z"}
+{"level":"warn","message":"{Error:404, Route:/tienda/producto/assets/css/style.css, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T02:18:44.369Z"}
+{"level":"warn","message":"{Error:404, Route:/tienda/producto/assets/css/bootstrap.min.css, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T02:19:54.279Z"}
+{"level":"warn","message":"{Error:404, Route:/tienda/producto/assets/css/style.css, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T02:19:54.282Z"}
+{"level":"warn","message":"{Error:404, Route:/tienda/producto/assets/js/bootstrap.bundle.min.js, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T02:19:54.471Z"}
+{"level":"warn","message":"{Error:404, Route:/tienda/producto/assets/js/main.js, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T02:19:54.480Z"}
+{"level":"warn","message":"{Error:404, Route:/tienda/producto/assets/img/icon.png, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T02:19:54.922Z"}
+{"level":"warn","message":"{Error:404, Route:/tienda/producto/assets/css/style.css, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T02:20:54.505Z"}
+{"level":"warn","message":"{Error:404, Route:/tienda/producto/assets/img/Logo_blanco.png, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T02:33:38.411Z"}
+{"level":"warn","message":"{Error:404, Route:/tienda/producto/assets/img/Logo_blanco.png, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T02:34:12.832Z"}
+{"level":"warn","message":"{Error:404, Route:/tienda/producto/assets/img/Logo_blanco.png, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T02:35:44.659Z"}
+{"level":"warn","message":"{Error:404, Route:/api/productos/undefined, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T02:40:46.401Z"}
+{"level":"warn","message":"{Error:404, Route:/api/productos/undefined, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T02:40:53.735Z"}
+{"level":"warn","message":"{Error:404, Route:/api/productos/undefined, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T02:41:29.223Z"}
+{"level":"warn","message":"{Error:404, Route:/favicon.ico, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T02:42:04.450Z"}
+{"level":"error","message":"{Error:400, Route:/tienda/producto/$%7Bdata.thumbnail%7D, Message:Single Product Page Error, Error: ReferenceError: err is not defined}","timestamp":"2023-02-12T02:46:05.306Z"}
+{"level":"warn","message":"{Error:404, Route:/pages/tienda.html, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T03:04:29.593Z"}
+{"level":"warn","message":"{Error:404, Route:/pages/assets/img/Logo_blanco.png, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T03:04:29.838Z"}
+{"level":"warn","message":"{Error:404, Route:/tienda/producto/2, Message:Single Product Page Error: Non-existent Product, Error: SyntaxError: Unexpected end of JSON input}","timestamp":"2023-02-12T03:05:53.925Z"}
+{"level":"warn","message":"{Error:404, Route:/tienda/producto/assets/img/Logo_blanco.png, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T03:05:54.432Z"}
+{"level":"warn","message":"{Error:404, Route:/carrito, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T03:09:07.839Z"}
+{"level":"warn","message":"{Error:404, Route:/api/productos/undefined, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T05:28:53.564Z"}
+{"level":"warn","message":"{Error:404, Route:/pages/addProductos.html, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T05:28:53.574Z"}
+{"level":"warn","message":"{Error:404, Route:/pages/assets/img/Logo_blanco.png, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T05:28:54.294Z"}
+{"level":"warn","message":"{Error:404, Route:/pages/addProductos.html, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T05:29:01.144Z"}
+{"level":"warn","message":"{Error:404, Route:/api/productos/undefined, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T05:29:01.152Z"}
+{"level":"warn","message":"{Error:404, Route:/pages/assets/img/Logo_blanco.png, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T05:29:01.512Z"}
+{"level":"warn","message":"{Error:404, Route:/pages/addProductos.html, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T05:30:44.935Z"}
+{"level":"warn","message":"{Error:404, Route:/pages/assets/img/Logo_blanco.png, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T05:30:45.658Z"}
+{"level":"warn","message":"{Error:404, Route:/pages/addProductos.html, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T05:31:05.597Z"}
+{"level":"warn","message":"{Error:404, Route:/pages/assets/img/Logo_blanco.png, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T05:31:05.932Z"}
+{"level":"warn","message":"{Error:404, Route:/productos/10, Message:Single Product Page Error: Non-existent Product, Error: SyntaxError: Unexpected end of JSON input}","timestamp":"2023-02-12T05:32:32.382Z"}
+{"level":"warn","message":"{Error:404, Route:/productos/assets/img/Logo_blanco.png, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T05:32:33.048Z"}
+{"level":"error","message":"{Error:400, Route:/productos/id=%22thumbnail_preview%22, Message:Single Product Page Error, Error: ReferenceError: err is not defined}","timestamp":"2023-02-12T05:48:24.684Z"}
+{"level":"warn","message":"{Error:404, Route:/tienda/producto/20, Message:Single Product Page Error: Non-existent Product, Error: SyntaxError: Unexpected end of JSON input}","timestamp":"2023-02-12T05:57:37.983Z"}
+{"level":"warn","message":"{Error:404, Route:/tienda/producto/assets/img/Logo_blanco.png, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T05:57:38.690Z"}
+{"level":"warn","message":"{Error:404, Route:/tienda/producto/20, Message:Single Product Page Error: Non-existent Product, Error: SyntaxError: Unexpected end of JSON input}","timestamp":"2023-02-12T05:58:21.534Z"}
+{"level":"warn","message":"{Error:404, Route:/tienda/producto/assets/img/Logo_blanco.png, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T05:58:21.930Z"}
+{"level":"warn","message":"{Error:404, Route:/tienda/producto/20, Message:Single Product Page Error: Non-existent Product, Error: SyntaxError: Unexpected end of JSON input}","timestamp":"2023-02-12T05:58:41.587Z"}
+{"level":"warn","message":"{Error:404, Route:/tienda/producto/assets/img/Logo_blanco.png, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T05:58:42.263Z"}
+{"level":"warn","message":"{Error:404, Route:/tienda/producto/20, Message:Single Product Page Error: Non-existent Product, Error: SyntaxError: Unexpected end of JSON input}","timestamp":"2023-02-12T05:59:52.756Z"}
+{"level":"warn","message":"{Error:404, Route:/tienda/producto/assets/img/Logo_blanco.png, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T05:59:53.299Z"}
+{"level":"warn","message":"{Error:404, Route:/tienda/producto/20, Message:Single Product Page Error: Non-existent Product, Error: SyntaxError: Unexpected end of JSON input}","timestamp":"2023-02-12T06:01:01.382Z"}
+{"level":"warn","message":"{Error:404, Route:/tienda/producto/assets/img/Logo_blanco.png, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T06:01:01.953Z"}
+{"level":"warn","message":"{Error:404, Route:/tienda/producto/20, Message:Single Product Page Error: Non-existent Product, Error: SyntaxError: Unexpected end of JSON input}","timestamp":"2023-02-12T06:01:15.941Z"}
+{"level":"warn","message":"{Error:404, Route:/tienda/producto/assets/img/Logo_blanco.png, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T06:01:16.659Z"}
+{"level":"warn","message":"{Error:404, Route:/tiendax, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T06:04:38.351Z"}
+{"level":"warn","message":"{Error:404, Route:/tienda/producto/20, Message:Single Product Page Error: Non-existent Product, Error: SyntaxError: Unexpected end of JSON input}","timestamp":"2023-02-12T06:04:45.993Z"}
+{"level":"warn","message":"{Error:404, Route:/tienda/producto/assets/img/Logo_blanco.png, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T06:04:46.480Z"}
+{"level":"warn","message":"{Error:404, Route:/tienda/producto/20, Message:Single Product Page Error: Non-existent Product, Error: SyntaxError: Unexpected end of JSON input}","timestamp":"2023-02-12T06:09:44.626Z"}
+{"level":"warn","message":"{Error:404, Route:/tienda/producto/assets/img/Logo_blanco.png, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T06:09:45.166Z"}
+{"level":"warn","message":"{Error:404, Route:/tienda/producto/20, Message:Single Product Page Error: Non-existent Product, Error: SyntaxError: Unexpected end of JSON input}","timestamp":"2023-02-12T06:09:49.492Z"}
+{"level":"warn","message":"{Error:404, Route:/tienda/producto/assets/img/Logo_blanco.png, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T06:09:49.984Z"}
+{"level":"warn","message":"{Error:404, Route:/tienda/producto/20, Message:Single Product Page Error: Non-existent Product, Error: SyntaxError: Unexpected end of JSON input}","timestamp":"2023-02-12T06:10:47.851Z"}
+{"level":"warn","message":"{Error:404, Route:/tienda/producto/10, Message:Single Product Page Error: Non-existent Product, Error: SyntaxError: Unexpected end of JSON input}","timestamp":"2023-02-12T06:11:54.738Z"}
+{"level":"warn","message":"{Error:404, Route:/tienda/producto/10, Message:Single Product Page Error: Non-existent Product, Error: SyntaxError: Unexpected end of JSON input}","timestamp":"2023-02-12T06:17:53.620Z"}

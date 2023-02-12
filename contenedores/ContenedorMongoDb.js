@@ -1,5 +1,5 @@
 import mongoose from "mongoose" 
-import './../config/mongoDb.js'
+import '../config/mongoDb.js'
 
 export default class ContenedorMongoDb {
     constructor(collection, schema) {        
@@ -51,8 +51,9 @@ export default class ContenedorMongoDb {
     }
 
     async updateProducts(id,id_prod,object,cartCount){
-        try {                         
-            const updateObject = await this.getAll().then( resp => {                
+        try {                     
+            const updateObject = await this.getAll().then( resp => { 
+                              
                 const returnObject = []
                 resp.forEach( c => {                
                     if(parseInt(c.id)===parseInt(id)){  
@@ -77,10 +78,13 @@ export default class ContenedorMongoDb {
                         }                        
                         returnObject.push(c)
                     } 
-                })                
+                })       
+                          
                 return returnObject
-            })            
+            })    
+                  
             const newCart = this.update(id,updateObject[0])                      
+            
             return await newCart
         }
         catch (error) {
@@ -96,7 +100,16 @@ export default class ContenedorMongoDb {
             console.warn(`MongoDb getById error, ${err}`)
         }
     }
-
+    
+    async getBy_Id(id){   
+        try {
+            const aux = this.db.findOne({ _id : id })
+            return await aux
+        } catch (err) {
+            console.warn(`MongoDb getBy_Id error, ${err}`)
+        }
+    }
+    
     async deleteById(id){
         try {
             const newCol = await this.db.deleteOne({ id : id }).then( () => {

@@ -1,0 +1,76 @@
+<main class="row">
+    {{#if slider}}
+        <!-- Slider bootstrap de 3 slides-->
+        <!-- El codigo de cada slide está dentro del div con id="slideX" donde X es el número del slide -->
+        <section id="carouselExampleIndicators" class="col-12 carousel slide slider_apa" data-bs-ride="carousel">                
+            <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+                {{#each slider}}
+                    <div class="carousel-item {{#if active}}active{{/if}} slide-div" id={{id}} style="background-image:url({{img}})">
+                        <div class="tela text-align text-center">
+                            <h2 class="p-3">{{title}}</h2>
+                            <span class="p-3"><a href={{href}} class="boton p-3">{{{html}}}</a></span>
+                        </div>
+                    </div>  
+                {{/each}}   
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+            </button>
+        </section>
+    {{/if}}
+    <!-- Productos Destacados -->
+    <section class="col-12 pb-5">
+        <div class="pad-2 text-center zindex-popover"><h2>Productos Destacados</h2></div>
+        <div id="error"></div>
+        <div class="productos">
+            <div class="row justify-content-center" id="productosTienda">
+                {{#each productos}}
+                    <div id="prod_{{id}}" class="card mb-3 producto animate__animated animate__flipinX">
+                        <div class="producto_imagen">
+                            <img src="{{thumbnail}}" class="card-img-top" alt="Poleron Amaranta">
+                        </div>
+                        <div class="card-body producto_info text-center">
+                            <h5 class="card-title">{{title}}</h5>
+                            <div class="row producto_info_precioCompra">
+                                <p class="card-text producto_info_precioCompra_precio">${{price}}</p>
+                            </div>
+                        </div>
+                        <a href="/tienda/producto/{{id}}" class="producto_comprar" id="Poleron Amaranta">
+                            <span class="producto_comprar_btn">Comprar</span>
+                        </a>
+                    </div>
+                {{/each}} 
+            </div>
+        </div>
+    </section>
+    <!-- Sección Instagram -->
+    <section class="instagram col-12">
+        <div class="tela">
+            <div class="row" id="insta_feed">
+                <div class="instagram_info card">
+                    <h2>Instagram</h2>
+                    <span class="p-3">
+                        <a href="https://www.instagram.com/apapachoval/" target="_blank" class="boton p-3"><i class="fa-brands fa-instagram"></i> apapachoval</a>
+                    </span>                            
+                </div>                        
+                {{#each instagram}}
+                    <div id={{id}} class="card instagram_img">
+                        <a href={{permalink}} target="_blank" title={{title}}>
+                            <img src={{#if (isMediaTypeVideoInsta mediaType) }}{{thumbnailUrl}}{{else}}{{mediaUrl}}{{/if}} />
+                        </a>
+                    </div>
+                {{/each}} 
+            </div>                                                     
+        </div>
+    </section>
+</main>  

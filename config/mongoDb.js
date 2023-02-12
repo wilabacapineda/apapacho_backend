@@ -9,21 +9,14 @@ const connectionParams={
 }
 
 //ATLAS
-const connectionStringUrl = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@${process.env.MONGO_HOST}/${process.env.MONGO_DBNAME}?retryWrites=true&w=majority`
-mongoose.connect(connectionStringUrl,connectionParams)
-.then(() => {
-    console.log('Base de Datos Conectada')
-}) .catch((err) => {
-    console.warn('Error al conectarse a la BD', err)
-})
+const mongoAtlas= `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@${process.env.MONGO_HOST}/${process.env.MONGO_DBNAME}?retryWrites=true&w=majority`
+const mongoLocal= `mongodb://localhost:27017/${process.env.MONGO_DBNAME}?retryWrites=true&w=majority`
+const connectionStringUrl = process.env.MONGOENV=='atlas' ? mongoAtlas : process.env.MONGOENV=='local' ? mongoLocal : mongoAtlas
 
-/*
-//LOCAL
-const connectionStringUrl = `mongodb://localhost:27017/ecommerce`
+
 mongoose.connect(connectionStringUrl,connectionParams)
 .then(() => {
     console.log('Base de Datos Conectada')
 }) .catch((err) => {
     console.warn('Error al conectarse a la BD', err)
 })
-*/

@@ -1,65 +1,67 @@
 const productosCarritoX = document.getElementById('productoCarrito')
-const idCarrito = localStorage.getItem("idCarrito")
 
-const cargarCarrito = (carrito) => {
-    let total = 0 
-    const resultado = carrito.map( (p) => {
-        total = total + (p.price*p.cartCount)
-        return(`<span>
-                    <a href="/pages/producto/?id=${p.id}">
-                        <img src="${p.thumbnail}" width="0">
-                    </a>
-                    <div id="carritoInfo">
-                        <a href="/pages/producto/?id=${p.id}">
-                           ${p.title}
-                        </a>
-                        <div>   
-                            <div id="carritoInfo-start">
-                                <span id="carritoInfo-start-cantidad">
-                                    <span>Cantidad:</span>
-                                    <input type="number" value="${p.cartCount}" id="ProductoCantidadCarro${p.id}" name="ProductoCantidadCarro" min="1" step="1" max="${p.stock}">
-                                </span>
-                                <span>Subtotal: $${(p.price*p.cartCount).toLocaleString()}</span>
-                            </div>
-                            <div id="carritoInfo-del">
-                                <a class="btn deleteProdCart" id="deleteProducto_${p.id}" data-target="${p.id}">
-                                    <i class="fas fa-trash-alt" aria-hidden="true"></i>
-                                </a>
-                                <a class="btn actualizarProdCart" id="actualizarProducto_${p.id}" data-target="${p.id}">
-                                    <i class="fa-solid fa-arrows-rotate" aria-hidden="true"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </span>`)      
-    }).join(" ")
-    
-    document.getElementById("checkout_subtotal").innerHTML='$'+total.toLocaleString()
-    document.getElementById("checkout_total").innerHTML='$'+total.toLocaleString()
-    return resultado
-}
 
-const errorDelete = () => {
-    Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Ocurrió un error al vaciar el carrito!',
-    })
-}
-
-const successDelete = () => {
-    Swal.fire({
-        icon: 'success',
-        title: 'Carrito Vaciado',
-        showConfirmButton: true
-    }).then(res => {
-        localStorage.removeItem("idCarrito")
-        window.location.href = "/pages/tienda.html"
-    })
-}
 
 if(productosCarritoX) {
+    const idCarrito = localStorage.getItem("idCarrito")
     if(idCarrito){
+        const cargarCarrito = (carrito) => {
+            let total = 0 
+            const resultado = carrito.map( (p) => {
+                total = total + (p.price*p.cartCount)
+                return(`<span>
+                            <a href="/pages/producto/?id=${p.id}">
+                                <img src="${p.thumbnail}" width="0">
+                            </a>
+                            <div id="carritoInfo">
+                                <a href="/pages/producto/?id=${p.id}">
+                                   ${p.title}
+                                </a>
+                                <div>   
+                                    <div id="carritoInfo-start">
+                                        <span id="carritoInfo-start-cantidad">
+                                            <span>Cantidad:</span>
+                                            <input type="number" value="${p.cartCount}" id="ProductoCantidadCarro${p.id}" name="ProductoCantidadCarro" min="1" step="1" max="${p.stock}">
+                                        </span>
+                                        <span>Subtotal: $${(p.price*p.cartCount).toLocaleString()}</span>
+                                    </div>
+                                    <div id="carritoInfo-del">
+                                        <a class="btn deleteProdCart" id="deleteProducto_${p.id}" data-target="${p.id}">
+                                            <i class="fas fa-trash-alt" aria-hidden="true"></i>
+                                        </a>
+                                        <a class="btn actualizarProdCart" id="actualizarProducto_${p.id}" data-target="${p.id}">
+                                            <i class="fa-solid fa-arrows-rotate" aria-hidden="true"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </span>`)      
+            }).join(" ")
+            
+            document.getElementById("checkout_subtotal").innerHTML='$'+total.toLocaleString()
+            document.getElementById("checkout_total").innerHTML='$'+total.toLocaleString()
+            return resultado
+        }
+        
+        const errorDelete = () => {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Ocurrió un error al vaciar el carrito!',
+            })
+        }
+        
+        const successDelete = () => {
+            Swal.fire({
+                icon: 'success',
+                title: 'Carrito Vaciado',
+                showConfirmButton: true
+            }).then(res => {
+                localStorage.removeItem("idCarrito")
+                window.location.href = "/pages/tienda.html"
+            })
+        }
+        
         fetch(`/api/carrito/${idCarrito}/productos`)
         .then(data => data.json())
         .then(data => {

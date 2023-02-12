@@ -1,5 +1,5 @@
 import admin from 'firebase-admin'
-import './../config/firebase.js'
+import '../config/firebase.js'
 
 const db = admin.firestore()
 
@@ -55,7 +55,6 @@ export default class ContenedorFirebase {
             console.warn(`Firebase update error, ${err}`)
         }
     }
-
     
     async updateProducts(id,id_prod,object,cartCount){
         try {                         

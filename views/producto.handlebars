@@ -1,0 +1,41 @@
+<main class="container paginas pad-2 tienda">
+    <div class="row bs_gutter-x-0 justify-content-center">
+        <div id="error"></div>
+        <!-- Productos Destacados -->
+        <section class="col-12 pb-5">
+            <div>
+                <div class="pad-2 text-center">
+                    <h2 id="productoNombre">Producto</h2>
+                </div>
+                <div class="row justify-content-center" id={{#if productos}} "productoTienda"{{else}}"noProducto"{{/if}}>
+                    {{#if productos}}
+                        <div id="productoImagen">
+                            <img src="{{productos.thumbnail}}" alt="{{productos.title}}">
+                            {{#if user }}
+                                <div id="productoOptions">
+                                    <a href="/productos/{{productos.id}}" class="btn btn-primary">Editar Producto</a>
+                                    <a href="/api/products/{{productos.id}}" id="deleteProduct" class="btn btn-primary">Eliminar Producto</a>
+                                </div>
+                            {{/if}}
+                        </div>        
+                        <div id="productoInfo">
+                            <div id="productoVariaciones">
+                                <span id="productoVariacionesInfo">{{productos.description}}</span>
+                                <span id="productoVariacionesPrice">Precio: ${{productos.price}}</span>
+                                <span id="productoVariacionesStock">Stock: {{productos.stock}} disponibles</span>
+                            </div>
+                            <form id="productoForm" method="post" name="productos">
+                                <input name="id_prod" id="id_prod" type="hidden" value="{{productos.id}}" />
+                                <input id="productoCantidad" name="cartCount" type="number" value="1" min="1" step="1" max="{{productos.stock}}">
+                                <input id="productoSubmit" name="productoSubmit" type="submit" class="btn btn-primary" value="Agregar">
+                            </form>
+                            <div id="productoAlert"></div>
+                        </div> 
+                    {{else}}
+                        Producto no Existe
+                    {{/if}}
+                </div>
+            </div>
+        </section>           
+    </div> 
+</main>

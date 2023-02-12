@@ -1,0 +1,14 @@
+{"level":"error","message":"{Error:400, Route:/, Message:Homepage Error, Error: ReferenceError: denormalizar is not defined}","timestamp":"2023-02-11T19:41:38.185Z"}
+{"level":"error","message":"{Error:400, Route:/, Message:Homepage Error, Error: ReferenceError: denormalizar is not defined}","timestamp":"2023-02-11T19:42:26.186Z"}
+{"level":"error","message":"{Error:400, Route:/, Message:Homepage Error: Unreacheable Products, Error: TypeError: users.getBy_Id is not a function}","timestamp":"2023-02-12T01:50:51.179Z"}
+{"level":"error","message":"{Error:400, Route:/, Message:Homepage Error: Unreacheable Products, Error: TypeError: users.getBy_Id is not a function}","timestamp":"2023-02-12T01:53:26.049Z"}
+{"level":"error","message":"{Error:400, Route:/, Message:Homepage Error: Unreacheable Products, Error: TypeError: users.getBy_Id is not a function}","timestamp":"2023-02-12T01:58:29.056Z"}
+{"level":"error","message":"{Error:400, Route:/, Message:Homepage Error: Unreacheable Products, Error: TypeError: users.getBy_Id is not a function}","timestamp":"2023-02-12T01:59:11.746Z"}
+{"level":"error","message":"{Error:400, Route:/, Message:Homepage Error: Unreacheable Products, Error: TypeError: users.getBy_Id is not a function}","timestamp":"2023-02-12T01:59:55.287Z"}
+{"level":"error","message":"{Error:400, Route:/, Message:Homepage Error: Unreacheable Products, Error: TypeError: users.getBy_Id is not a function}","timestamp":"2023-02-12T02:01:40.557Z"}
+{"level":"error","message":"{Error:400, Route:/, Message:Homepage Error: Unreacheable Products, Error: TypeError: users.getBy_Id is not a function}","timestamp":"2023-02-12T02:02:09.664Z"}
+{"level":"error","message":"{Error:400, Route:/, Message:Homepage Error: Unreacheable Products, Error: TypeError: users.getBy_Id is not a function}","timestamp":"2023-02-12T02:03:25.401Z"}
+{"level":"error","message":"{Error:400, Route:/, Message:Homepage Error: Unreacheable Products, Error: TypeError: users.getBy_Id is not a function}","timestamp":"2023-02-12T02:03:58.106Z"}
+{"level":"error","message":"{Error:400, Route:/, Message:Homepage Error: Unreacheable Products, Error: TypeError: users.getBy_Id is not a function}","timestamp":"2023-02-12T02:05:07.709Z"}
+{"level":"error","message":"{Error:400, Route:/tienda/producto/$%7Bdata.thumbnail%7D, Message:Single Product Page Error, Error: ReferenceError: err is not defined}","timestamp":"2023-02-12T02:46:05.306Z"}
+{"level":"error","message":"{Error:400, Route:/productos/id=%22thumbnail_preview%22, Message:Single Product Page Error, Error: ReferenceError: err is not defined}","timestamp":"2023-02-12T05:48:24.684Z"}

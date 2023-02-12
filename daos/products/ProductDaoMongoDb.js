@@ -1,4 +1,4 @@
-import ContenedorMongoDb from "./../../contenedores/ContenedorMongoDb.js"
+import ContenedorMongoDb from "../../contenedores/ContenedorMongoDb.js"
 
 const productSchema = {
     id: {type:Number, require:true, unique:true},
