@@ -5,10 +5,10 @@
                 <h2 class="text-center">Editar de Producto</h2>
                 <article>
                     {{#if productos}}
-                        <form class="row g-3" action="/api/productos/form" id="editProductsForm" method="post" name="productos" enctype="multipart/form-data">
+                        <form class="row g-3" action="/api/products/form" id="editProductsForm" method="post" name="productos" enctype="multipart/form-data">
                             <div class="col-12">
                                 <label for="title" class="form-label">Nombre<span class="requerido">*</span></label>
-                                <input value={{productos.title}} required type="text" name="title" id="title" class="form-control" placeholder="Nombre de Producto" aria-label="title">
+                                <input value="{{productos.title}}" required type="text" name="title" id="title" class="form-control" placeholder="Nombre de Producto" aria-label="title">
                             </div>
                             <div class="col-12">
                                 <label for="description" class="form-label">Descripción<span class="requerido">*</span></label>
@@ -16,24 +16,24 @@
                             </div>
                             <div class="col-12">
                                 <label for="price" class="form-label">Precio<span class="requerido">*</span></label>
-                                <input value={{productos.price}} required type="number" name="price" id="price" class="form-control" placeholder="Precio de Producto" aria-label="price">
+                                <input value="{{productos.price}}" required type="number" name="price" id="price" class="form-control" placeholder="Precio de Producto" aria-label="price">
                             </div>
                             <div class="col-12">
                                 <label for="code" class="form-label">Código<span class="requerido">*</span></label>
-                                <input value={{productos.code}} required type="text" name="code" id="code" class="form-control" placeholder="Código de Producto" aria-label="code">
+                                <input value="{{productos.code}}" required type="text" name="code" id="code" class="form-control" placeholder="Código de Producto" aria-label="code">
                             </div>
                             <div class="col-12">
                                 <label for="stock" class="form-label">Stock<span class="requerido">*</span></label>
-                                <input value={{productos.stock}} required type="number" name="stock" id="stock" class="form-control" placeholder="Stock de Producto" aria-label="stock">
+                                <input value="{{productos.stock}}" required type="number" name="stock" id="stock" class="form-control" placeholder="Stock de Producto" aria-label="stock">
                             </div>
                             <div class="col-12">
                                 <label for="sales" class="form-label">Ventas<span class="requerido">*</span></label>
-                                <input value={{productos.sales}} required type="number" name="sales" id="sales" class="form-control" placeholder="Ventas del Producto" aria-label="sales">
+                                <input value="{{productos.sales}}" required type="number" name="sales" id="sales" class="form-control" placeholder="Ventas del Producto" aria-label="sales">
                             </div>                    
                             <div class="col-12">
                                 <label for="thumbnail" class="form-label">Imagen<span class="requerido">*</span></label>
                                 <input type="file" name="thumbnail" id="thumbnail" class="form-control" aria-label="Imagen">                            
-                                <img src={{productos.thumbnail}} id="thumbnail_preview" width="150px"/>
+                                <img src="{{productos.thumbnail}}" id="thumbnail_preview" width="150px"/>
                             </div>                    
                             <div class="col-12 requerido">*Valor requerido</div>
                             <div class="col-12">

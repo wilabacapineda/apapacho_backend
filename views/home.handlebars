@@ -10,10 +10,10 @@
             </div>
             <div class="carousel-inner">
                 {{#each slider}}
-                    <div class="carousel-item {{#if active}}active{{/if}} slide-div" id={{id}} style="background-image:url({{img}})">
+                    <div class="carousel-item {{#if active}}active{{/if}} slide-div" id="{{id}}" style="background-image:url({{img}})">
                         <div class="tela text-align text-center">
                             <h2 class="p-3">{{title}}</h2>
-                            <span class="p-3"><a href={{href}} class="boton p-3">{{{html}}}</a></span>
+                            <span class="p-3"><a href="{{href}}" class="boton p-3">{{{html}}}</a></span>
                         </div>
                     </div>  
                 {{/each}}   
@@ -64,9 +64,9 @@
                     </span>                            
                 </div>                        
                 {{#each instagram}}
-                    <div id={{id}} class="card instagram_img">
-                        <a href={{permalink}} target="_blank" title={{title}}>
-                            <img src={{#if (isMediaTypeVideoInsta mediaType) }}{{thumbnailUrl}}{{else}}{{mediaUrl}}{{/if}} />
+                    <div id="{{id}}" class="card instagram_img">
+                        <a href="{{permalink}}" target="_blank" title="{{title}}">
+                            <img src="{{#if (isMediaTypeVideoInsta mediaType) }}{{thumbnailUrl}}{{else}}{{mediaUrl}}{{/if}}" />
                         </a>
                     </div>
                 {{/each}} 

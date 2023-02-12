@@ -1,5 +1,7 @@
 import din from "../../daos/index.js"
 
+const administrador = true 
+
 const controller = {
     getProducts: async (req,res) => {
         res.send(din.ProductsDaoMemory.object)                  

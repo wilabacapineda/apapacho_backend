@@ -100,3 +100,7 @@
 {"level":"warn","message":"{Error:404, Route:/tienda/producto/20, Message:Single Product Page Error: Non-existent Product, Error: SyntaxError: Unexpected end of JSON input}","timestamp":"2023-02-12T06:10:47.851Z"}
 {"level":"warn","message":"{Error:404, Route:/tienda/producto/10, Message:Single Product Page Error: Non-existent Product, Error: SyntaxError: Unexpected end of JSON input}","timestamp":"2023-02-12T06:11:54.738Z"}
 {"level":"warn","message":"{Error:404, Route:/tienda/producto/10, Message:Single Product Page Error: Non-existent Product, Error: SyntaxError: Unexpected end of JSON input}","timestamp":"2023-02-12T06:17:53.620Z"}
+{"level":"warn","message":"{Error:404, Route:/api/productos/form, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T06:25:28.022Z"}
+{"level":"warn","message":"{Error:404, Route:/pages/producto/editProduct.html?id=6, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T06:32:15.903Z"}
+{"level":"warn","message":"{Error:404, Route:/producto/2, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T06:35:27.838Z"}
+{"level":"warn","message":"{Error:404, Route:/assets/img/Ricardo, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T06:38:55.890Z"}

@@ -281,11 +281,11 @@ if(productosCarritoX) {
             const resultado = carrito.map( (p) => {
                 total = total + (p.price*p.cartCount)
                 return(`<span>
-                            <a href="/pages/producto/?id=${p.id}">
+                            <a href="/tienda/producto/${p.id}">
                                 <img src="${p.thumbnail}" width="0">
                             </a>
                             <div id="carritoInfo">
-                                <a href="/pages/producto/?id=${p.id}">
+                                <a href="/tienda/producto/${p.id}">
                                    ${p.title}
                                 </a>
                                 <div>   
@@ -327,7 +327,7 @@ if(productosCarritoX) {
                 showConfirmButton: true
             }).then(res => {
                 localStorage.removeItem("idCarrito")
-                window.location.href = "/pages/tienda.html"
+                window.location.href = "/tienda"
             })
         }
         
@@ -434,7 +434,7 @@ if(addProductsForm){
             output.classList.add("exito")
             addProductsForm.reset()
             objeto.then((np) => {
-                window.location.href = `/pages/producto/editProduct.html?id=${np.id}`
+                window.location.href = `/productos/${np.id}`
             })
         })
     }
@@ -442,7 +442,7 @@ if(addProductsForm){
     addProductsForm.addEventListener('submit', (e) => {
         e.preventDefault()               
         const data = new FormData(addProductsForm)       
-        fetch("/api/productos/form", {
+        fetch("/api/products/form", {
             method: "POST",
             body: data
         }).then( res => {
@@ -483,12 +483,12 @@ if(editProductsForm){
             output.classList.add("exito")
             editProductsForm.reset()
             setTimeout(() => {
-                window.location.href = `/pages/producto/?id=${params.id}`
+                window.location.href = `/tienda/producto/${params.id}`
             },2000)        
         })
     }
     /*
-    fetch(`/api/productos/${params.id}`)
+    fetch(`/api/products/${params.id}`)
     .then(data => data.json())
     .then(data => {            
         if(data.error){
@@ -507,7 +507,7 @@ if(editProductsForm){
                 e.preventDefault()
                 if(document.getElementById("thumbnail").value){
                     const data = new FormData(editProductsForm)       
-                    fetch(`/api/productos/form/${params.id}`, {
+                    fetch(`/api/products/form/${params.id}`, {
                         method: "PUT",
                         body: data
                     }).then( res => {
@@ -527,7 +527,7 @@ if(editProductsForm){
                         thumbnail: thumbnailVal
                     }                     
                     
-                    fetch(`/api/productos/${params.id}`, {
+                    fetch(`/api/products/${params.id}`, {
                         method: "PUT",
                         headers: {
                             'Content-Type': 'application/json',
