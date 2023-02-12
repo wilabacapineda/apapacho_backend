@@ -105,3 +105,14 @@
 {"level":"warn","message":"{Error:404, Route:/producto/2, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T06:35:27.838Z"}
 {"level":"warn","message":"{Error:404, Route:/assets/img/Ricardo, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T06:38:55.890Z"}
 {"level":"error","message":"{Error:523, Route:/tienda, Message:Store Page Error: Unreacheable Store, Error: SyntaxError: Unexpected end of JSON input}","timestamp":"2023-02-12T06:49:55.467Z"}
+{"level":"warn","message":"{Error:404, Route:/assets/img/WhatsApp%20Image%202022-06-07%20at%209.13.38%20AM.jpeg, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T06:51:52.967Z"}
+{"level":"warn","message":"{Error:404, Route:/assets/img/Ricardo%20Lopez%20y%20Yo.jpeg, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T06:51:53.121Z"}
+{"level":"warn","message":"{Error:404, Route:/assets/img/WhatsApp%20Image%202022-06-07%20at%209.13.38%20AM.jpeg, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T06:51:55.620Z"}
+{"level":"warn","message":"{Error:404, Route:/assets/img/Ricardo%20Lopez%20y%20Yo.jpeg, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T06:51:55.631Z"}
+{"level":"warn","message":"{Error:404, Route:/assets/img/WhatsApp%20Image%202022-06-07%20at%209.13.38%20AM.jpeg, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T06:51:58.590Z"}
+{"level":"warn","message":"{Error:404, Route:/assets/img/Ricardo%20Lopez%20y%20Yo.jpeg, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T06:51:58.717Z"}
+{"level":"warn","message":"{Error:404, Route:/assets/img/Ricardo%20Lopez%20y%20Yo.jpeg, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T06:52:04.147Z"}
+{"level":"warn","message":"{Error:404, Route:/assets/img/WhatsApp%20Image%202022-06-07%20at%209.13.38%20AM.jpeg, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T06:52:04.300Z"}
+{"level":"warn","message":"{Error:404, Route:/assets/img/WhatsApp%20Image%202022-06-07%20at%209.13.38%20AM.jpeg, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T06:52:56.999Z"}
+{"level":"warn","message":"{Error:404, Route:/assets/img/Ricardo%20Lopez%20y%20Yo.jpeg, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T06:52:57.062Z"}
+{"level":"warn","message":"{Error:404, Route:/favicon.ico, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-12T07:06:29.907Z"}

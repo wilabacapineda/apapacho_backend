@@ -150,8 +150,11 @@ if(registerForm){
 
 const productoTiendaX = document.getElementById("productoTienda")
 if(productoTiendaX){
-    const urlSearchParams = new URLSearchParams(window.location.search)
-    const params = Object.fromEntries(urlSearchParams.entries())
+    let url = window.location.href
+    let id = url.substring(parseInt(url.indexOf('/producto/'))+10)
+        if(id.search(/[^0-9]/g)>=0){
+            id = id.substring(0,id.search(/[^0-9]/g))
+        }        
     const output = document.getElementById("error")
 
     const errorAdd = () => {
@@ -258,7 +261,7 @@ if(productoTiendaX){
             }).then((result) => {
                 /* Read more about isConfirmed, isDenied below */
                 if (result.isConfirmed){
-                    fetch(`/api/products/${params.id}`, {
+                    fetch(`/api/products/${id}`, {
                         method: "DELETE"
                     }).then( res => {                        
                         res.status === 200 ? successDelete() : errorDelete()
@@ -456,7 +459,12 @@ if(addProductsForm){
 
 const editProductsForm = document.getElementById('editProductsForm')
 if(editProductsForm){
-
+    let url = window.location.href
+    let id = url.substring(parseInt(url.indexOf('/productos/'))+11)
+        if(id.search(/[^0-9]/g)>=0){
+            id = id.substring(0,id.search(/[^0-9]/g))
+        }  
+    const thumbnailVal = document.getElementById("thumbnail_preview").getAttribute('src')
     const output = document.querySelector("#enviando")
 
     const errorAdd = () => {
@@ -483,67 +491,47 @@ if(editProductsForm){
             output.classList.add("exito")
             editProductsForm.reset()
             setTimeout(() => {
-                window.location.href = `/tienda/producto/${params.id}`
+                window.location.href = `/tienda/producto/${id}`
             },2000)        
         })
     }
-    /*
-    fetch(`/api/products/${params.id}`)
-    .then(data => data.json())
-    .then(data => {            
-        if(data.error){
-            editProductsForm.innerHTML="Producto NO Existe"
-        } else {      
-            const thumbnailVal = data.thumbnail
-            document.getElementById("title").value=data.title
-            document.getElementById("description").value=data.description
-            document.getElementById("price").value=data.price
-            document.getElementById("code").value=data.code
-            document.getElementById("stock").value=data.stock
-            document.getElementById("sales").value=data.sales
-            document.getElementById("thumbnail_preview").setAttribute('src',thumbnailVal)           
+
+    editProductsForm.addEventListener('submit', (e) => {
+        e.preventDefault()
+        if(document.getElementById("thumbnail").value){
+            const data = new FormData(editProductsForm)       
+            fetch(`/api/products/form/${id}`, {
+                method: "PUT",
+                body: data
+            }).then( res => {
+                res.status === 200 ? successAdd() : errorAdd()            
+            }).catch((error) => {
+                errorAdd()            
+                console.log('error: ', error)            
+            })        
+        } else {
+            const data = { 
+                title: document.getElementById("title").value,
+                description: document.getElementById("description").value,
+                price: parseInt(document.getElementById("price").value),
+                code: document.getElementById("code").value,
+                stock: parseInt(document.getElementById("stock").value),
+                sales: parseInt(document.getElementById("sales").value),
+                thumbnail: thumbnailVal
+            }                    
             
-            editProductsForm.addEventListener('submit', (e) => {
-                e.preventDefault()
-                if(document.getElementById("thumbnail").value){
-                    const data = new FormData(editProductsForm)       
-                    fetch(`/api/products/form/${params.id}`, {
-                        method: "PUT",
-                        body: data
-                    }).then( res => {
-                        res.status === 200 ? successAdd() : errorAdd()            
-                    }).catch((error) => {
-                        errorAdd()            
-                        console.log('error: ', error)            
-                    })        
-                } else {
-                    const data = { 
-                        title: document.getElementById("title").value,
-                        description: document.getElementById("description").value,
-                        price: parseInt(document.getElementById("price").value),
-                        code: document.getElementById("code").value,
-                        stock: parseInt(document.getElementById("stock").value),
-                        sales: parseInt(document.getElementById("sales").value),
-                        thumbnail: thumbnailVal
-                    }                     
-                    
-                    fetch(`/api/products/${params.id}`, {
-                        method: "PUT",
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(data),
-                    }).then( res => {
-                        res.status === 200 ? successAdd() : errorAdd()            
-                    }).catch((error) => {
-                        errorAdd()            
-                        console.log('error: ', error)            
-                    })  
-                }
-                
-            })
-            
+            fetch(`/api/products/${id}`, {
+                method: "PUT",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            }).then( res => {
+                res.status === 200 ? successAdd() : errorAdd()            
+            }).catch((error) => {
+                errorAdd()            
+                console.log('error: ', error)            
+            })  
         }        
     })
-    */
 }

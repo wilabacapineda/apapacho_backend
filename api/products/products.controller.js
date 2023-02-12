@@ -93,18 +93,19 @@ const controller = {
         }        
     },
     deleteProducts: async (req, res) => {
-        if(administrador){
+        if(administrador){            
             const id = parseInt(req.params.id)     
             const newProd = din.productsDao.getById(id)
                 newProd.then( np => {
                     if(np===null) {
-                    return res.send({error: 'producto no encontrado'})
-                    }                
+                        return res.send({error: 'producto no encontrado'})
+                    }     
+                             
                     const deleteID = din.productsDao.deleteById(id)
-                        deleteID.then( np => {                          
+                          deleteID.then( np => {                          
                             din.ProductsDaoMemory.deleteById(id)
                             return res.send(np)
-                        })
+                          })
                 }) 
         } else {
             res.send({ error : -1, descripcion: "Ruta '/api/products/:id', metodo DELETE no autorizado"})
