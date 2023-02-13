@@ -1,4 +1,5 @@
 import ContenedorFirebase from "../../contenedores/ContenedorFirebase.js"
+import { customCreateError } from "../../utils/errors.js"
 
 class ProductDaoFirebase extends ContenedorFirebase  {
     constructor() {        
@@ -110,12 +111,11 @@ class ProductDaoFirebase extends ContenedorFirebase  {
                     if(prod.length===0){
                         products.forEach( p => {                
                             this.collection.doc(`${p.id}`).create(p)
-                        })
-                        console.log('Datos de Productos Insertados en Firebase')
+                        })                        
                     }
                   })
         } catch(err){
-            console.warn(`loadFirstinsertions error, ${err}`)
+          customCreateError(err,'ProductDaoFirebase: loadFirstinsertions Error',400)
         }
     } 
     

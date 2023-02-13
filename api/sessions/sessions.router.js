@@ -2,9 +2,10 @@ import express from 'express'
 import passport from 'passport'
 import controller from './sessions.controller.js'
 import multer, { diskStorage } from 'multer'
+import { checkAuth } from '../../utils/sessionFunctions.js'
 
 const { Router } = express
-const storageProductImage = diskStorage({
+const storageAvatarImage = diskStorage({
       destination: (req, file, cb) => {
         cb(null,'public/assets/img/avatars')
       },
@@ -12,11 +13,12 @@ const storageProductImage = diskStorage({
         cb(null,file.originalname)
       }
   })
-  const uploadProductImage = multer({storage:storageProductImage})
+  const uploadAvatarImage = multer({storage:storageAvatarImage})
 
 const routerSession = new Router()
       routerSession.get('/login', controller.getSessionLogin)   
       routerSession.post('/login', passport.authenticate('login'), controller.postSessionLogin)
-      routerSession.post('/register',uploadProductImage.single('thumbnail'), controller.postSessionRegister)     
-      routerSession.post('/logout', controller.postSessionLogout)      
+      routerSession.post('/register',uploadAvatarImage.single('thumbnail'), controller.postSessionRegister)     
+      routerSession.post('/logout',checkAuth,controller.postSessionLogout)   
+      routerSession.put('/editProfile',checkAuth,uploadAvatarImage.single('thumbnail'),controller.putProfile)   
 export default routerSession

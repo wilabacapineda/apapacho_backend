@@ -1,4 +1,5 @@
 import ContenedorMongoDb from "../../contenedores/ContenedorMongoDb.js"
+import { customCreateError } from "../../utils/errors.js"
 
 const productSchema = {
     id: {type:Number, require:true, unique:true},
@@ -20,6 +21,7 @@ class ProductsDaoMongoDb extends ContenedorMongoDb  {
     }
 
     async loadFirstinsertions() {
+      try{
         this.db.find({}).then( r => {
             if(r.length === 0) {                
                 const products = [
@@ -120,9 +122,11 @@ class ProductsDaoMongoDb extends ContenedorMongoDb  {
                     }
                 ]
                 this.db.insertMany(products)
-                console.log('Colection products Created')
             }
         })
+      } catch(err){
+        customCreateError(err,'ProductDaoMongoDb: loadFirstinsertions Error',400)
+      }
     }     
 }
 

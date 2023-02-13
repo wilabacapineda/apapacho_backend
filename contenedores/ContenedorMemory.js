@@ -1,3 +1,5 @@
+import { customCreateError } from "../utils/errors.js"
+
 export default class ContenedorMemory {
     constructor(object) {
         this.object = object        
@@ -7,7 +9,7 @@ export default class ContenedorMemory {
         try {
             this.object = object
         } catch(err){
-            console.warn(`Memory Persistence create error, ${err}`)
+            customCreateError(err,'ContenedorMemory: create Error',400)
         }        
     }
     
@@ -15,9 +17,8 @@ export default class ContenedorMemory {
         try {
             this.object.push(object)
         } catch(err){
-            console.warn(`Memory Persistence save error, ${err}`)
+            customCreateError(err,'ContenedorMemory: save Error',400)
         }  
-        
     }
 
     update(id,Object){                
@@ -25,7 +26,7 @@ export default class ContenedorMemory {
             const indexOfItemInArray = this.object.findIndex(p => p.id === id)
             this.object.splice(indexOfItemInArray, 1, Object[0])
         } catch(err){
-            console.warn(`Memory Persistence update error, ${err}`)
+            customCreateError(err,'ContenedorMemory: update Error',400)
         } 
     }
 
@@ -34,7 +35,20 @@ export default class ContenedorMemory {
             const result = this.object.filter( o => parseInt(o.id) === id )  
             return await result[0]
         } catch(err){
-            console.warn(`Memory Persistence getById error, ${err}`)
+            customCreateError(err,'ContenedorMemory: getById Error',400)
+        } 
+    }
+
+    async getByIdCart(id,email){                
+        try {
+            const result = this.object.filter( o => {
+                if( parseInt(o.id) === id && (o.email==='' || email===o.email) && o.state==="creada"){
+                    return o
+                } 
+            })  
+            return await result[0]
+        } catch(err){
+            customCreateError(err,'ContenedorMemory: getById Error',400)
         } 
     }
 
@@ -43,7 +57,7 @@ export default class ContenedorMemory {
             const indexOfItemInArray = this.object.findIndex(p => p.id === id)
             this.object.splice(indexOfItemInArray, 1)
         } catch(err){
-            console.warn(`Memory Persistence deleteById error, ${err}`)
+            customCreateError(err,'ContenedorMemory: deleteById Error',400)
         } 
     }
 
@@ -51,7 +65,7 @@ export default class ContenedorMemory {
         try {
             this.object=[]         
         } catch(err){
-            console.warn(`Memory Persistence deleteAll error, ${err}`)
+            customCreateError(err,'ContenedorMemory: deleteAll Error',400)
         } 
     }
 }

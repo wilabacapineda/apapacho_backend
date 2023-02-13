@@ -1,4 +1,5 @@
 import ContenedorFirebase from "../../contenedores/ContenedorFirebase.js"
+import { customCreateError } from "../../utils/errors.js";
 
 class UsersDaoFirebase extends ContenedorFirebase  {
     constructor() {        
@@ -10,7 +11,7 @@ class UsersDaoFirebase extends ContenedorFirebase  {
             const response = await this.collection.where('email', '==', email.toLowerCase()).get()
             return response.data();            
         } catch (err) {
-            console.warn(`Firebase getByEmail error, ${err}`)
+            customCreateError(err,'UsersDaoFirebase: getByEmail Error',400)
         }
     }
 
@@ -24,51 +25,20 @@ class UsersDaoFirebase extends ContenedorFirebase  {
             })            
             return await newObject
         } catch (err) {
-            console.warn(`Firebase saveUser error, ${err}`)
+            customCreateError(err,'UsersDaoFirebase: saveUser Error',400)
         }        
     }
 
-    /*
-    async getByEmail(email){   
+    async updateUser(id,object){
         try {
-            const aux = this.db.findOne({ email : email })
-            return await aux
+            object.dateUpdate=Date.now()
+            await this.collection.where('email', '==', email.toLowerCase()).update(object)          
+            const updateObject = this.getById(id)
+            return [await updateObject]
         } catch (err) {
-            console.warn(`MongoDb/UsersDaoMongoDb getByEmail error, ${err}`)
+            customCreateError(error,'UsersDaoFirebase: updateUser Error',400)
         }
     }
-
-    async save(object){
-        try {
-            const newObject = this.getAll().then( resp => {
-                let lastElement = resp[resp.length - 1];
-                if( lastElement !== undefined){
-                    object.id = parseInt(lastElement.id)+1
-                } else {
-                    object.id = resp.length+1
-                }            
-                object.timestamp=Date.now()
-                object.dateUpdate=object.timestamp
-                this.collection.doc(`${object.id}`).create(object)                
-                return this.getById(object.id)
-            })            
-            return await newObject
-        } catch (err) {
-            console.warn(`Firebase save error, ${err}`)
-        }        
-    }
-
-    async saveUser(object){
-        try {            
-            object.timestamp=Date.now()
-            object.dateUpdate=object.timestamp
-            const aux = this.db.create(object)                
-            return await aux                                 
-        } catch (err) {
-            console.warn(`MongoDb saveUser error, ${err}`)
-        }        
-    }
-    */
 }
 
 export default UsersDaoFirebase

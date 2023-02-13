@@ -61,48 +61,48 @@ if(sessionForm){
     })
 }
 
+const verifyPassword = () => {  
+    const pw = document.getElementById("password").value
+    const pw2 = document.getElementById("password2").value
+    const output = document.querySelector("#enviando")
+    output.style.display = "none"
+    output.classList.remove("fallo")
+    
+    if(pw != pw2) {   
+      output.innerHTML = "**Las contraseñas no coinciden**"
+      output.style.display = "flex"
+      output.classList.add("fallo")
+      return false
+    } else {  
+        //check empty password field  
+        if(pw == "") {  
+            output.innerHTML = "**Contraseña vacia**"
+            output.style.display = "flex"
+            output.classList.add("fallo")
+            return false
+        }  
+        
+        //minimum password length validation  
+        if(pw.length < 8) {  
+            output.innerHTML = "**Minimo de caracteres 8**"
+            output.style.display = "flex"
+            output.classList.add("fallo")
+            return false
+        }  
+        
+        //maximum length of password validation  
+        if(pw.length > 16) {  
+            output.innerHTML = "**Máximo de caracteres 16**"
+            output.style.display = "flex"
+            output.classList.add("fallo")
+            return false
+        } 
+        return true      
+    }      
+}
+
 const registerForm = document.getElementById('registerForm')
 if(registerForm){
-    const verifyPassword = () => {  
-        const pw = document.getElementById("password").value
-        const pw2 = document.getElementById("password2").value
-        const output = document.querySelector("#enviando")
-        output.style.display = "none"
-        output.classList.remove("fallo")
-        
-        if(pw != pw2) {   
-          output.innerHTML = "**Las contraseñas no coinciden**"
-          output.style.display = "flex"
-          output.classList.add("fallo")
-          return false
-        } else {  
-            //check empty password field  
-            if(pw == "") {  
-                output.innerHTML = "**Contraseña vacia**"
-                output.style.display = "flex"
-                output.classList.add("fallo")
-                return false
-            }  
-            
-            //minimum password length validation  
-            if(pw.length < 8) {  
-                output.innerHTML = "**Minimo de caracteres 8**"
-                output.style.display = "flex"
-                output.classList.add("fallo")
-                return false
-            }  
-            
-            //maximum length of password validation  
-            if(pw.length > 16) {  
-                output.innerHTML = "**Máximo de caracteres 16**"
-                output.style.display = "flex"
-                output.classList.add("fallo")
-                return false
-            } 
-            return true      
-        }      
-    }
-
     registerForm.addEventListener('submit', (e) => {
         e.preventDefault()
         if(verifyPassword()){
@@ -177,6 +177,85 @@ if(registerForm){
 
 } 
 
+const profileForm = document.getElementById('profileForm')
+if(profileForm){
+    const thumbnailVal = document.getElementById("thumbnail_preview").getAttribute('src')
+    const output = document.querySelector("#enviando")
+    const action = profileForm.getAttribute('action')
+
+    profileForm.addEventListener('submit', (e) => {
+        e.preventDefault()              
+        if(action==="/session/editProfile"){
+            if(document.getElementById("thumbnail").value){
+                const data = new FormData(profileForm) 
+                fetch("/session/editProfile", {
+                    method: "PUT",                                
+                    body: data,
+                }).then( res => {         
+                    if(res.status === 200) {
+                        output.innerHTML = "Actualización de Perfil exitosa!"
+                    } else if(res.status === 302) {
+                        output.innerHTML = "Usuario ya Existe!"
+                    } else {
+                        output.innerHTML = "Error al actualizar, intente nuevamente"
+                    }
+                    output.style.display = "flex"
+                    output.classList.add(res.status === 200 ? "exito" : "fallo")
+                    if(res.status === 200) {
+                        setTimeout(() => {
+                            location.href = '/login'
+                        },2000)
+                    }                    
+                }).catch((error) => {
+                    output.innerHTML = "Error al actualizar, intente nuevamente"
+                    output.style.display = "flex"
+                    output.classList.add("fallo")
+                    console.log('error: ', error)
+                })      
+            } else {
+                const data = { 
+                    name: document.getElementById("name").value,
+                    lastname: document.getElementById("lastname").value,
+                    age: parseInt(document.getElementById("age").value),
+                    email: document.getElementById("email").value,
+                    address: document.getElementById("address").value,
+                    phone: document.getElementById("phone").value,
+                    avatar: thumbnailVal
+                }  
+                fetch("/session/editProfile", {
+                    method: "PUT",                                
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(data),
+                }).then( res => {         
+                    if(res.status === 200) {
+                        output.innerHTML = "Actualización de Perfil exitosa!"
+                    } else if(res.status === 302) {
+                        output.innerHTML = "Usuario ya Existe!"
+                    } else {
+                        output.innerHTML = "Error al actualizar, intente nuevamente"
+                    }
+                    output.style.display = "flex"
+                    output.classList.add(res.status === 200 ? "exito" : "fallo")
+                    if(res.status === 200) {
+                        setTimeout(() => {
+                            output.style.display="block"
+                            output.innerHTML = ''
+                            output.className=""
+                        },2000)
+                    }                    
+                }).catch((error) => {
+                    output.innerHTML = "Error al actualizar, intente nuevamente"
+                    output.style.display = "flex"
+                    output.classList.add("fallo")
+                    console.log('error: ', error)
+                })
+            }
+        } 
+           
+    })
+
+} 
+
 const productoTiendaX = document.getElementById("productoTienda")
 if(productoTiendaX){
     let url = window.location.href
@@ -186,17 +265,23 @@ if(productoTiendaX){
         }        
     const output = document.getElementById("error")
 
-    const errorAdd = () => {
+    const errorAdd = (error='500') => {
         Swal.fire({
             icon: 'error',
-            title: 'Oops...',
+            title: 'Error en Carrito',
             text: 'Ocurrió un error al añadir el producto al carrito',
             showConfirmButton: true
         }).then(res => {
+            if(error==304){
+                localStorage.removeItem("idCarrito")
+            }            
             output.innerHTML = "Error al añadir el producto al carrito, intente nuevamente"
             output.style.display = "flex"
             output.classList.add("fallo")
         })
+
+        
+
     }
     const successAdd = () => {
         Swal.fire({
@@ -249,8 +334,7 @@ if(productoTiendaX){
                     },
                     body: JSON.stringify(data),
                 }).then( res => {
-                    console.log(res)
-                    res.status === 200 ? successAdd() : errorAdd()            
+                    res.status === 200 ? successAdd() : errorAdd(res.status)            
                 }).catch((error) => {
                     console.log('error: ', error)            
                     errorAdd()                                        
@@ -300,14 +384,22 @@ if(productosCarritoX) {
             document.getElementById("checkout_subtotal").innerHTML='$'+total.toLocaleString()
             document.getElementById("checkout_total").innerHTML='$'+total.toLocaleString()
             return resultado
-        }        
-        const errorDelete = () => {
+        }     
+
+        const errorDelete = (error=500) => {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
                 text: 'Ocurrió un error al vaciar el carrito!',
+                showConfirmButton: true
+            }).then(() => {
+                if(error==304){
+                    localStorage.removeItem("idCarrito")
+                    window.location.href = "/carrito"
+                } 
             })
-        }        
+        }   
+
         const successDelete = () => {
             Swal.fire({
                 icon: 'success',
@@ -322,7 +414,7 @@ if(productosCarritoX) {
         fetch(`/api/carrito/${idCarrito}/productos`)
         .then(data => data.json())
         .then(data => {
-            if(data.length>0){
+            if(data.length>0){                
                 productosCarritoX.innerHTML = cargarCarrito(data)
                 const vaciarCarro = '<div id="vaciarCarritoDiv" class="row"><button id="emptyCart" class="btn btn-primary">Vaciar Carrito</button></div>'
                 productosCarritoX.innerHTML += vaciarCarro
@@ -353,8 +445,11 @@ if(productosCarritoX) {
                             const id_prod = parseInt(e.currentTarget.getAttribute('data-target'))
                             fetch(`/api/carrito/${parseInt(localStorage.getItem("idCarrito"))}/productos/${id_prod}`, {
                                 method: 'DELETE', // or 'PUT'
-                            }).then( res => res.json()).then(res => {                                                                
-                                location.reload()
+                            }).then( res => {
+                                if(res.status==304){
+                                    localStorage.removeItem("idCarrito")
+                                } 
+                                window.location.href = "/carrito"
                             })
                         })
                     }
@@ -374,7 +469,7 @@ if(productosCarritoX) {
                                 fetch(`/api/carrito/${idCarrito}`, {
                                     method: "DELETE"
                                 }).then( res => {                        
-                                    res.status === 200 ? successDelete() : errorDelete()
+                                    res.status === 200 ? successDelete() : errorDelete(res.status)
                                 }).catch((error) => {
                                     console.log('error: ', error)
                                     errorDelete()
@@ -384,6 +479,7 @@ if(productosCarritoX) {
                     })
                 }
             } else {
+                localStorage.removeItem("idCarrito")
                 productosCarritoX.innerHTML="Carrito Vacío"
             }            
         }).catch( err => {

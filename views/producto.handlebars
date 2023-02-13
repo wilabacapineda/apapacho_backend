@@ -11,7 +11,7 @@
                     {{#if productos}}
                         <div id="productoImagen">
                             <img src="{{productos.thumbnail}}" alt="{{productos.title}}">
-                            {{#if user }}
+                            {{#if user.is_admin }}
                                 <div id="productoOptions">
                                     <a href="/productos/{{productos.id}}" class="btn btn-primary">Editar Producto</a>
                                 </div>

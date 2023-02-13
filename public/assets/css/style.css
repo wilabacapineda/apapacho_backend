@@ -335,6 +335,9 @@ header .menu_tienda {
 #slide1 {
   background-image: url(./../img/site/image1.jpg); }
 
+.imgPreview {
+  width: 150px !important;
+}
 /* Tienda */
 .mostrar_error {
   width: 100%;

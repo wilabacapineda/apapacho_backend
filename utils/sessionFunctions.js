@@ -83,7 +83,10 @@ const getCurrentUser = (req) => {
     email: req.user.email,
     lastname: req.user.lastname,
     is_admin: req.user.is_admin,
-    age: req.user.age
+    age: req.user.age,
+    phone: req.user.phone,
+    avatar: req.user.avatar,
+    address: req.user.address
   })
 }
 

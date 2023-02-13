@@ -1,0 +1,51 @@
+<main class="container paginas pad-2">
+    <div id="error"></div>
+    <div class="row bs_gutter-x-0 justify-content-center">
+        <!-- Pagina: Contacto -->
+        <section class="col-md-9 pad-right-1p5 pad-bottom-2" id="sectionSessionLogin">
+            {{#if user }}
+                <h2 class="text-center">Información de Usuario</h2>            
+                <article>
+                    <form class="row g-3" action="/session/editProfile" id="profileForm" method="post" name="profile" enctype="multipart/form-data">
+                        <div class="col-12">
+                            <label for="name" class="form-label">Nombre<span class="requerido">*</span></label>
+                            <input value="{{user.name}}" required type="text" name="name" id="name" class="form-control" placeholder="Nombre" aria-label="Nombre">                                                
+                        </div>
+                        <div class="col-12">
+                            <label for="lastname" class="form-label">Apellido<span class="requerido">*</span></label>
+                            <input value="{{user.lastname}}" required type="text" name="lastname" id="lastname" class="form-control" placeholder="Apellido" aria-label="Apellido">                                                
+                        </div>
+                        <div class="col-12">
+                            <label for="email" class="form-label">Email<span class="requerido">*</span></label>
+                            <input value="{{user.email}}" required type="text" name="email" id="email" class="form-control" placeholder="Email" aria-label="Correo">                                                
+                        </div>
+                        <div class="col-12">
+                            <label for="phone" class="form-label">Telefono<span class="requerido">*</span></label>
+                            <input value="{{user.phone}}"  type="number" name="phone" id="phone" class="form-control" placeholder="987654321" aria-label="Telefono">                                                
+                        </div> 
+                        <div class="col-12">
+                            <label for="age" class="form-label">Edad</label>
+                            <input value="{{user.age}}"  type="number" name="age" id="age" class="form-control" placeholder="Edad" aria-label="Edad">                                                
+                        </div>                           
+                        <div class="col-12">
+                            <label for="address" class="form-label">Dirección</label>
+                            <input value="{{user.address}}"  type="text" name="address" id="address" class="form-control" placeholder="221B Baker Street" aria-label="Telefono">                                                
+                        </div>                        
+                        <div class="col-12">
+                            <label for="thumbnail" class="form-label">Avatar: </label>
+                            <img src="{{user.avatar}}" id="thumbnail_preview" class="imgPreview"/>                            
+                            <input type="file" name="thumbnail" id="thumbnail" class="form-control" aria-label="Imagen">                                                                                    
+                        </div>            
+                        <div class="col-12 requerido" id="loginFormVR">*Valor requerido</div>
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary">Editar Información</button>
+                        </div>
+                    </form> 
+                </article>
+                <div id="enviando"></div>                  
+            {{else}}
+                <h2 class="text-center">Crea una cuenta!</h2>            
+            {{/if}}
+        </section>                                    
+    </div>        
+</main>

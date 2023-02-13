@@ -4,6 +4,7 @@ import dotenv from 'dotenv'
 import context from '../../utils/context.js'
 import { parametersSession,getCurrentUser } from '../../utils/sessionFunctions.js'
 import {customCreateError, dataCreateError} from '../../utils/errors.js'
+import { sessionCounter } from '../../utils/sessionFunctions.js'
 dotenv.config()
 
 const fullhostname = (req) => {
@@ -12,12 +13,18 @@ const fullhostname = (req) => {
 
 const controller = {
     error: async (req, res) => {
-      parametersSession(req)      
-      const err = "PAGE NOT FOUND"
-      res.render("error",dataCreateError(err,'Error 404',404,context,req,'warn'))                                       
+      try{
+        sessionCounter(req)
+        parametersSession(req)      
+        const err = "PAGE NOT FOUND"
+        res.render("error",dataCreateError(err,'Error 404',404,context,req,'warn'))                                       
+      } catch(err){
+        dataCreateError(err,'error Page',400,context,req)
+      }      
     },
     home: async (req, res) => {   
       try{
+        sessionCounter(req)
         parametersSession(req)
         fetch(`${fullhostname(req)}/api/products/`).then(prod => prod.json()).then( prod => {          
           if(req.isAuthenticated()){               
@@ -27,7 +34,6 @@ const controller = {
                 instagram: instagramFeed,
                 user: getCurrentUser(req)
             } 
-            console.log('data',data.user.is_admin)
             res.render('home',data)                  
           } else {
             const data = {
@@ -38,8 +44,7 @@ const controller = {
             res.render('home',data)
           }
         }).catch( err => {                    
-          const data = dataCreateError(err,'Homepage Error: Unreacheable Products',400,context,req)
-          res.render('home',data)          
+          res.render('home',dataCreateError(err,'Homepage Error: Unreacheable Products',400,context,req))          
         })
       } catch (err) {        
         res.render("error",dataCreateError(err,'Homepage Error',400,context,req))
@@ -47,6 +52,7 @@ const controller = {
     },
     tienda: async (req, res) => {  
       try{
+        sessionCounter(req)
         parametersSession(req)
         fetch(`${fullhostname(req)}/api/products/`).then(prod => prod.json()).then( prod => {
           if(req.isAuthenticated()){
@@ -72,6 +78,7 @@ const controller = {
     },
     carrito: async (req,res) => {
       try{
+        sessionCounter(req)
         parametersSession(req)   
         if(req.isAuthenticated()){
           const data = {
@@ -94,6 +101,7 @@ const controller = {
     },
     products: async (req, res) => {  
       try {
+        sessionCounter(req)
         parametersSession(req)   
         if(req.isAuthenticated()){
           fetch(`${fullhostname(req)}/api/products/`).then(prod => prod.json()).then( prod => {
@@ -115,7 +123,7 @@ const controller = {
             res.render("error",dataCreateError(err,'Products Page Error: Unreacheable Products',523,context,req))                      
           })
         } else {
-          res.render("error",dataCreateError(err,'Products Page No Session',400,context,req))                      
+          res.redirect('/login')          
         }    
       } catch (err) {
         res.render("error",dataCreateError(err,'Products Page Error',400,context,req))                      
@@ -123,6 +131,7 @@ const controller = {
     },
     editProducts: async (req,res) => {
       try {
+        sessionCounter(req)
         parametersSession(req)
         if(req.isAuthenticated() && req.user.is_admin===true){
           const id = parseInt(req.params.id)
@@ -144,7 +153,7 @@ const controller = {
             res.render("error",dataCreateError(err,"Single Product Page Error: Non-existent Product",404,context,req,'warn'))                                                                  
           })
         } else {
-          res.render("error",dataCreateError(err,'Single Product Page No Login Error',400,context,req))                      
+          res.redirect('/login')          
         }        
       } catch (err) {
         res.render("error",dataCreateError(err,'Single Product Page Error',400,context,req))                      
@@ -152,6 +161,7 @@ const controller = {
     },
     productById: async (req, res) => {
       try {
+        sessionCounter(req)
         parametersSession(req)        
         const id = parseInt(req.params.id)
         if(isNaN(id) || id <= 0){          
@@ -185,39 +195,41 @@ const controller = {
       }
     },
     postProduct: async (req, res,next) => {        
-        try {     
-            parametersSession(req)       
-            if(req.isAuthenticated() && req.user.is_admin===true){                
-                if(req.file){
-                  req.body.file=req.file
-                  fetch(`${fullhostname(req)}/api/products/form`,{
-                    method: 'POST',
-                    body: JSON.stringify(req.body),
-                    headers: {
-                      'Content-Type': 'application/json'
-                    }, 
-                  }).then(prod => prod.json()).then( prod => {
-                    return res.json({
-                      success: true,
-                      message: "Cargado con Exito"                          
-                    })
-                  }).catch( err => {                                         
-                    return next(customCreateError(err,'Product Create Error',400,'',req))                    
+        try { 
+          sessionCounter(req)    
+          parametersSession(req)       
+          if(req.isAuthenticated() && req.user.is_admin===true){                
+              if(req.file){
+                req.body.file=req.file
+                fetch(`${fullhostname(req)}/api/products/form`,{
+                  method: 'POST',
+                  body: JSON.stringify(req.body),
+                  headers: {
+                    'Content-Type': 'application/json'
+                  }, 
+                }).then(prod => prod.json()).then( prod => {
+                  return res.json({
+                    success: true,
+                    message: "Cargado con Exito"                          
                   })
-                } else {                  
-                  err='Por favor sube un archivo'   
-                  return next(customCreateError(err,'POST method without file',400,'',req))
-                }
-            } else {
-                err = -1
-                return next(customCreateError(err,'unauthorized POST method',401,'',req))                
-            }     
+                }).catch( err => {                                         
+                  return next(customCreateError(err,'Product Create Error',400,'',req))                    
+                })
+              } else {                  
+                err='Por favor sube un archivo'   
+                return next(customCreateError(err,'POST method without file',400,'',req))
+              }
+          } else {
+              err = -1
+              return next(customCreateError(err,'unauthorized POST method',401,'',req))                
+          }     
         } catch (err) {                 
             return next(customCreateError(err,'Post Product Error',400,'',req))
         }
     },
     login: async (req, res) => { 
       try{
+        sessionCounter(req)
         parametersSession(req)    
         if(req.isAuthenticated()){
           const data = {
@@ -238,6 +250,7 @@ const controller = {
     },
     logout: async (req, res) => {                  
       try {
+        sessionCounter(req)
         parametersSession(req)   
         if(req.isAuthenticated()){
             const data = {
@@ -259,6 +272,7 @@ const controller = {
     },
     register: async (req, res) => {   
       try{   
+        sessionCounter(req)
         parametersSession(req)  
         if(req.isAuthenticated()){
             const data = {
@@ -275,6 +289,23 @@ const controller = {
         }
       } catch (err) {
         res.render("error",dataCreateError(err,'Register Page Error',400,context,req))                      
+      }
+    },
+    profile: async(req,res) => {
+      try {
+        sessionCounter(req)
+        parametersSession(req)
+        if(req.isAuthenticated()){          
+          const data = {
+              ...context,
+              user: getCurrentUser(req)
+          } 
+          res.render("profile",data)
+        } else {
+          res.redirect('/login')
+        }
+      } catch (err) {
+        res.render("error",dataCreateError(err,'Profile Page Error',400,context,req))                      
       }
     }
 } 

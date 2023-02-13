@@ -16,9 +16,16 @@
                         <li class="nav-item">
                             <a href="{{loginURL.url}}" class="nav-link {{ active loginURL.url path }}" aria-current="page">{{loginURL.title}}</a>
                         </li> 
-                    {{/if}}     
-                    {{#if user.is_admin}}
+                    {{/if}}   
+                    {{#if user}}
                         {{#each navbarLinksSession}}
+                            <li class="nav-item">
+                                <a href="{{url}}" class="nav-link {{ active url ../path }}" aria-current="page">{{title}}</a>
+                            </li>
+                        {{/each}}
+                    {{/if}}   
+                    {{#if user.is_admin}}
+                        {{#each navbarLinksAdmin}}
                             <li class="nav-item">
                                 <a href="{{url}}" class="nav-link {{ active url ../path }}" aria-current="page">{{title}}</a>
                             </li>

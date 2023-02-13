@@ -1,4 +1,5 @@
 import fs from 'fs'
+import { customCreateError } from '../utils/errors.js'
 
 export default class ContenedorFile {
     constructor(file){
@@ -11,7 +12,7 @@ export default class ContenedorFile {
             return JSON.parse(content)       
         }
         catch (error) {
-            console.warn(`File getAll error: ${error}`)
+            customCreateError(error,'ContenedorFile: getAll Error',400)
         }
     }
 
@@ -34,12 +35,13 @@ export default class ContenedorFile {
             return newID
         }
         catch (error) {
-            console.warn(`File save error, ${error}`)
+            customCreateError(error,'ContenedorFile: save Error',400)
         }
     }
 
     async update(id,object) {
       try {
+        object.dateUpdate=Date.now()
         const content = this.getAll()            
         const updateObject = await content.then( resp => {
             const returnObject = []
@@ -62,7 +64,7 @@ export default class ContenedorFile {
         return updateObject
       }
       catch (error) {
-          console.warn(`File update error, ${error}`)
+        customCreateError(error,'ContenedorFile: update Error',400)
       }
     }
 
@@ -73,9 +75,10 @@ export default class ContenedorFile {
                 const returnObject = []
                 const updateID = resp.map( c => {                
                     if(parseInt(c.id)===parseInt(id)){  
+                        c.dateUpdate=Date.now()
                         if(c.products.length>0){
                             const result = c.products.filter( cp => {
-                                if(parseInt(cp.id) === parseInt(id_prod)) {
+                                if(parseInt(cp.id) === parseInt(id_prod)) {                                    
                                     cp.cartCount = cartCount
                                     return cp
                                 }            
@@ -104,7 +107,7 @@ export default class ContenedorFile {
             return await updateObject
         }
         catch (error) {
-            console.warn(`File updateProducts error, ${error}`)
+            customCreateError(error,'ContenedorFile: updateProducts Error',400)
         }
     }
 
@@ -118,11 +121,10 @@ export default class ContenedorFile {
                 return data
             } else {
                 return null
-            }
-            
+            }            
         }
         catch (error) {
-            console.warn(`File getById error, ${error}`)
+            customCreateError(error,'ContenedorFile: getById Error',400)
         }        
     }
 
@@ -154,7 +156,7 @@ export default class ContenedorFile {
             return await updateObject
         }
         catch (error) {
-            console.warn(`File deleteProducts error, ${error}`)
+            customCreateError(error,'ContenedorFile: deleteProducts Error',400)
         }
     }
 
@@ -169,7 +171,7 @@ export default class ContenedorFile {
             return(data)
         }
         catch (error) {
-            console.warn(`File deleteById error, ${error}`)
+            customCreateError(error,'ContenedorFile: deleteById Error',400)
         } 
     }
 
@@ -178,19 +180,24 @@ export default class ContenedorFile {
             await fs.promises.writeFile(this.file,JSON.stringify([],null,2))             
         }
         catch (error) {
-            console.warn(`File deleteAll error, ${error}`)
+            customCreateError(error,'ContenedorFile: deleteAll Error',400)
         } 
     }
 
     async getNumberOfElements() {
-      const content = this.getAll()            
-      const data = await content.then( resp => {
-          return resp.length
-      })    
-      if(data) {
-          return data
-      } else {
-          return 0
-      } 
+        try{
+            const content = this.getAll()            
+            const data = await content.then( resp => {
+                return resp.length
+            })    
+            if(data) {
+                return data
+            } else {
+                return 0
+            } 
+        } catch(error){
+            customCreateError(error,'ContenedorFile: getNumberOfElements Error',400)
+        }
+
     }
 }

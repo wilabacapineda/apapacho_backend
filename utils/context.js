@@ -25,6 +25,12 @@ const context = {
     },
     navbarLinksSession: [
         {
+            url:'/profile',
+            title:'Perfil'
+        }        
+    ],
+    navbarLinksAdmin: [
+        {
             url:'/productos',
             title:'Añadir Productos'
         }        

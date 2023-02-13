@@ -1,5 +1,6 @@
 import admin from 'firebase-admin'
 import '../config/firebase.js'
+import { customCreateError } from '../utils/errors.js'
 
 const db = admin.firestore()
 
@@ -13,7 +14,7 @@ export default class ContenedorFirebase {
             const response = await this.collection.get()
             return response.docs.map(doc => doc.data());            
         } catch (err) {
-            console.warn(`Firebase getAll error, ${err}`)
+            customCreateError(error,'ContenedorFirebase: getAll Error',400)
         }
     }
     
@@ -22,7 +23,7 @@ export default class ContenedorFirebase {
             const response = await this.collection.doc(`${id}`).get()
             return response.data();            
         } catch (err) {
-            console.warn(`Firebase getById error, ${err}`)
+            customCreateError(error,'ContenedorFirebase: getById Error',400)
         }
     }
 
@@ -42,22 +43,23 @@ export default class ContenedorFirebase {
             })            
             return await newObject
         } catch (err) {
-            console.warn(`Firebase save error, ${err}`)
+            customCreateError(error,'ContenedorFirebase: save Error',400)
         }        
     }
 
     async update(id,object){
         try {
+            object.dateUpdate=Date.now()
             await this.collection.doc(`${id}`).update(object)          
             const updateObject = this.getById(id)
             return [await updateObject]
         } catch (err) {
-            console.warn(`Firebase update error, ${err}`)
+            customCreateError(error,'ContenedorFirebase: update Error',400)
         }
     }
     
     async updateProducts(id,id_prod,object,cartCount){
-        try {                         
+        try {            
             const updateObject = await this.getAll().then( resp => {                
                 const returnObject = []
                 resp.forEach( c => {                
@@ -90,7 +92,7 @@ export default class ContenedorFirebase {
             return await newCart
         }
         catch (error) {
-            console.warn(`Firebase updateProducts error, ${error}`)
+            customCreateError(error,'ContenedorFirebase: updateProducts Error',400)
         }
     }
 
@@ -99,7 +101,7 @@ export default class ContenedorFirebase {
             await this.collection.doc(`${id}`).delete()                  
             return this.getAll()
         } catch (err) {
-            console.warn(`Firebase deleteById error, ${err}`)
+            customCreateError(error,'ContenedorFirebase: deleteById Error',400)
         }
     }
 
@@ -130,7 +132,7 @@ export default class ContenedorFirebase {
             return await newCart
         }
         catch (error) {
-            console.warn(`Firebase deleteProducts error, ${error}`)
+            customCreateError(error,'ContenedorFirebase: deleteProducts Error',400)
         }
     }
 
@@ -139,7 +141,7 @@ export default class ContenedorFirebase {
             await this.collection.doc().delete()                  
             return []
         } catch (err) {
-            console.warn(`Firebase deleteAll error, ${err}`)
+            customCreateError(error,'ContenedorFirebase: deleteAll Error',400)
         }
     }
 }

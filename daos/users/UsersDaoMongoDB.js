@@ -1,4 +1,5 @@
 import ContenedorMongoDb from "../../contenedores/ContenedorMongoDb.js"
+import { customCreateError } from "../../utils/errors.js"
 
 const userSchema = {    
     email: {type: String, require: true,unique:true},
@@ -25,7 +26,7 @@ class UsersDaoMongoDb extends ContenedorMongoDb  {
             const aux = this.db.findOne({ email : email })
             return await aux
         } catch (err) {
-            console.warn(`MongoDb/UsersDaoMongoDb getByEmail error, ${err}`)
+            customCreateError(err,'UsersDaoMongoDb: getByEmail Error',400)
         }
     }
 
@@ -36,8 +37,23 @@ class UsersDaoMongoDb extends ContenedorMongoDb  {
             const aux = this.db.create(object)                
             return await aux                                 
         } catch (err) {
-            console.warn(`MongoDb saveUser error, ${err}`)
+            customCreateError(err,'UsersDaoMongoDb: saveUser Error',400)
         }        
+    }
+
+    async updateUser(object){
+        try {
+            object.dateUpdate=Date.now()
+            const auxObject = object
+            const aux = await this.db.findOneAndUpdate(
+                { email : object.email },
+                auxObject,
+                {new: true}
+            )           
+            return [await aux]
+        } catch (err) {
+            customCreateError(err,'UsersDaoMongoDb: updateUser Error',400)
+        }
     }
     
 }

@@ -1,5 +1,6 @@
 import mongoose from "mongoose" 
 import '../config/mongoDb.js'
+import { customCreateError } from "../utils/errors.js"
 
 export default class ContenedorMongoDb {
     constructor(collection, schema) {        
@@ -10,7 +11,7 @@ export default class ContenedorMongoDb {
         try {
             return await this.db.find({})
         } catch (err) {
-            console.warn(`MongoDb getAll error, ${err}`)
+            customCreateError(err,'ContenedorMongoDb: getAll Error',400)
         }
     }
 
@@ -25,18 +26,18 @@ export default class ContenedorMongoDb {
                 }            
                 object.timestamp=Date.now()
                 object.dateUpdate=object.timestamp
-
                 const aux = this.db.create(object)                
                 return aux                       
             })            
             return await newObject
         } catch (err) {
-            console.warn(`MongoDb save error, ${err}`)
+            customCreateError(err,'ContenedorMongoDb: save Error',400)
         }        
     }
 
     async update(id,object){
         try {
+            object.dateUpdate=Date.now()
             const auxObject = object
             delete auxObject._id            
             const aux = await this.db.findOneAndUpdate(
@@ -46,17 +47,16 @@ export default class ContenedorMongoDb {
             )           
             return [await aux]
         } catch (err) {
-            console.warn(`MongoDb update error, ${err}`)
+            customCreateError(err,'ContenedorMongoDb: update Error',400)
         }
     }
 
-    async updateProducts(id,id_prod,object,cartCount){
-        try {                     
-            const updateObject = await this.getAll().then( resp => { 
-                              
+    async updateProducts(id,id_prod,object,cartCount,email){
+        try {                   
+            const updateObject = await this.getAll().then( resp => {                               
                 const returnObject = []
-                resp.forEach( c => {                
-                    if(parseInt(c.id)===parseInt(id)){  
+                resp.forEach( c => {                                    
+                    if(parseInt(c.id)===parseInt(id) && (c.email===email || c.email==="") && c.state=="creada"){  
                         if(c.products.length>0){
                             const result = c.products.filter( cp => {
                                 if(parseInt(cp.id) === parseInt(id_prod)) {
@@ -75,20 +75,21 @@ export default class ContenedorMongoDb {
                                 ...object._doc,
                                 cartCount : cartCount                
                             })                             
-                        }                        
+                        }                                               
                         returnObject.push(c)
                     } 
                 })       
-                          
                 return returnObject
-            })    
-                  
-            const newCart = this.update(id,updateObject[0])                      
-            
-            return await newCart
+            })
+            if(updateObject.length===0){
+                return updateObject
+            } else {
+                const newCart = this.update(id,updateObject[0])                                  
+                return await newCart
+            }
         }
-        catch (error) {
-            console.warn(`MongoDb updateProducts error, ${error}`)
+        catch (err) {
+            customCreateError(err,'ContenedorMongoDb: updateProducts Error',400)
         }
     }
 
@@ -97,7 +98,7 @@ export default class ContenedorMongoDb {
             const aux = this.db.findOne({query: { id : id }})
             return await aux
         } catch (err) {
-            console.warn(`MongoDb getById error, ${err}`)
+            customCreateError(err,'ContenedorMongoDb: getById Error',400)
         }
     }
     
@@ -106,7 +107,7 @@ export default class ContenedorMongoDb {
             const aux = this.db.findOne({ _id : id })
             return await aux
         } catch (err) {
-            console.warn(`MongoDb getBy_Id error, ${err}`)
+            customCreateError(err,'ContenedorMongoDb: getBy_Id Error',400)
         }
     }
     
@@ -117,17 +118,19 @@ export default class ContenedorMongoDb {
             })
             return newCol
         } catch (err) {
-            console.warn(`MongoDb deleteById error, ${err}`)
+            customCreateError(err,'ContenedorMongoDb: deleteById Error',400)
         }
     }
 
     async deleteProducts(id,id_prod){
-        try {                         
-            const updateObject = await this.getAll().then( resp => {                
+        try {         
+            const updateObject = await this.getAll().then( resp => {                                
                 const returnObject = []
-                resp.forEach( c => {                
+                let j = 0
+                resp.forEach( c => {   
+                    j++                              
                     if(parseInt(c.id)===parseInt(id)){  
-                        if(c.products.length>0){
+                        if(c.products.length>0){                            
                             const result = c.products.filter( cp => {
                                 if(parseInt(cp.id) !== parseInt(id_prod)) {                                    
                                     return cp
@@ -138,18 +141,15 @@ export default class ContenedorMongoDb {
                         } else {
                             returnObject.push(c)                           
                         }         
-                    } else {
-                        returnObject.push(c)
-                    }
-                })                
-                return returnObject
-            })
-            
-            const newCart = this.update(id,updateObject[0])                      
+                    } 
+                })   
+                return returnObject[0]
+            })                 
+            const newCart = this.update(id,updateObject)                      
             return await newCart
         }
-        catch (error) {
-            console.warn(`MongoDb deleteProducts error, ${error}`)
+        catch (err) {
+            customCreateError(err,'ContenedorMongoDb: deleteProducts Error',400)
         }
     }
 
@@ -158,13 +158,13 @@ export default class ContenedorMongoDb {
             await this.db.deleteMany({ })
             return []
         } catch (err) {
-            console.warn(`MongoDb deleteAll error, ${err}`)
+            customCreateError(err,'ContenedorMongoDb: deleteAll Error',400)
         }
     }
 
     async disconnect () {
         mongoose.disconnect().catch( err => {
-            throw new Error(`Error al desconectar de la Base de Datos ${err}`)
+            customCreateError(err,'ContenedorMongoDb: disconnect Error',400)
         })
     }
 }
