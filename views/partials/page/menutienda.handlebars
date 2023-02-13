@@ -1,0 +1,29 @@
+<div class="menu_tienda">
+    <div class="input-group" id="menu_tienda">        
+        <div id="customIcons">
+            <span class="input-group-text border-0">
+                <span id="carroTienda-spanIcon"><i class="fas fa-shopping-cart" id="carroTienda-icon" title="Carrito"></i></span>
+            </span>
+            {{#if user}}
+                {{#each navbarLinksSession}}
+                    <span class="input-group-text border-0">
+                        <span class="menutienda-spanIcon"><a href="{{url}}" id="iconMenuTienda_{{@index}}" class="iconMenuTienda nav-link {{ active url ../path }}" aria-current="page" title="{{title}}" data-target="{{@index}}">{{{icon}}}<span id="titleMenuTienda_{{@index}}"></span></a></span>
+                    </span>
+                {{/each}}
+            {{/if}}
+            {{#if loginURL}}
+                <span class="input-group-text border-0">
+                    <span class="menutienda-spanIcon"><a href="{{loginURL.url}}" id="iconMenuTienda_login" class="iconMenuTienda nav-link {{ active loginURL.url path }}" aria-current="page" title="{{loginURL.title}}" data-target="login">{{{ getLoginIcon loginURL.url }}}<span id="titleMenuTienda_login"></span></a></span>
+                </span>
+            {{/if}}      
+        </div>        
+        <!--          
+        <span class="input-group-text" id="search-addon">
+            <input type="search" id="buscaTienda-input" class="form-control search-click" placeholder="Buscar" aria-label="Search" aria-describedby="search-addon" />
+            <span id="buscaTienda-spanIcon"><i class="fas fa-search" id="buscaTienda-icon"></i></span>                                                
+        </span>
+        -->
+    </div>  
+    <div id="buscaTienda-resultado">
+    </div>              
+</div>

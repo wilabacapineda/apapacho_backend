@@ -135,7 +135,8 @@ const controller = {
                         newCart.then( (c) => {  
                           din.CartDaoMemory.update(id,c)
                           res.send(c)
-                        })                                
+                        })                         
+                        
                 } else {
                   res.sendStatus(304)
                 }

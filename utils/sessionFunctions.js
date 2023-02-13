@@ -43,7 +43,13 @@ const parametersSession = (req) => {
   logger.info(`{route:${routex}, method:${req.method}}`)
   context.path=req.url
   const validador = verifySession(req)
-  validador ? context.loginURL = { url:'/logout', title:'Logout'} : context.loginURL = { url:'/login', title:'Login' }
+  if(validador){
+    context.loginURL.url='/logout'
+    context.loginURL.title='Logout'
+  } else {
+    context.loginURL.url='/login'
+    context.loginURL.title='Login'
+  }
   return validador ? true : false 
 }
 

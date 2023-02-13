@@ -257,16 +257,32 @@ header .menu_tienda {
   box-shadow: -11px 1px 17px 0px rgba(0, 0, 0, 0.3); }
   header .menu_tienda #menu_tienda {
     display: flex;
-    gap: 1rem;
-    flex-direction: row;
+    gap: 5px;
+    flex-direction: column;
     flex-wrap: nowrap;
-    justify-content: flex-end;
-    transition: all 0.5s; }
+    justify-content: center;
+    transition: all 0.5s;
+    align-items: center; }
+    header .menu_tienda #menu_tienda #customIcons {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
     header .menu_tienda #menu_tienda .input-group-text {
       background-color: #6BA4B0;
       padding: 0;
       transition: all 0.5s;
       border: 0; }
+      header .menu_tienda #menu_tienda .input-group-text .menutienda-spanIcon {
+        width: 2rem;
+        height: 2rem;
+        color: white;}
+        header .menu_tienda #menu_tienda .input-group-text .menutienda-spanIcon a{          
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          flex-wrap: nowrap;
+          color: white; }
       header .menu_tienda #menu_tienda .input-group-text #buscaTienda-spanIcon {
         width: 2rem;
         height: 2rem;
@@ -290,6 +306,13 @@ header .menu_tienda {
         border-top-right-radius: 0px;
         border-bottom-right-radius: 0px; }
       header .menu_tienda #menu_tienda .input-group-text #carroTienda-spanIcon {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        color: white;
+        justify-content: center;
+        width: 2rem;
+        height: 2rem;
         cursor: pointer;
         color: #fff; }
         header .menu_tienda #menu_tienda .input-group-text #carroTienda-spanIcon:hover {

@@ -4,11 +4,11 @@
         <!-- Productos Destacados -->
         <section class="col-12 pb-5">
             <div>
-                <div class="pad-2 text-center">
-                    <h2 id="productoNombre">Producto</h2>
-                </div>
-                <div class="row justify-content-center" id={{#if productos}}"productoTienda"{{else}}"noProducto"{{/if}}>
-                    {{#if productos}}
+                {{#if productos}}
+                    <div class="pad-2 text-center">
+                        <h2 id="productoNombre">{{productos.title}}</h2>
+                    </div>
+                    <div class="row justify-content-center" id={{#if productos}}"productoTienda"{{else}}"noProducto"{{/if}}>                    
                         <div id="productoImagen">
                             <img src="{{productos.thumbnail}}" alt="{{productos.title}}">
                             {{#if user.is_admin }}
@@ -30,10 +30,16 @@
                             </form>
                             <div id="productoAlert"></div>
                         </div> 
-                    {{else}}
-                        Producto no Existe
-                    {{/if}}
-                </div>
+                    </div>
+                {{else}}
+                    <div class="pad-2 text-center">
+                        <h2 id="productoNombre">{{productos.title}}</h2>
+                        </div>
+                        <div class="row justify-content-center" id={{#if productos}}"productoTienda"{{else}}"noProducto"{{/if}}>
+                            Producto no Existe
+                        </div>
+                    </div>
+                {{/if}}                
             </div>
         </section>           
     </div> 

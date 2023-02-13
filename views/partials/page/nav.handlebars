@@ -1,5 +1,5 @@
 <!-- Menú principal --> 
-<div class="row justify-content-md-center menu-fixed bs_gutter-x-0"></div>
+<div class="row justify-content-md-center menu-fixed bs_gutter-x-0">
     <nav class="principal-nav navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
             <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -12,18 +12,6 @@
                             <a href="{{url}}" class="nav-link {{ active url ../path }}" aria-current="page">{{title}}</a>
                         </li>  
                     {{/each}}  
-                    {{#if loginURL}}
-                        <li class="nav-item">
-                            <a href="{{loginURL.url}}" class="nav-link {{ active loginURL.url path }}" aria-current="page">{{loginURL.title}}</a>
-                        </li> 
-                    {{/if}}   
-                    {{#if user}}
-                        {{#each navbarLinksSession}}
-                            <li class="nav-item">
-                                <a href="{{url}}" class="nav-link {{ active url ../path }}" aria-current="page">{{title}}</a>
-                            </li>
-                        {{/each}}
-                    {{/if}}   
                     {{#if user.is_admin}}
                         {{#each navbarLinksAdmin}}
                             <li class="nav-item">

@@ -105,3 +105,4 @@
 {"level":"error","message":"{Error:400, Route:undefined, Message:ContenedorMemory: update Error, Error: TypeError: Cannot read properties of undefined (reading '0')}","timestamp":"2023-02-13T07:41:12.722Z"}
 {"level":"error","message":"{Error:400, Route:undefined, Message:ContenedorMemory: update Error, Error: TypeError: Cannot read properties of undefined (reading '0')}","timestamp":"2023-02-13T07:41:32.414Z"}
 {"level":"error","message":"{Error:400, Route:undefined, Message:ContenedorMemory: update Error, Error: TypeError: Cannot read properties of undefined (reading '0')}","timestamp":"2023-02-13T07:43:20.322Z"}
+{"level":"warn","message":"{Error:404, Route:/tienda/producto/40, Message:Single Product Page Error: Non-existent Product, Error: SyntaxError: Unexpected end of JSON input}","timestamp":"2023-02-13T10:19:01.340Z"}

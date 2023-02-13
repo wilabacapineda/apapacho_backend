@@ -21,12 +21,15 @@ const context = {
     ],
     loginURL: {
         url:'/login',
-        title:'Login'
+        title:'Login',
+        iconLogin:'<i class="fa-solid fa-right-to-bracket"></i>',
+        iconLogout:'<i class="fa-solid fa-right-from-bracket"></i>'
     },
     navbarLinksSession: [
         {
             url:'/profile',
-            title:'Perfil'
+            title:'Perfil',
+            icon:'<i class="fa-solid fa-user"></i>'
         }        
     ],
     navbarLinksAdmin: [

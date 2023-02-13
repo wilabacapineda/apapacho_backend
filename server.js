@@ -10,6 +10,7 @@ import users from './daos/loadUsers.js'
 import cluster from 'cluster'
 import {cpus} from 'os'
 import { create } from 'express-handlebars'
+import hbHelpers from './utils/hbHelpers.js'
 
 if(cluster.isPrimary && mode==='cluster') {
   console.log(`Primary PID ${process.pid} is running`)
@@ -27,21 +28,7 @@ if(cluster.isPrimary && mode==='cluster') {
   const hbs = create({
     partialsDir: "views/partials/",    
     defaultLayout: 'main',
-    helpers: {
-      active(url,path){ 
-        return path === url ? "active" : "" 
-      },
-      loadPage(v1,v2,opts){      
-        return v1==v2 ? opts.fn(this) : opts.inverse(this) 
-      },
-      isMediaTypeVideoInsta(mediaType){
-        return mediaType.toLowerCase()=="video" ? true : false 
-      },
-      multiplicar(price,cartCount){
-        return (price*cartCount).toLocaleString()
-      }
-    }  
-
+    helpers:  hbHelpers
   })
   
   passport.use('login', localStrategy)
