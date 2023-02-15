@@ -18,8 +18,51 @@
                 <h2>Total</h2>
                 <div class="info_checkout">
                     <span><strong>Subtotal:</strong><span id="checkout_subtotal"></span></span>
-                    <span><strong>Envío:</strong><span id="checkout_envio">Sin Información</span></span>
+                    <span><strong>Envío:</strong><span id="checkout_envio">Por Pagar</span></span>
                     <span><strong>Total:</strong><span id="checkout_total"></span></span>                        
+                </div>
+                <hr>
+                <h3>Orden</h3>
+                <div>
+                    <form class="row g-3" action="" id="sendOrderInfo" method="post" name="sendOrderInfo">
+                        <div class="col-12">
+                            <label for="name" class="form-label"><strong>Nombre Completo</strong><span class="requerido">*</span></label><br/>
+                            {{#if ( verifyFullname user.name user.lastname ) }}
+                                <span>{{user.name}} {{user.lastname}}</span>
+                            {{else}}
+                                <input required type="text" name="fullname" id="fullname" class="form-control" placeholder="Nombre" aria-label="Fullname">                                                
+                            {{/if}}                                
+                        </div>
+                        <div class="col-12">
+                            <label for="email" class="form-label">Email<span class="requerido">*</span></label>
+                            {{#if user.email}}
+                                <span>{{user.email}}</span>
+                            {{else}}
+                                <input required type="text" name="email" id="email" class="form-control" placeholder="Email" aria-label="Correo">                                                
+                            {{/if}}
+                        </div>
+                        <div class="col-12">
+                            <label for="address" class="form-label"><strong>Dirección</strong><span class="requerido">*</span></label><br/>
+                            {{#if user.address}}
+                                <span>{{user.address}}</span>
+                            {{else}}
+                                <input required type="text" name="address" id="address" class="form-control" placeholder="221B Baker Street" aria-label="Telefono">                                                
+                            {{/if}}
+                        </div>
+                        <div class="col-12">
+                            <label for="phone" class="form-label"><strong>Teléfono</strong><span class="requerido">*</span></label><br/>
+                            {{#if user.phone}}
+                                <span>{{user.phone}}</span>
+                            {{else}}
+                                <input required type="number" name="phone" id="phone" class="form-control" placeholder="987654321" aria-label="Telefono">                                                
+                            {{/if}}                            
+                        </div>       
+                        <div class="col-12 requerido" id="loginFormVR">*Valor requerido</div>
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary">Crear Orden</button>
+                        </div>                                                                              
+                    </form>
+                    <div id="enviando"></div>
                 </div>                    
             </article>
         </aside>

@@ -9,5 +9,6 @@ const routerCarts = new Router()
   routerCarts.post('/:id/productos/:id_prod', controller.postCartProduct)  
   routerCarts.delete('/:id', controller.deleteCart)
   routerCarts.delete('/:id/productos/:id_prod',controller.deleteCartProduct)  
+  routerCarts.post('/:id/createOrder', controller.createOrder)
 
 export default routerCarts

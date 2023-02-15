@@ -93,6 +93,22 @@ const successDelete = () => {
     })
 }
 
+const errorAddOrder = () => {
+    Swal.fire(
+        'Error al enviar Order',
+        '<p>Ocurrió un error al añadir el producto al carrito</p>',
+        'error'
+    )
+}
+const successAddOrder = (res='') => {
+    localStorage.removeItem("idCarrito")         
+    Swal.fire(
+        'Order creada con exito',
+        '<p>Pronto nos estaremos comunicnado para gestionar el envío. Muchas gracias por su compra!</p>',
+        'success'
+    )
+}
+
 const carroTienda_div = document.getElementById("carroDiv")
 const carroTienda_icon = document.getElementById("carroTienda-spanIcon")
 if(carroTienda_icon){
@@ -217,3 +233,31 @@ if(idCarrito){
         carroTienda.innerHTML="Carrito Vacío"
     } 
 }    
+
+const sendOrderInfo = document.getElementById('sendOrderInfo')
+if(sendOrderInfo){
+    sendOrderInfo.addEventListener('submit', (e) => {
+        e.preventDefault()
+        const output = document.querySelector("#enviando")
+        const data = { 
+            fullname: document.getElementById("fullname") ? document.getElementById("fullname").value : '',
+            email: document.getElementById("email") ? document.getElementById("email").value : '',
+            address: document.getElementById("address") ? document.getElementById("address").value : '',
+            phone: document.getElementById("phone") ? document.getElementById("phone").value : '',
+        }     
+        console.log(data)
+        fetch(`/api/carrito/${parseInt(localStorage.getItem("idCarrito"))}/createOrder`, {
+            method: 'POST', // or 'PUT'
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        }).then( res => { 
+            res.status === 200 ? successAddOrder() : errorAddOrder()            
+        }).catch((error) => {
+            errorAddOrder()            
+            console.log('error: ', error)            
+        })
+
+    })
+}

@@ -18,6 +18,9 @@ const hbHelpers = {
     },
     versionCart(path){
       return path.toLowerCase().indexOf('/carrito') > -1 ? false : true
+    },
+    verifyFullname(name, lastname){
+      return ((name && lastname) ? true : false)
     }
 } 
 
