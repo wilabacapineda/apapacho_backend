@@ -1,0 +1,14 @@
+const phoneNumberTo ="+56982997957"
+const options = {
+    body:"Prueba 2",
+    from:`whatsapp:${process.env.TWILIO_PHONE}`,
+    to:`whatsapp:${phoneNumberTo}`
+}
+
+try{
+    client.messages.create(options).then(message => {
+        console.log(message)
+    })
+} catch(err){
+    console.log(err)
+}

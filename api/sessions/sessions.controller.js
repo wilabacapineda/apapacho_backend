@@ -1,10 +1,13 @@
 import users from '../../daos/loadUsers.js'
 import { sessionCounter, saltRounds, getSessionName, hashPassword } from '../../utils/sessionFunctions.js'
 import logger from '../../utils/winston.js'
+import sendMail from '../../mailer/mailer.js'
+import dotenv from 'dotenv'
+dotenv.config()
 
-const runLogger = (req) => {
+const runLogger = (req,message='') => {
   const routex = req.user ? ` ${req.url}, user:${req.user.email}` : `${req.url}`
-  logger.info(`{route:/session${routex}, method:${req.method}}`)
+  logger.info(`{route:/session${routex}, method:${req.method} ${ message === '' ? '':`, customMessage:${message}`}}`)
 }
 
 const errorLogger = (req,f,err) => {
@@ -25,7 +28,7 @@ const controller = {
     postSessionLogin: async (req, res, next) => {  
       try {                   
         sessionCounter(req)                  
-        runLogger(req)
+        runLogger(req) 
         res.sendStatus(200)
       } catch (err) {                 
         errorLogger(req,'postSessionLogin',err)            
@@ -35,7 +38,7 @@ const controller = {
       try {
         if(!req.isAuthenticated()) {
           sessionCounter(req)                 
-          runLogger(req)
+          runLogger(req) 
           if(req.file){
             req.body.avatar = `/assets/img/avatars/${req.file.filename}` 
           } else {
@@ -47,7 +50,33 @@ const controller = {
                     req.body.age = parseInt(req.body.age)
                     req.body.password = hashPassword(req.body.password, saltRounds)
                     const newUser = users.saveUser(req.body)  
-                          newUser.then( () => {                      
+                          newUser.then( (u) => {
+                            const emailBody = `<div>
+                                                <p>Se ha realizado un nuevo registro de usuario en Apapacho.</p>
+                                                <div>
+                                                  <span>Datos de Registro de Usuario:</span>
+                                                  <ul>
+                                                    <li><strong>Email: </strong>${u.email}</li>
+                                                    <li><strong>Name: </strong>${u.name}</li>
+                                                    <li><strong>Lastname: </strong>${u.lastname}</li>
+                                                    <li><strong>Age: </strong>${u.age}</li>
+                                                    <li><strong>Address: </strong>${u.address}</li>
+                                                    <li><strong>Phone: </strong>${u.phone}</li>
+                                                    <li><strong>Date Created: </strong>${u.timestamp}</li>
+                                                  </ul>
+                                                </div>
+                                              </div>`
+                            sendMail({
+                                to: process.env.MY_EMAIL,
+                                subject: 'Nuevo Registro en Apapacho',
+                                text: '',
+                                html:emailBody,    
+                            }).then( info => {
+                              runLogger(req,`sendMail from ${info.envelope.from} to ${info.envelope.to} response -> ${info.response}`)
+                            }).catch( err => {
+                              errorLogger(req,'Send Mail Rejected',`created successfull user ${u.email} but sendMail error response -> ${err}`)
+                            })
+
                             return res.json({
                                 success: true,
                                 message: "Registro exitoso!"                          
@@ -71,7 +100,7 @@ const controller = {
       try {
         if(req.isAuthenticated()){
           sessionCounter(req)
-          runLogger(req)
+          runLogger(req) 
           const aux = req.isAuthenticated() ? req.user.name : false
           req.session.destroy(err => {
               if(err){
@@ -92,7 +121,7 @@ const controller = {
       try {
         if(req.isAuthenticated()){               
           sessionCounter(req)                 
-          runLogger(req)
+          runLogger(req) 
           if(!req.body.avatar){
             if(req.file){
               req.body.avatar = `/assets/img/avatars/${req.file.filename}` 
