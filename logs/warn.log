@@ -129,3 +129,4 @@
 {"level":"error","message":"{Error:400, Route:/historial-ordenes/5, Message:History Orders Page Error, Error: ReferenceError: c is not defined}","timestamp":"2023-02-15T17:45:00.155Z"}
 {"level":"error","message":"{Error:400, Route:/historial-ordenes/5, Message:History Orders Page Error, Error: ReferenceError: c is not defined}","timestamp":"2023-02-15T17:45:06.798Z"}
 {"level":"error","message":"{Error:400, Route:/historial-ordenes/1, Message:History Orders Page Error, Error: ReferenceError: c is not defined}","timestamp":"2023-02-15T17:45:36.020Z"}
+{"level":"error","message":"{function:Twilio Wsp send (Admin) Order ID-10 Error to 56982997957, route:/api/carrito /10/createOrder, user:walterio.pineda@gmail.com, method:POST, error:Error: Invalid From and To pair. From and To should be of the same channel}","timestamp":"2023-02-15T19:05:08.015Z"}

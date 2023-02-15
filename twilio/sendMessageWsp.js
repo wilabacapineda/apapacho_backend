@@ -6,11 +6,12 @@ dotenv.config()
 
 const sendMessageWspAdmin = (req,c) => {
     const subject = `Nuevo Pedido Orden ID-${c.id} de ${c.fullname} - ${c.email} en Apapacho`
+    const tel = c.phone.indexOf('+') > -1 ? c.phone : `+${c.phone}`
     const options = {
         body:subject,
         from:`whatsapp:${process.env.TWILIO_PHONE}`,
-        //to:`whatsapp:${process.env.MY_PHONE}` //Ya que no puedo enviar SMS a números no registrados intentaré enviarle wsp
-        to:c.phone
+        to:`whatsapp:${process.env.MY_PHONE}` //Ya que no puedo enviar SMS a números no registrados intentaré enviarle wsp
+        //to:`whatsapp:${tel}`
     }
 
     try{
