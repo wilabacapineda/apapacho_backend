@@ -1,0 +1,70 @@
+<main class="container paginas pad-2 tienda">
+    <div class="row bs_gutter-x-0 justify-content-center">
+        <div id="error"></div>
+        <!-- Productos Destacados -->
+        <section class="col-12 pb-5">
+            <div>
+                <div class="pad-2 text-center">
+                    <h2 id="orderHistory">Ordenes ID {{orden.id}}</h2>
+                    <div class="tabla_overflow">
+                        <table class="table table-striped tabla_tallas text-center align-middle" >
+                            <thead>
+                                <tr class="text-center">
+                                    <th scope="col">OrderID</th>
+                                    <th scope="col">Estado</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Dirección</th>
+                                    <th scope="col">Telefono</th>
+                                    <th scope="col">Total</th>
+                                    <th scope="col">Ultima Actualización</th>
+                                </tr>
+                            </thead> 
+                            <tbody>
+                                <tr id="order_{{orden.id}}" class="text-center">                                    
+                                    <td>
+                                        {{orden.id}}                                        
+                                    </td>
+                                    <td>{{orden.state}}</td>
+                                    <td>{{orden.email}}</td>
+                                    <td>{{orden.fullname}}</td>
+                                    <td>{{orden.address}}</td>
+                                    <td>{{orden.phone}}</td>
+                                    <td>{{orden.total}}</td>
+                                    <td>{{orden.dateUpdate}}</td>
+                                </tr>                                
+                            </tbody>                    
+                        </table>                        
+                    </div>
+                    <div id="productosOrden">
+                        <div id="productoOrden" class="row">
+                            <span>
+                                {{#each productos}}                                
+                                    <span>
+                                        <a href="/tienda/producto/{{id}}">
+                                            <img src="{{thumbnail}}" width="150">
+                                        </a>
+                                        <div id="carritoInfo">
+                                            <a href="/tienda/producto/{{id}}">
+                                                {{title}}
+                                            </a>
+                                            <div>   
+                                                <div id="carritoInfo-start">
+                                                    <span id="carritoInfo-start-cantidad">
+                                                        <span>Cantidad:</span>
+                                                        {{p.cartCount}}                                                
+                                                    </span>
+                                                    <span>Subtotal: ${{subtotal}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </span>
+                                {{/each}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>           
+    </div> 
+</main>

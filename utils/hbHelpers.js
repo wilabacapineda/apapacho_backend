@@ -19,6 +19,10 @@ const hbHelpers = {
     versionCart(path){
       return path.toLowerCase().indexOf('/carrito') > -1 ? false : true
     },
+    getUserImg(avatar){
+      console.log(avatar)
+      return avatar !=='' ? true : false
+    },
     verifyFullname(name, lastname){
       return ((name && lastname) ? true : false)
     }

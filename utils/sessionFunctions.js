@@ -83,7 +83,7 @@ const sessionOptions = session({
     cookie: {maxAge: 1000*60*10},
 })
 
-const getCurrentUser = (req) => {
+const getCurrentUser = (req) => {  
   return({
     name: req.user.name,
     email: req.user.email,

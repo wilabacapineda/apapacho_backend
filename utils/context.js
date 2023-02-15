@@ -30,7 +30,12 @@ const context = {
             url:'/profile',
             title:'Perfil',
             icon:'<i class="fa-solid fa-user"></i>'
-        }        
+        },
+        {
+            url:'/historial-ordenes',
+            title:'Historial Ordenes',
+            icon:'<i class="fa-solid fa-clock-rotate-left"></i>'            
+        }       
     ],
     navbarLinksAdmin: [
         {

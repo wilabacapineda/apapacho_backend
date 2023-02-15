@@ -33,6 +33,7 @@ const cargarCarrito = (carrito) => {
     document.getElementById('crearOrden').disabled=false
     document.getElementById("checkout_subtotal").innerHTML='$'+total.toLocaleString()
     document.getElementById("checkout_total").innerHTML='$'+total.toLocaleString()
+    document.getElementById('CheckoutCarrito').style.display='block'
     return resultado
 } 
 
@@ -100,6 +101,7 @@ const errorAddOrder = () => {
         'error'
     )
 }
+
 const successAddOrder = (res='') => {
     localStorage.removeItem("idCarrito")   
     productosCarritoX.innerHTML='Orden enviada' 

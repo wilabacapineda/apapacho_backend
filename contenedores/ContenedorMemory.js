@@ -5,7 +5,7 @@ export default class ContenedorMemory {
         this.object = object        
     } 
 
-    create(object) {
+    async create(object) {
         try {
             this.object = object
         } catch(err){
@@ -13,7 +13,7 @@ export default class ContenedorMemory {
         }        
     }
     
-    save(object){
+    async save(object){
         try {
             this.object.push(object)
         } catch(err){
@@ -21,7 +21,7 @@ export default class ContenedorMemory {
         }  
     }
 
-    update(id,Object){                
+    async update(id,Object){                
         try {
             const indexOfItemInArray = this.object.findIndex(p => p.id === id)
             this.object.splice(indexOfItemInArray, 1, Object[0])
@@ -52,7 +52,33 @@ export default class ContenedorMemory {
         } 
     }
 
-    deleteById(id){        
+    async getOrderByID(id,_id,email){                
+        try {
+            const result = this.object.filter( o => {
+                if( parseInt(o.id) === id && (o._id===_id || email===o.email)){
+                    return o
+                } 
+            })  
+            return await result[0]
+        } catch(err){
+            customCreateError(err,'ContenedorMemory: getOrderByID Error',400)
+        } 
+    }
+
+    async getCartsByUserID(id,email){
+        try {
+            const result = this.object.filter( o => {
+                if( parseInt(o.user_id) === id || email === o.email){
+                    return o
+                } 
+            })  
+            return await result
+        } catch(err){
+            customCreateError(err,'ContenedorMemory: getCartsByUserID Error',400)
+        } 
+    }
+
+    async deleteById(id){        
         try {
             const indexOfItemInArray = this.object.findIndex(p => p.id === id)
             this.object.splice(indexOfItemInArray, 1)
@@ -61,7 +87,7 @@ export default class ContenedorMemory {
         } 
     }
 
-    deleteAll() {        
+    async deleteAll() {        
         try {
             this.object=[]         
         } catch(err){

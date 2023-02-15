@@ -40,11 +40,11 @@ if(cluster.isPrimary && mode==='cluster') {
           level: 7,
         }))
         app.use(json())
-        app.use(cookieParser())
         app.use(urlencoded({ extended: true }))
         app.use(sessionOptions)
         app.use(passport.initialize())
-        app.use(passport.session())
+        app.use(passport.session())    
+        app.use(cookieParser())    
         app.use(express.static('public'))
         app.engine('handlebars',hbs.engine)
         app.set('view engine','handlebars')

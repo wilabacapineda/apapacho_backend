@@ -1,6 +1,6 @@
 import din from "../../daos/index.js"
 import { runLogger, errorLogger } from "../../logger/loggerCart.js"
-import { sessionCounter } from "../../utils/sessionFunctions.js"
+import { sessionCounter,verifySession } from "../../utils/sessionFunctions.js"
 import { emailToAdmin } from "../../mailer/sendMailTo.js"
 import sendMessageWspAdmin from "../../twilio/sendMessageWsp.js"
 import sendMessageSmsBuyer from "../../twilio/sendMessageSms.js"
@@ -200,9 +200,23 @@ const controller = {
               }).catch(r => {
                 return res.send({error: 'carrito no encontrado'})
               }) 
-
       } catch(err) {
         errorLogger(req,'createOrder',err)            
+      }
+    },    
+    findAllCartsByUserID: async (req,res) => {
+      try{ 
+        sessionCounter(req)
+        runLogger(req)  
+        const id = parseInt(req.params.id)    
+        if(isNaN(id) || id <= 0){
+          return res.send({error: 'usuario no encontrado'})
+        } 
+        const email = req.user ? req.user.email : 'Sin Email'
+        const result = din.CartDaoMemory.getCartsByUserID(id,email)
+              res.send(result)        
+      } catch(err) {
+        errorLogger(req,'findAllCartsByUserID',err)            
       }
     }
 }

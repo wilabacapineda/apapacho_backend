@@ -1,0 +1,53 @@
+<main class="container paginas pad-2 tienda">
+    <div class="row bs_gutter-x-0 justify-content-center">
+        <div id="error"></div>
+        <!-- Productos Destacados -->
+        <section class="col-12 pb-5">
+            <div>
+                <div class="pad-2 text-center">
+                    <h2 id="orderHistory">Historial de Ordenes</h2>
+                </div>
+                {{#if ordenes}}
+                    <div class="tabla_overflow">
+                        <table class="table table-striped tabla_tallas text-center align-middle" >
+                            <thead>
+                                <tr class="text-center">
+                                    <th scope="col">OrderID</th>
+                                    <th scope="col">Estado</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Dirección</th>
+                                    <th scope="col">Telefono</th>
+                                    <th scope="col">Total</th>
+                                    <th scope="col">Ultima Actualización</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#ordenes}}
+                                    <tr id="order_{{id}}" class="text-center">                                    
+                                        <td>
+                                            <a href="/historial-ordenes/{{id}}">
+                                                <i class="fa-solid fa-eye"></i> {{id}}
+                                            </a>
+                                        </td>
+                                        <td>{{state}}</td>
+                                        <td>{{email}}</td>
+                                        <td>{{fullname}}</td>
+                                        <td>{{address}}</td>
+                                        <td>{{phone}}</td>
+                                        <td>{{total}}</td>
+                                        <td>{{dateUpdate}}</td>
+                                    </tr>
+                                {{/ordenes}}         
+                            </tbody>
+                        </table> 
+                    </div>
+                {{else}}
+                    <div class="text-center">
+                        No se encontraron Ordenes
+                    </div>
+                {{/if}}                
+            </div>
+        </section>           
+    </div> 
+</main>

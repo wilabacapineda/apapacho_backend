@@ -1,3 +1,4 @@
+import din from '../../daos/index.js'
 import instagramFeed from '../../utils/getInstagramFeed.js'
 import fetch from "node-fetch"
 import dotenv from 'dotenv'
@@ -5,6 +6,7 @@ import context from '../../utils/context.js'
 import { parametersSession,getCurrentUser } from '../../utils/sessionFunctions.js'
 import {customCreateError, dataCreateError} from '../../utils/errors.js'
 import { sessionCounter } from '../../utils/sessionFunctions.js'
+import d from 'D'
 dotenv.config()
 
 const fullhostname = (req) => {
@@ -306,6 +308,89 @@ const controller = {
         }
       } catch (err) {
         res.render("error",dataCreateError(err,'Profile Page Error',400,context,req))                      
+      }
+    },
+    historyOrders: async(req,res) => {
+      try{
+        sessionCounter(req)
+        parametersSession(req)  
+        const id = req.user._id   
+        const email = req.user.email 
+        const result = din.CartDaoMemory.getCartsByUserID(id,email)
+              result.then( c => {
+                const ordenes = c.map( p => {
+                  return({
+                    fullname: p.fullname,
+                    address: p.address,
+                    phone: p.phone,
+                    id: p.id,
+                    timestamp: p.timestamp,
+                    dateUpdate: new Date(p.dateUpdate).toLocaleDateString(),
+                    state: p.state,
+                    total: p.total,
+                    email: p.email,
+                    user_id: p.user_id
+                  })
+                })
+                const data = {
+                  ...context,
+                  ordenes:ordenes,
+                  user: getCurrentUser(req)
+                } 
+                res.render("historyOrders",data)
+              })
+      } catch (err) {
+        res.render("error",dataCreateError(err,'History Orders Page Error',400,context,req))                      
+      }
+    },
+    OrdersID: async(req,res) => {
+      try{
+        sessionCounter(req)
+        parametersSession(req)  
+        const id = parseInt(req.params.id)
+        if(isNaN(id) || id <= 0){          
+          res.render("error",dataCreateError(err,"Imposible Product",404,context,req,'warn'))                                  
+        }            
+        const _id = req.user._id   
+        const email = req.user.email 
+        const result = din.CartDaoMemory.getOrderByID(id,_id,email)
+              result.then( c => {
+                const orden = {
+                  fullname: c.fullname,
+                  address: c.address,
+                  phone: c.phone,
+                  id: c.id,
+                  timestamp: new Date(c.timestamp).toLocaleDateString(),
+                  dateUpdate: new Date(c.dateUpdate).toLocaleDateString(),
+                  state: c.state,
+                  total: c.total,
+                  email: c.email,
+                  user_id: c.user_id
+                }
+                const productos = c.products.map(p => {
+                  return({
+                    id: p.id,
+                    timestamp: new Date(p.timestamp).toLocaleDateString(),
+                    dateUpdate: new Date(p.dateUpdate).toLocaleDateString(),
+                    id: p.id,
+                    title: p.title,
+                    description: p.description,
+                    price: p.price,
+                    cartCount: p.cartCount,
+                    thumbnail: p.thumbnail,
+                    subtotal: (p.cartCount*p.price).toLocaleString()
+                  })
+                })
+                const data = {
+                  ...context,
+                  orden:orden,
+                  productos:productos,
+                  user: getCurrentUser(req)
+                } 
+                res.render("OrderID",data)
+              })
+      } catch (err) {
+        res.render("error",dataCreateError(err,'History Orders Page Error',400,context,req))                      
       }
     }
 } 

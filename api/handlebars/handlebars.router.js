@@ -27,6 +27,8 @@ const routerHandlebars = new Router()
       routerHandlebars.get('/logout', checkAuth, controller.logout)
       routerHandlebars.get('/register', controller.register)
       routerHandlebars.get('/profile', checkAuth, controller.profile)
+      routerHandlebars.get('/historial-ordenes', checkAuth, controller.historyOrders)
+      routerHandlebars.get('/historial-ordenes/:id', checkAuth, controller.OrdersID)
       routerHandlebars.get("*", controller.error)     
 
 export default routerHandlebars
