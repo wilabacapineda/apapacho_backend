@@ -15,6 +15,9 @@ const hbHelpers = {
     },
     getLoginIcon(url){
      return url.toLowerCase().indexOf('login') > -1 ? context.loginURL.iconLogin : context.loginURL.iconLogout 
+    },
+    versionCart(path){
+      return path.toLowerCase().indexOf('/carrito') > -1 ? false : true
     }
 } 
 

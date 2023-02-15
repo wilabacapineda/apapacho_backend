@@ -101,6 +101,116 @@ const verifyPassword = () => {
     }      
 }
 
+const writeCart = (carro) => {
+    
+    if(carro.length>0){
+        carroTienda.innerHTML=""
+        const ul = document.createElement("ul") 
+        carroTienda.append(ul)
+        const link_carrito = document.createElement("p")
+        const link_carrito_a=document.createElement("a")                  
+              link_carrito_a.href="/carrito"
+              link_carrito_a.innerHTML="Ir al Carrito"
+        link_carrito.append(link_carrito_a)
+        carroTienda.append(link_carrito)            
+        /*
+        let total = carro.reduce((acc,producto) => acc + producto.subtotal,0)
+        carro.forEach( (producto) => {            
+            const li = document.createElement("li")
+            ul.append(li)
+            const link1 = document.createElement("a")
+                  link1.href=base_url+"/pages/producto/producto.html"
+                  link1.addEventListener('click',(e)=>{
+                    e.preventDefault()
+                    sessionStorage.setItem('modelo',producto.modelo.toLowerCase().replaceAll(" ","-"))
+                    window.location.href=base_url+"/pages/producto/producto.html"             
+                  })
+            const link_img=document.createElement("img")
+                  link_img.src=base_url+"/assets/img/"+producto.img
+                  link_img.width="10px"
+            link1.append(link_img)
+            const link2 = document.createElement("a")
+                  link2.href=base_url+"/pages/producto/producto.html"
+                  link2.innerHTML = producto.detalle
+                  link2.addEventListener('click',(e)=>{
+                    e.preventDefault()
+                    sessionStorage.setItem('modelo',producto.modelo.toLowerCase().replaceAll(" ","-"))
+                    window.location.href=base_url+"/pages/producto/producto.html"             
+                  })
+            const span_info_flex = document.createElement("div")
+
+            const span_info_flex_div1 = document.createElement("div")
+                  span_info_flex_div1.id="carritoInfo-start"
+            const span_info_flex_div1_cantidad = document.createElement("span")
+                  span_info_flex_div1_cantidad.id="carritoInfo-start-cantidad"
+            const span_info_flex_div1_cantidad_text = document.createElement("span")
+                  span_info_flex_div1_cantidad_text.innerText = "Cantidad:"
+            const span_info_flex_div1_cantidad_input=document.createElement("input")
+                  span_info_flex_div1_cantidad_input.type="number"
+                  span_info_flex_div1_cantidad_input.id="ProductoCantidadCarro"+producto.idProducto
+                  span_info_flex_div1_cantidad_input.name="ProductoCantidadCarro"
+                  span_info_flex_div1_cantidad_input.min=1
+                  span_info_flex_div1_cantidad_input.step=1
+                  span_info_flex_div1_cantidad_input.max=parseInt(producto.stock)+parseInt(producto.cantidad)
+                  span_info_flex_div1_cantidad_input.value=producto.cantidad
+                  span_info_flex_div1_cantidad_input.addEventListener('change',(e) => {
+                    e.preventDefault
+                    updateCarrito(producto.idProducto)
+                  })
+                  span_info_flex_div1_cantidad.append(span_info_flex_div1_cantidad_text)
+                  span_info_flex_div1_cantidad.append(span_info_flex_div1_cantidad_input)
+                  //span_info_cantidad.innerHTML="Cantidad: "+producto.cantidad              
+                const span_info_flex_div1_precio = document.createElement("span")   
+                      span_info_flex_div1_precio.innerHTML="Subtotal: $"+producto.subtotal.toLocaleString()
+                span_info_flex_div1.append(span_info_flex_div1_cantidad)
+                span_info_flex_div1.append(span_info_flex_div1_precio)            
+        
+                const span_info_flex_div2 = document.createElement("div")
+                      span_info_flex_div2.id="carritoInfo-del"
+                const span_info_flex_div2_a = document.createElement("a")
+                      span_info_flex_div2_a.className="btn"
+                      span_info_flex_div2_a.id="producto_"+producto.idProducto
+                      span_info_flex_div2_a.addEventListener('click', (e) => {
+                        e.preventDefault()
+                        //borrarCarrito(producto.idProducto)
+                        Swal.fire({
+                        title: '¿Deseas eliminar el producto del Carrito de Compras?',
+                        showDenyButton: true,
+                        showCancelButton: false,
+                        confirmButtonText: 'Si',
+                        denyButtonText: `No`,
+                        }).then((result) => {
+                        if (result.isConfirmed) {
+                                borrarCarrito(producto.idProducto)
+                        } 
+                        })   
+                    })
+                const span_info_flex_div2_a_close=document.createElement("i")
+                      span_info_flex_div2_a_close.className="fas fa-trash-alt"                  
+                span_info_flex_div2_a.append(span_info_flex_div2_a_close)
+                span_info_flex_div2.append(span_info_flex_div2_a)
+
+                span_info_flex.append(span_info_flex_div1)
+                span_info_flex.append(span_info_flex_div2)
+
+                const div_info =document.createElement("div")
+                      div_info.id="carritoInfo"                  
+                      div_info.append(link2)
+                      div_info.append(span_info_flex)            
+
+                li.append(link1)            
+                li.append(div_info)
+        })
+        const total_li = document.createElement("li")
+              total_li.id="carritoInfoTotal"
+              total_li.innerHTML="SubTotal compra: $"+total.toLocaleString()
+        ul.append(total_li)
+        */
+    } else {
+        carroTienda.innerHTML="<p>El carro de compras está vacio</p>"
+    }
+}
+
 const registerForm = document.getElementById('registerForm')
 if(registerForm){
     registerForm.addEventListener('submit', (e) => {
@@ -283,7 +393,8 @@ if(productoTiendaX){
         
 
     }
-    const successAdd = () => {
+    const successAdd = (res='') => {
+        console.log('res',res)
         Swal.fire({
             icon: 'success',
             title: 'Producto Añadido al carrito!',
@@ -319,7 +430,7 @@ if(productoTiendaX){
                             'Content-Type': 'application/json',
                         },
                         body: JSON.stringify(data),
-                    }).then( res => {
+                    }).then( res => {                        
                         res.status === 200 ? successAdd() : errorAdd()            
                     }).catch((error) => {
                         errorAdd()            
@@ -335,6 +446,9 @@ if(productoTiendaX){
                     body: JSON.stringify(data),
                 }).then( res => {
                     res.status === 200 ? successAdd() : errorAdd(res.status)            
+                    return res.json()
+                }).then( res => {
+                    writeCart(res)
                 }).catch((error) => {
                     console.log('error: ', error)            
                     errorAdd()                                        
@@ -342,153 +456,6 @@ if(productoTiendaX){
             }                    
         })
     }
-}
-
-const productosCarritoX = document.getElementById('productoCarrito')
-if(productosCarritoX) {    
-    const idCarrito = localStorage.getItem("idCarrito")
-    if(idCarrito){        
-        const cargarCarrito = (carrito) => {
-            let total = 0 
-            const resultado = carrito.map( (p) => {
-                total = total + (p.price*p.cartCount)
-                return(`<span>
-                            <a href="/tienda/producto/${p.id}">
-                                <img src="${p.thumbnail}" width="0">
-                            </a>
-                            <div id="carritoInfo">
-                                <a href="/tienda/producto/${p.id}">
-                                   ${p.title}
-                                </a>
-                                <div>   
-                                    <div id="carritoInfo-start">
-                                        <span id="carritoInfo-start-cantidad">
-                                            <span>Cantidad:</span>
-                                            <input type="number" value="${p.cartCount}" id="ProductoCantidadCarro${p.id}" name="ProductoCantidadCarro" min="1" step="1" max="${p.stock}">
-                                        </span>
-                                        <span>Subtotal: $${(p.price*p.cartCount).toLocaleString()}</span>
-                                    </div>
-                                    <div id="carritoInfo-del">
-                                        <a class="btn deleteProdCart" id="deleteProducto_${p.id}" data-target="${p.id}">
-                                            <i class="fas fa-trash-alt" aria-hidden="true"></i>
-                                        </a>
-                                        <a class="btn actualizarProdCart" id="actualizarProducto_${p.id}" data-target="${p.id}">
-                                            <i class="fa-solid fa-arrows-rotate" aria-hidden="true"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </span>`)      
-            }).join(" ")
-            
-            document.getElementById("checkout_subtotal").innerHTML='$'+total.toLocaleString()
-            document.getElementById("checkout_total").innerHTML='$'+total.toLocaleString()
-            return resultado
-        }     
-
-        const errorDelete = (error=500) => {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Ocurrió un error al vaciar el carrito!',
-                showConfirmButton: true
-            }).then(() => {
-                if(error==304){
-                    localStorage.removeItem("idCarrito")
-                    window.location.href = "/carrito"
-                } 
-            })
-        }   
-
-        const successDelete = () => {
-            Swal.fire({
-                icon: 'success',
-                title: 'Carrito Vaciado',
-                showConfirmButton: true
-            }).then(res => {
-                localStorage.removeItem("idCarrito")
-                window.location.href = "/tienda"
-            })
-        }
-        
-        fetch(`/api/carrito/${idCarrito}/productos`)
-        .then(data => data.json())
-        .then(data => {
-            if(data.length>0){                
-                productosCarritoX.innerHTML = cargarCarrito(data)
-                const vaciarCarro = '<div id="vaciarCarritoDiv" class="row"><button id="emptyCart" class="btn btn-primary">Vaciar Carrito</button></div>'
-                productosCarritoX.innerHTML += vaciarCarro
-                const actualizarProdCart = document.querySelectorAll(".actualizarProdCart")
-                if(actualizarProdCart){
-                    for(let a of actualizarProdCart){
-                        a.addEventListener('click', (e) => {
-                            e.preventDefault()
-                            const id_prod = parseInt(e.currentTarget.getAttribute('data-target'))
-                            const data = { cartCount: document.getElementById("ProductoCantidadCarro"+id_prod).value }                     
-                            fetch(`/api/carrito/${parseInt(localStorage.getItem("idCarrito"))}/productos/${id_prod}`, {
-                                method: 'POST', // or 'PUT'
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                },
-                                body: JSON.stringify(data),
-                            }).then( res => res.json()).then(res => {
-                                location.reload()
-                            })
-                        })
-                    }
-                }
-                const deleteProdCart = document.querySelectorAll(".deleteProdCart")
-                if(deleteProdCart){
-                    for(let a of deleteProdCart){
-                        a.addEventListener('click', (e) => {
-                            e.preventDefault()
-                            const id_prod = parseInt(e.currentTarget.getAttribute('data-target'))
-                            fetch(`/api/carrito/${parseInt(localStorage.getItem("idCarrito"))}/productos/${id_prod}`, {
-                                method: 'DELETE', // or 'PUT'
-                            }).then( res => {
-                                if(res.status==304){
-                                    localStorage.removeItem("idCarrito")
-                                } 
-                                window.location.href = "/carrito"
-                            })
-                        })
-                    }
-                }
-                const emptyCart = document.getElementById("emptyCart")
-                if(emptyCart){
-                    emptyCart.addEventListener("click", (e) => {
-                        e.preventDefault()
-                        Swal.fire({
-                            title: '¿Deseas vaciar y eliminar el carrito?',
-                            showDenyButton: true,
-                            showCancelButton: false,
-                            confirmButtonText: 'Si',
-                            denyButtonText: `No`,
-                        }).then((result) => {
-                            if (result.isConfirmed){
-                                fetch(`/api/carrito/${idCarrito}`, {
-                                    method: "DELETE"
-                                }).then( res => {                        
-                                    res.status === 200 ? successDelete() : errorDelete(res.status)
-                                }).catch((error) => {
-                                    console.log('error: ', error)
-                                    errorDelete()
-                                })
-                            }                        
-                        })
-                    })
-                }
-            } else {
-                localStorage.removeItem("idCarrito")
-                productosCarritoX.innerHTML="Carrito Vacío"
-            }            
-        }).catch( err => {
-            productosCarritoX.innerHTML="Error al Cargar el Carrito. Carrito Vacío"
-        })
-        
-    } else {
-        productosCarritoX.innerHTML="Carrito Vacío"
-    }    
 }
 
 const addProductsForm = document.getElementById('addProductsForm')

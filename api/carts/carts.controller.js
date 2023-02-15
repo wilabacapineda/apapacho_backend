@@ -72,7 +72,8 @@ const controller = {
                           res.send({error: 'Inicie sesión para agregar producto'})
                         } else {
                           din.CartDaoMemory.update(id,c)
-                          res.send(c)
+                          //console.log('din:',din.CartDaoMemory.object)
+                          res.send(c[0])
                         }                        
                       }) 
               }).catch(r => {

@@ -105,3 +105,9 @@
 {"level":"error","message":"{Error:400, Route:undefined, Message:ContenedorMemory: update Error, Error: TypeError: Cannot read properties of undefined (reading '0')}","timestamp":"2023-02-13T07:41:12.722Z"}
 {"level":"error","message":"{Error:400, Route:undefined, Message:ContenedorMemory: update Error, Error: TypeError: Cannot read properties of undefined (reading '0')}","timestamp":"2023-02-13T07:41:32.414Z"}
 {"level":"error","message":"{Error:400, Route:undefined, Message:ContenedorMemory: update Error, Error: TypeError: Cannot read properties of undefined (reading '0')}","timestamp":"2023-02-13T07:43:20.322Z"}
+{"level":"error","message":"{Error:400, Route:undefined, Message:ContenedorMemory: getById Error, Error: TypeError: Cannot read properties of undefined (reading 'filter')}","timestamp":"2023-02-13T23:48:57.879Z"}
+{"level":"error","message":"{Error:523, Route:/tienda, Message:Store Page Error: Unreacheable Store, Error: SyntaxError: Unexpected end of JSON input}","timestamp":"2023-02-13T23:50:42.723Z"}
+{"level":"error","message":"{Error:400, Route:undefined, Message:ContenedorMemory: getById Error, Error: TypeError: Cannot read properties of undefined (reading 'filter')}","timestamp":"2023-02-13T23:55:29.792Z"}
+{"level":"error","message":"{Error:523, Route:/tienda, Message:Store Page Error: Unreacheable Store, Error: SyntaxError: Unexpected end of JSON input}","timestamp":"2023-02-13T23:56:30.069Z"}
+{"level":"error","message":"{Error:400, Route:/, Message:Homepage Error: Unreacheable Products, Error: SyntaxError: Unexpected end of JSON input}","timestamp":"2023-02-14T01:15:24.469Z"}
+{"level":"error","message":"{Error:400, Route:/, Message:Homepage Error: Unreacheable Products, Error: SyntaxError: Unexpected end of JSON input}","timestamp":"2023-02-14T01:42:43.779Z"}

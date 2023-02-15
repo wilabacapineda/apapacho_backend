@@ -1,0 +1,16 @@
+const emailAccount = 'email@gmail.com'
+const emailSubject = 'Nuevo pedido de XXXXX - email@gmail.com'
+const emailBody = 'Agregar productos del carrito'
+const attachmentsPath = ''
+const emailAttachments = []
+
+if(attachmentsPath){
+    emailAttachments.push({path: attachmentsPath})
+}
+
+const infoSendMail = await sendMail({
+    to: emailAccount,
+    subject: emailSubject,
+    text: '',
+    html:emailBody,    
+})
