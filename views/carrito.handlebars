@@ -54,12 +54,12 @@
                             {{#if user.phone}}
                                 <span>{{user.phone}}</span>
                             {{else}}
-                                <input required type="number" name="phone" id="phone" class="form-control" placeholder="987654321" aria-label="Telefono">                                                
+                                <input required type="tel" name="phone" id="phone" class="form-control" placeholder="987654321" aria-label="Telefono">                                                
                             {{/if}}                            
                         </div>       
                         <div class="col-12 requerido" id="loginFormVR">*Valor requerido</div>
                         <div class="col-12">
-                            <button type="submit" class="btn btn-primary">Crear Orden</button>
+                            <button type="submit" id="crearOrden" class="btn btn-primary" disabled>Crear Orden</button>
                         </div>                                                                              
                     </form>
                     <div id="enviando"></div>

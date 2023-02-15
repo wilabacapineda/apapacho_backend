@@ -30,7 +30,7 @@ const cargarCarrito = (carrito) => {
                     </div>
                 </span>`)      
     }).join(" ")
-    
+    document.getElementById('crearOrden').disabled=false
     document.getElementById("checkout_subtotal").innerHTML='$'+total.toLocaleString()
     document.getElementById("checkout_total").innerHTML='$'+total.toLocaleString()
     return resultado
@@ -101,12 +101,17 @@ const errorAddOrder = () => {
     )
 }
 const successAddOrder = (res='') => {
-    localStorage.removeItem("idCarrito")         
-    Swal.fire(
-        'Order creada con exito',
-        '<p>Pronto nos estaremos comunicnado para gestionar el envío. Muchas gracias por su compra!</p>',
-        'success'
-    )
+    localStorage.removeItem("idCarrito")   
+    productosCarritoX.innerHTML='Orden enviada' 
+    Swal.fire({
+        icon: 'success',
+        title: 'Order creada con exito',
+        html:'<p>Pronto nos estaremos comunicando para gestionar el envío. Muchas gracias por su compra!</p>',
+        showConfirmButton: false,
+        timer: 2000
+    }).then( () => {
+        window.location.href = '/'
+    })    
 }
 
 const carroTienda_div = document.getElementById("carroDiv")
