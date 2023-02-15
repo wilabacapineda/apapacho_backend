@@ -9,7 +9,8 @@ const sendMessageWspAdmin = (req,c) => {
     const options = {
         body:subject,
         from:`whatsapp:${process.env.TWILIO_PHONE}`,
-        to:`whatsapp:${process.env.MY_PHONE}`
+        //to:`whatsapp:${process.env.MY_PHONE}` //Ya que no puedo enviar SMS a números no registrados intentaré enviarle wsp
+        to:c.phone
     }
 
     try{
