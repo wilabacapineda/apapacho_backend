@@ -1,6 +1,8 @@
 ﻿# apapacho_backend
 
 ## ** Tercera Entrega Proyecto Final 15-02-2023*
+VERSIÖN APP EN FLY.IO -> https://apapacho-proyect.fly.dev/
+
 Se pone en practica lo aprendido durante los trabajos semanales.
 Se ordenan los 4 Routers en la Carpeta Api (Products, Carts, Sessions, Handlebars). Se configura handlebars debido a la comidad y experiencia adquirida durante el curso para enlazar con el proyecto. 
 
