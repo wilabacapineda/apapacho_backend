@@ -1,6 +1,6 @@
 import admin from 'firebase-admin'
 import '../config/firebase.js'
-import { customCreateError } from '../utils/errors.js'
+import { customCreateError } from '../logger/errors.js'
 
 const db = admin.firestore()
 

@@ -1,5 +1,5 @@
 import fs from 'fs'
-import { customCreateError } from '../utils/errors.js'
+import { customCreateError } from '../logger/errors.js'
 
 export default class ContenedorFile {
     constructor(file){

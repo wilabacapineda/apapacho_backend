@@ -1,17 +1,12 @@
 import din from '../../daos/index.js'
-import instagramFeed from '../../utils/getInstagramFeed.js'
 import fetch from "node-fetch"
 import dotenv from 'dotenv'
 import context from '../../utils/context.js'
-import { parametersSession,getCurrentUser } from '../../utils/sessionFunctions.js'
-import {customCreateError, dataCreateError} from '../../utils/errors.js'
+import { parametersSession } from '../../utils/sessionFunctions.js'
+import {customCreateError, dataCreateError} from '../../logger/errors.js'
 import { sessionCounter } from '../../utils/sessionFunctions.js'
-import d from 'D'
+import { fullhostname, addInstagramToData, getData } from './handlebars.calculate.js'
 dotenv.config()
-
-const fullhostname = (req) => {
-  return req.protocol + '://' + req.get('host')
-}
 
 const controller = {
     error: async (req, res) => {
@@ -29,22 +24,9 @@ const controller = {
         sessionCounter(req)
         parametersSession(req)
         fetch(`${fullhostname(req)}/api/products/`).then(prod => prod.json()).then( prod => {          
-          if(req.isAuthenticated()){               
-            const data = {
-                ...context,
-                productos:prod,
-                instagram: instagramFeed,
-                user: getCurrentUser(req)
-            } 
-            res.render('home',data)                  
-          } else {
-            const data = {
-                ...context,
-                productos:prod,
-                instagram: instagramFeed
-            }
-            res.render('home',data)
-          }
+          const data = getData(req,prod)
+                addInstagramToData(data)
+          res.render('home',data)
         }).catch( err => {                    
           res.render('home',dataCreateError(err,'Homepage Error: Unreacheable Products',400,context,req))          
         })
@@ -57,20 +39,8 @@ const controller = {
         sessionCounter(req)
         parametersSession(req)
         fetch(`${fullhostname(req)}/api/products/`).then(prod => prod.json()).then( prod => {
-          if(req.isAuthenticated()){
-            const data = {
-                ...context,
-                productos:prod,                    
-                user: getCurrentUser(req)
-            } 
-            res.render("tienda",data)                              
-          } else {
-            const data = {
-              ...context,
-              productos:prod
-            }
-            res.render("tienda",data)
-          }
+          const data = getData(req,prod)
+          res.render("tienda",data)
         }).catch( err => {
           res.render("error",dataCreateError(err,'Store Page Error: Unreacheable Store',523,context,req))                      
         })
@@ -82,51 +52,22 @@ const controller = {
       try{
         sessionCounter(req)
         parametersSession(req)   
-        if(req.isAuthenticated()){
-          const data = {
-              ...context,
-              user: getCurrentUser(req)
-          } 
-          res.render("carrito",data)          
-        } else {
-          const data = {
-            ...context,
-          }
-          res.render("carrito",data)
-        }    
+        const data = getData(req)
+        res.render("carrito",data)          
       } catch (err) {
         res.render("error",dataCreateError(err,'Cart Page Error',400,context,req))                      
       }
-    },
-    carritoById: async (req,res) => {
-
     },
     products: async (req, res) => {  
       try {
         sessionCounter(req)
         parametersSession(req)   
-        if(req.isAuthenticated()){
-          fetch(`${fullhostname(req)}/api/products/`).then(prod => prod.json()).then( prod => {
-            if(prod.length>0){
-              const data = {
-                  ...context,
-                  productos:prod,
-                  user: getCurrentUser(req)
-              } 
-              res.render("productos",data)                            
-            } else {
-              const data = {
-                  ...context,
-                  user: getCurrentUser(req)
-              } 
-              res.render("productos",data)
-            }        
-          }).catch( err => {
-            res.render("error",dataCreateError(err,'Products Page Error: Unreacheable Products',523,context,req))                      
-          })
-        } else {
-          res.redirect('/login')          
-        }    
+        fetch(`${fullhostname(req)}/api/products/`).then(prod => prod.json()).then( prod => {
+          const data = prod.length>0 ? getData(req,prod) : getData(req)
+          res.render("productos",data)                                      
+        }).catch( err => {
+          res.render("error",dataCreateError(err,'Products Page Error: Unreacheable Products',523,context,req))                      
+        })   
       } catch (err) {
         res.render("error",dataCreateError(err,'Products Page Error',400,context,req))                      
       } 
@@ -135,18 +76,14 @@ const controller = {
       try {
         sessionCounter(req)
         parametersSession(req)
-        if(req.isAuthenticated() && req.user.is_admin===true){
+        if(req.user.is_admin===true){
           const id = parseInt(req.params.id)
           if(isNaN(id) || id <= 0){          
             res.render("error",dataCreateError(err,"Imposible Product",404,context,req,'warn'))                                  
           }    
           fetch(`${fullhostname(req)}/api/products/${id}`).then( prod => prod.json()).then( prod => {          
             if(prod.id){
-              const data = {
-                  ...context,
-                  productos:prod,
-                  user: getCurrentUser(req)
-              } 
+              const data = getData(req,prod)
               res.render("editProduct",data)                          
             } else {
               res.render("error",dataCreateError(err,"Non-existent Product",404,context,req,'warn'))                                  
@@ -170,22 +107,10 @@ const controller = {
           res.render("error",dataCreateError(err,"Imposible Product",404,context,req,'warn'))                                  
         }               
         fetch(`${fullhostname(req)}/api/products/${id}`).then(prod => prod.json()).then( prod => {          
-          if(prod.id){
+          if(prod.id){            
             prod.price = prod.price.toLocaleString()
-            if(req.isAuthenticated()){
-              const data = {
-                  ...context,
-                  productos:prod,
-                  user: getCurrentUser(req)
-              } 
-              res.render("producto",data)
-            } else {
-              const data = {
-                ...context,
-                productos:prod
-              }
-              res.render("producto",data)
-            }
+            const data = getData(req,prod)
+            res.render("producto",data)            
           } else {
             res.render("error",dataCreateError(err,"Non-existent Product",404,context,req,'warn'))                                  
           }          
@@ -200,7 +125,7 @@ const controller = {
         try { 
           sessionCounter(req)    
           parametersSession(req)       
-          if(req.isAuthenticated() && req.user.is_admin===true){                
+          if(req.user.is_admin===true){                
               if(req.file){
                 req.body.file=req.file
                 fetch(`${fullhostname(req)}/api/products/form`,{
@@ -232,20 +157,9 @@ const controller = {
     login: async (req, res) => { 
       try{
         sessionCounter(req)
-        parametersSession(req)    
-        if(req.isAuthenticated()){
-          const data = {
-              ...context,
-              user: getCurrentUser(req)
-          } 
-          res.render("login",data)          
-        } else {
-          const data = {
-            ...context,
-            name: false
-          }
-          res.render("login",data)
-        }      
+        parametersSession(req)
+        const data = getData(req)
+        res.render("login",data)                  
       } catch (err) {
         res.render("error",dataCreateError(err,'Login Page Error',400,context,req))                      
       }
@@ -253,21 +167,10 @@ const controller = {
     logout: async (req, res) => {                  
       try {
         sessionCounter(req)
-        parametersSession(req)   
-        if(req.isAuthenticated()){
-            const data = {
-                ...context,
-                name: req.user.name,
-                user: getCurrentUser(req)
-            } 
-            res.render("logout",data)          
-        } else {
-          const data = {
-            ...context,
-            name: false
-          }
-          res.render("logout",data)
-        } 
+        parametersSession(req)  
+        const data = getData(req) 
+              data.name = req.user.name
+              res.render("logout",data)  
       } catch (err) {
         res.render("error",dataCreateError(err,'Logout Page Error',400,context,req))                      
       }
@@ -276,19 +179,8 @@ const controller = {
       try{   
         sessionCounter(req)
         parametersSession(req)  
-        if(req.isAuthenticated()){
-            const data = {
-                ...context,
-                user: getCurrentUser(req)
-            } 
-            res.render("register",data)          
-        } else {
-          const data = {
-            ...context,
-            name: false
-          }
-          res.render("register",data)
-        }
+        const data = getData(req)
+        res.render("register",data)        
       } catch (err) {
         res.render("error",dataCreateError(err,'Register Page Error',400,context,req))                      
       }
@@ -297,15 +189,8 @@ const controller = {
       try {
         sessionCounter(req)
         parametersSession(req)
-        if(req.isAuthenticated()){          
-          const data = {
-              ...context,
-              user: getCurrentUser(req)
-          } 
-          res.render("profile",data)
-        } else {
-          res.redirect('/login')
-        }
+        const data = getData(req)
+        res.render("profile",data)       
       } catch (err) {
         res.render("error",dataCreateError(err,'Profile Page Error',400,context,req))                      
       }
@@ -332,11 +217,8 @@ const controller = {
                     user_id: p.user_id
                   })
                 })
-                const data = {
-                  ...context,
-                  ordenes:ordenes,
-                  user: getCurrentUser(req)
-                } 
+                const data = getData(req)
+                      data.ordenes=ordenes
                 res.render("historyOrders",data)
               })
       } catch (err) {
@@ -351,9 +233,7 @@ const controller = {
         if(isNaN(id) || id <= 0){          
           res.render("error",dataCreateError(err,"Imposible Product",404,context,req,'warn'))                                  
         }            
-        const _id = req.user._id   
-        const email = req.user.email 
-        const result = din.CartDaoMemory.getOrderByID(id,_id,email)
+        const result = din.CartDaoMemory.getOrderByID(id,req.user._id,req.user.email)
               result.then( c => {
                 const orden = {
                   fullname: c.fullname,
@@ -381,12 +261,8 @@ const controller = {
                     subtotal: (p.cartCount*p.price).toLocaleString()
                   })
                 })
-                const data = {
-                  ...context,
-                  orden:orden,
-                  productos:productos,
-                  user: getCurrentUser(req)
-                } 
+                const data = getData(req,productos)
+                      data.orden=orden
                 res.render("OrderID",data)
               })
       } catch (err) {
@@ -395,4 +271,4 @@ const controller = {
     }
 } 
 
-export default controller 
+export default controller   

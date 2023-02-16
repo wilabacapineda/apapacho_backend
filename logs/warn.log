@@ -130,3 +130,12 @@
 {"level":"error","message":"{Error:400, Route:/historial-ordenes/5, Message:History Orders Page Error, Error: ReferenceError: c is not defined}","timestamp":"2023-02-15T17:45:06.798Z"}
 {"level":"error","message":"{Error:400, Route:/historial-ordenes/1, Message:History Orders Page Error, Error: ReferenceError: c is not defined}","timestamp":"2023-02-15T17:45:36.020Z"}
 {"level":"error","message":"{function:Twilio Wsp send (Admin) Order ID-10 Error to 56982997957, route:/api/carrito /10/createOrder, user:walterio.pineda@gmail.com, method:POST, error:Error: Invalid From and To pair. From and To should be of the same channel}","timestamp":"2023-02-15T19:05:08.015Z"}
+{"level":"error","message":"{Error:400, Route:/login, Message:Login Page Error, Error: TypeError: {(intermediate value)} is not a function}","timestamp":"2023-02-16T00:40:52.969Z"}
+{"level":"error","message":"{Error:400, Route:/login, Message:Login Page Error, Error: TypeError: {(intermediate value)} is not a function}","timestamp":"2023-02-16T00:41:01.219Z"}
+{"level":"error","message":"{Error:400, Route:/carrito, Message:Cart Page Error, Error: TypeError: {(intermediate value)} is not a function}","timestamp":"2023-02-16T00:41:14.260Z"}
+{"level":"error","message":"{Error:523, Route:/tienda, Message:Store Page Error: Unreacheable Store, Error: TypeError: {(intermediate value)} is not a function}","timestamp":"2023-02-16T00:41:15.881Z"}
+{"level":"error","message":"{Error:400, Route:/, Message:Homepage Error: Unreacheable Products, Error: TypeError: {(intermediate value)} is not a function}","timestamp":"2023-02-16T00:41:17.641Z"}
+{"level":"error","message":"{Error:523, Route:/tienda, Message:Store Page Error: Unreacheable Store, Error: TypeError: {(intermediate value)} is not a function}","timestamp":"2023-02-16T00:42:03.416Z"}
+{"level":"error","message":"{Error:523, Route:/tienda, Message:Store Page Error: Unreacheable Store, Error: TypeError: {(intermediate value)} is not a function}","timestamp":"2023-02-16T00:42:06.273Z"}
+{"level":"error","message":"{Error:400, Route:/carrito, Message:Cart Page Error, Error: TypeError: {(intermediate value)} is not a function}","timestamp":"2023-02-16T00:42:08.232Z"}
+{"level":"error","message":"{Error:400, Route:/, Message:Homepage Error: Unreacheable Products, Error: TypeError: {(intermediate value)} is not a function}","timestamp":"2023-02-16T00:42:11.175Z"}

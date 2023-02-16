@@ -8,22 +8,12 @@ import passport from 'passport'
 import { sessionOptions, localStrategy } from './utils/sessionFunctions.js'
 import users from './daos/loadUsers.js'
 import cluster from 'cluster'
-import {cpus} from 'os'
 import { create } from 'express-handlebars'
 import hbHelpers from './utils/hbHelpers.js'
+import clusterFork from './cluster/clusterPrimary.js'
 
-if(cluster.isPrimary && mode==='cluster') {
-  console.log(`Primary PID ${process.pid} is running`)
-  const numCPUs = cpus().length
-  for(let i=0; i< numCPUs; i++){
-      cluster.fork()
-  }
-
-  cluster.on('exit', worker => {
-      console.log(`worker ${worker.process.pid} died`, new Date().toLocaleString())
-      cluster.fork()
-  })
-  
+if (cluster.isPrimary && mode==='cluster') {
+  clusterFork(cluster)
 } else {
   const hbs = create({
     partialsDir: "views/partials/",    
@@ -34,6 +24,7 @@ if(cluster.isPrimary && mode==='cluster') {
   passport.use('login', localStrategy)
   passport.serializeUser((user, done) => { done(null, user._id) })
   passport.deserializeUser((id, done) => { users.db.findById(id, done) })
+
   const app = express()
         app.use(compression({
           filter: shouldCompress,

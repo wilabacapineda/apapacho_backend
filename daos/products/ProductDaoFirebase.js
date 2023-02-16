@@ -1,5 +1,5 @@
 import ContenedorFirebase from "../../contenedores/ContenedorFirebase.js"
-import { customCreateError } from "../../utils/errors.js"
+import { customCreateError } from "../../logger/errors.js"
 
 class ProductDaoFirebase extends ContenedorFirebase  {
     constructor() {        

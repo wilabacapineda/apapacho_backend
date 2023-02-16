@@ -1,4 +1,4 @@
-import { customCreateError } from "../utils/errors.js"
+import { customCreateError } from "../logger/errors.js"
 
 export default class ContenedorMemory {
     constructor(object) {

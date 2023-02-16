@@ -1,6 +1,6 @@
 import din from "../../daos/index.js"
 import { runLogger, errorLogger } from "../../logger/loggerCart.js"
-import { sessionCounter,verifySession } from "../../utils/sessionFunctions.js"
+import { sessionCounter, getInfoUserOrder } from "../../utils/sessionFunctions.js"
 import { emailToAdmin } from "../../mailer/sendMailTo.js"
 import sendMessageWspAdmin from "../../twilio/sendMessageWsp.js"
 import sendMessageSmsBuyer from "../../twilio/sendMessageSms.js"
@@ -67,7 +67,6 @@ const controller = {
                           res.send({error: 'Inicie sesión para agregar producto'})
                         } else {
                           din.CartDaoMemory.update(id,c)
-                          //console.log('din:',din.CartDaoMemory.object)
                           res.send(c[0])
                         }                        
                       }) 
@@ -160,31 +159,8 @@ const controller = {
                 }
                 if(Object.keys(cart).length>0){
                   const total = cart.products.reduce((acc,p) => acc + (p.cartCount*p.price),0)
-                  let infoUserOrder
-                  if(req.isAuthenticated()){
-                    let fullname = req.user.name +' '+req.lastname
-                    if(req.body.fullname!==''){
-                      fullname=req.body.fullname
-                    } 
-                    infoUserOrder = {
-                      user_id: req.user._id,
-                      email: req.user.email,
-                      fullname:fullname,
-                      address: req.user.address ? req.user.address : req.body.address,
-                      phone: req.user.phone ? req.user.phone : req.body.phone,
-                      state:'enviada',
-                      total:total,
-                    }
-                  } else {
-                    infoUserOrder = {
-                      email: req.body.email,
-                      fullname: req.body.fullname,
-                      address: req.body.address,
-                      phone: req.body.phone,
-                      state:'enviada',
-                      total:total,
-                    }
-                  }                  
+                  const infoUserOrder = getInfoUserOrder(req,total)
+
                   const newCart = din.cartDao.update(id,infoUserOrder)
                         newCart.then( (c) => {  
                           din.CartDaoMemory.update(id,c)
@@ -192,8 +168,7 @@ const controller = {
                           sendMessageWspAdmin(req,c[0])
                           sendMessageSmsBuyer(req,c[0])
                           res.sendStatus(200)
-                        })                         
-                        
+                        })        
                 } else {
                   res.sendStatus(304)
                 }

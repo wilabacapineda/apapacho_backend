@@ -1,19 +1,9 @@
 import users from '../../daos/loadUsers.js'
 import { sessionCounter, saltRounds, getSessionName, hashPassword } from '../../utils/sessionFunctions.js'
-import logger from '../../utils/winston.js'
+import { runLogger, errorLogger } from '../../logger/loggerSessions.js'
 import sendMail from '../../mailer/mailer.js'
 import dotenv from 'dotenv'
 dotenv.config()
-
-const runLogger = (req,message='') => {
-  const routex = req.user ? ` ${req.url}, user:${req.user.email}` : `${req.url}`
-  logger.info(`{route:/session${routex}, method:${req.method} ${ message === '' ? '':`, customMessage:${message}`}}`)
-}
-
-const errorLogger = (req,f,err) => {
-  const routex = req.user ? ` ${req.url}, user:${req.user.email}` : `${req.url}`
-  logger.error(`{function:${f}, route:/session${routex}, method:${req.method}, error:${err}}`)
-}
 
 const controller = {
     getSessionLogin: async (req, res) => {      
@@ -39,11 +29,7 @@ const controller = {
         if(!req.isAuthenticated()) {
           sessionCounter(req)                 
           runLogger(req) 
-          if(req.file){
-            req.body.avatar = `/assets/img/avatars/${req.file.filename}` 
-          } else {
-            req.body.avatar = `/assets/img/avatars/avatar.jpg`
-          }        
+          req.body.avatar = req.file ? `/assets/img/avatars/${req.file.filename}` : `/assets/img/avatars/avatar.jpg`
           const findEmail = users.getByEmail(req.body.email)
                 findEmail.then( r => {
                   if(r === null) {                    
@@ -98,37 +84,25 @@ const controller = {
     },
     postSessionLogout: async (req,res) => {
       try {
-        if(req.isAuthenticated()){
-          sessionCounter(req)
-          runLogger(req) 
-          const aux = req.isAuthenticated() ? req.user.name : false
-          req.session.destroy(err => {
-              if(err){
-                  res.json({error: 'olvidar', body:err})
-              } else {                
-                  res.json({name:aux})
-              }
-          })
-        } else {
-          err = -1
-          errorLogger(req,'unauthorized POST method on Logout',err)                                                     
-        }
+        sessionCounter(req)
+        runLogger(req) 
+        const aux = req.isAuthenticated() ? req.user.name : false
+        req.session.destroy(err => {
+            if(err){
+                res.json({error: 'olvidar', body:err})
+            } else {                
+                res.json({name:aux})
+            }
+        })        
       } catch (err) {  
         errorLogger(req,'postSessionLogout',err)                       
       }
     },
     putProfile: async (req,res,next) => {
       try {
-        if(req.isAuthenticated()){               
           sessionCounter(req)                 
           runLogger(req) 
-          if(!req.body.avatar){
-            if(req.file){
-              req.body.avatar = `/assets/img/avatars/${req.file.filename}` 
-            } else {
-              req.body.avatar = `/assets/img/avatars/avatar.jpg`
-            }
-          }          
+          !req.body.avatar ? req.body.avatar = req.file ? `/assets/img/avatars/${req.file.filename}` : req.body.avatar = `/assets/img/avatars/avatar.jpg` : ''
           const findEmail = users.getByEmail(req.body.email)
                 findEmail.then( r => {
                   if(r === null) {                    
@@ -142,11 +116,7 @@ const controller = {
                   }
                 }).catch( r => {
                   res.send({error: 'error al registrar usuario'})
-                })             
-        } else {
-          err = -1
-          return next(errorLogger(req,'unauthorized PUT method on Profile',err))
-        }
+                })        
       } catch (err) {
         return next(errorLogger(req,'putProfile',err))
       }

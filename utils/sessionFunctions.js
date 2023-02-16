@@ -3,7 +3,7 @@ import session from 'express-session'
 import MongoStore from 'connect-mongo'
 import { Strategy } from 'passport-local'
 import  users from '../daos/loadUsers.js'
-import logger from './winston.js'
+import logger from '../logger/winston.js'
 import context from './context.js'
 import dotenv from 'dotenv'
 dotenv.config()
@@ -18,23 +18,16 @@ const advanceOptions = {
 }
 const saltRounds = 10
 
-const verifyPassword = (user,password) => {
-    return bcrypt.compareSync(password, user.password)
-}
-const hashPassword = (password, saltRounds) => {
-    return bcrypt.hashSync(password, saltRounds)
-}
-const checkAuth = (req,res,next) => {
-    req.isAuthenticated() ?  next() : res.redirect('/login')
-}
-const sessionCounter = (req) => {
-    if(req.session.counter){
-        req.session.counter++            
-    } else {            
-        req.session.counter = 1                
-    }
-}
+const verifyPassword = (user,password) => bcrypt.compareSync(password, user.password)
+
+const hashPassword = (password, saltRounds) => bcrypt.hashSync(password, saltRounds)
+
+const checkAuth = (req,res,next) => req.isAuthenticated() ?  next() : res.redirect('/login')
+
+const sessionCounter = (req) => req.session.counter ? req.session.counter++ : req.session.counter = 1
+
 const getSessionName = req => req.isAuthenticated() ? req.user.name : 'Invitado'
+
 const verifySession = req => req.session.passport ? ( req.session.passport.user ? req.session.passport.user : null ) : null 
 
 const parametersSession = (req) => {
@@ -96,6 +89,33 @@ const getCurrentUser = (req) => {
   })
 }
 
+const getInfoUserOrder = (req,total=0) => {
+  if(req.isAuthenticated()){
+    let fullname = req.user.name +' '+req.user.lastname
+    if(req.body.fullname!==''){
+      fullname=req.body.fullname
+    } 
+    return {
+      user_id: req.user._id,
+      email: req.user.email,
+      fullname:fullname,
+      address: req.user.address ? req.user.address : req.body.address,
+      phone: req.user.phone ? req.user.phone : req.body.phone,
+      state:'enviada',
+      total:total,
+    }
+  } else {
+    return {
+      email: req.body.email,
+      fullname: req.body.fullname,
+      address: req.body.address,
+      phone: req.body.phone,
+      state:'enviada',
+      total:total,
+    }
+  }   
+}
+
 export {
     verifyPassword,
     hashPassword,
@@ -108,5 +128,6 @@ export {
     advanceOptions,
     saltRounds,
     parametersSession,
-    getCurrentUser
+    getCurrentUser,
+    getInfoUserOrder
 }

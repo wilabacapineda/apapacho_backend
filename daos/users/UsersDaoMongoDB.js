@@ -1,5 +1,5 @@
 import ContenedorMongoDb from "../../contenedores/ContenedorMongoDb.js"
-import { customCreateError } from "../../utils/errors.js"
+import { customCreateError } from "../../logger/errors.js"
 
 const userSchema = {    
     email: {type: String, require: true,unique:true},
