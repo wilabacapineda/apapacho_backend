@@ -687,14 +687,17 @@ footer {
   display: grid;
   justify-content: center;
   grid-template-columns: 90%; }
-  .tabla_cat .tabla_overflow {
+  .tabla_cat .tabla_overflow, 
+  .tabla_overflow {
     overflow: auto;
     max-height: 500px; }
-    .tabla_cat .tabla_overflow .tabla_tallas {
+    .tabla_cat .tabla_overflow .tabla_tallas,
+    .tabla_overflow .tabla_tallas {
       border-color: #000;
       border-style: groove;
       margin: 0; }
-      .tabla_cat .tabla_overflow .tabla_tallas th {
+      .tabla_cat .tabla_overflow .tabla_tallas th,
+      .tabla_overflow .tabla_tallas th {
         background-color: #B06B88;
         color: #fff; }
   .tabla_cat .undertext_table {
@@ -795,7 +798,10 @@ footer {
     height: 90vh;
     border: 1px rgba(0, 0, 0, 0.7) groove; } }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 770px) {
+  #orderTable{
+    width: 70vw;
+  }
   .flex_options, footer .container .row .footer_logo, footer .container .row .footer_logo img, footer .container .row .footer_rrss, footer .container .row .footer_contacto {
     display: flex;
     justify-content: center;
