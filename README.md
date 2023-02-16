@@ -1,8 +1,24 @@
 ﻿# apapacho_backend
 
-## ** Segunda Entrega Proyecto Final 22-12-2022*
+## ** Tercera Entrega Proyecto Final 15-02-2023*
+Se pone en practica lo aprendido durante los trabajos semanales.
+Se ordenan los 4 Routers en la Carpeta Api (Products, Carts, Sessions, Handlebars). Se configura handlebars debido a la comidad y experiencia adquirida durante el curso para enlazar con el proyecto. 
 
-Escribir Readme.md recordar
+Se continua trabajando Atlas Mongo DB y multer para la subida de archivos al Servidor.
+
+Cada Api-Router tiene como minimo 2 archivos "router" y "controller" añadiendo la ruta y separando el control de cada ruta en el archivo 'controller'.
+
+Para controlar el registro e inicio de sesión se utiliza Passport,passport-local,express-session y session-file-store. Para encriptar las contraseñas de los usuarios registrados de utiliza bcript. 
+
+Se configuran las siguientes páginas y/o funciones con requerimiento de Inicio de Sesión para acceder a ellas: Página de Logout, Página de Historial de Ordenes creadas y/o enviadas, así como para acceder a página de Registro es necesario no estar logueado.
+
+Para la Edicicón, Actualización y Borrado de Productos ademas de ser requerido estar logueado en la aplicación es necesario tener permisos de Administrador. Configuré tu usuario registrado, wifixit.test@gmail.com, como administrador para que pudieras hacer lo que necesites.
+
+Se añaden los paquetes cluster para realizar pruebas y Winston para configurar un Logger siguiendo para reemplazar mensajes en consola, así como también para tener un mejor control de falloo o errores de la aplicación. 
+
+La finalización del pedido se realiza desde la página del carrito, a través de un formulario para usuarios no registrados o botón directo para usuarios registrados. Una vez enviado el carrito se envía correo y mensajes de texto y wsp.
+
+Para lo anterior se configura Nodemailer para envío de correos a través de Google, con opción de O365. Ademas se configura Twilio para el envío de SMS y Mensajes de Whatsapp, versión de prueba por lo que para recibir mensajes es necesario estar registrado en el Sandbox, lo probé y funcionó de maravilla. 
 
 ### **1. Información General de Entrega y actualizaciones**
 - Se realiza proyecto servidor en node.js utilizando los siguientes modulos
