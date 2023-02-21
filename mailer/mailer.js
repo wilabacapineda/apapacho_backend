@@ -4,8 +4,8 @@ dotenv.config()
 
 const createSendMail = (mailConfig) => {
     const transporter = nodemailer.createTransport(mailConfig)
-    const sendMail = ({to, subject, text, html, attachments}) => {
-        const mailOptions = { from: mailConfig.auth.user, to, subject, text,html,attachments }
+    const sendMail = ({to, cc, subject, text, html, attachments}) => {
+        const mailOptions = { from: mailConfig.auth.user, to, cc, subject, text,html,attachments }
         return transporter.sendMail(mailOptions)
     }
     return sendMail

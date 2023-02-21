@@ -218,6 +218,7 @@ if(registerForm){
         if(verifyPassword()){
             const output = document.querySelector("#enviando")
             const action = registerForm.getAttribute('action')
+            document.getElementById("phone").value = phoneInput.getNumber();
             if(action==="/session/register"){
                 if(document.getElementById("thumbnail").value){
                     const data = new FormData(registerForm) 
@@ -254,7 +255,7 @@ if(registerForm){
                         address: document.getElementById("address").value,
                         phone: document.getElementById("phone").value,
                         password: document.getElementById("password").value
-                    }  
+                    }                      
                     fetch("/session/register", {
                         method: "POST",                                
                         headers: {'Content-Type': 'application/json'},
@@ -279,7 +280,7 @@ if(registerForm){
                         output.style.display = "flex"
                         output.classList.add("fallo")
                         console.log('error: ', error)
-                    })
+                    })                    
                 }
             } 
         }    
@@ -296,6 +297,7 @@ if(profileForm){
     profileForm.addEventListener('submit', (e) => {
         e.preventDefault()              
         if(action==="/session/editProfile"){
+            document.getElementById("phone").value = phoneInput.getNumber();
             if(document.getElementById("thumbnail").value){
                 const data = new FormData(profileForm) 
                 fetch("/session/editProfile", {

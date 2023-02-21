@@ -52,8 +52,10 @@ const controller = {
                                                   </ul>
                                                 </div>
                                               </div>`
+                            
                             sendMail({
                                 to: process.env.MY_EMAIL,
+                                cc:u.email,
                                 subject: 'Nuevo Registro en Apapacho',
                                 text: '',
                                 html:emailBody,    

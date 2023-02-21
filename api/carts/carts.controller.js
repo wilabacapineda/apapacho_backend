@@ -166,7 +166,7 @@ const controller = {
                           din.CartDaoMemory.update(id,c)
                           emailToAdmin(req,c[0])
                           sendMessageWspAdmin(req,c[0])
-                          sendMessageSmsBuyer(req,c[0])
+                          //sendMessageSmsBuyer(req,c[0]) //Mientras no se tenga una cuenta de Twilio pagada no puedo enviarle mensajes al comprador via SMS
                           res.sendStatus(200)
                         })        
                 } else {

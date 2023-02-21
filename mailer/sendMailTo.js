@@ -52,9 +52,10 @@ const emailToAdmin = (req,c) => {
                             </tfoot>
                           </table>
                         </div>`
-    const subject = `Nuevo Pedido de ${c.fullname} - ${c.email} en Apapacho`
+    const subject = `Resumen Nuevo Pedido de ${c.fullname} - ${c.email} en Apapacho`
     sendMail({
         to: process.env.MY_EMAIL,
+        cc: c.email,
         subject: subject,
         text: '',
         html:emailBody,    

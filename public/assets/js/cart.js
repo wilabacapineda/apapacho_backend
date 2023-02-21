@@ -245,14 +245,13 @@ const sendOrderInfo = document.getElementById('sendOrderInfo')
 if(sendOrderInfo){
     sendOrderInfo.addEventListener('submit', (e) => {
         e.preventDefault()
-        const output = document.querySelector("#enviando")
+        const output = document.querySelector("#enviando")        
         const data = { 
             fullname: document.getElementById("fullname") ? document.getElementById("fullname").value : '',
             email: document.getElementById("email") ? document.getElementById("email").value : '',
             address: document.getElementById("address") ? document.getElementById("address").value : '',
-            phone: document.getElementById("phone") ? document.getElementById("phone").value : '',
-        }     
-        console.log(data)
+            phone: document.getElementById("phone") ? phoneInput.getNumber() : '',
+        }             
         fetch(`/api/carrito/${parseInt(localStorage.getItem("idCarrito"))}/createOrder`, {
             method: 'POST', // or 'PUT'
             headers: {

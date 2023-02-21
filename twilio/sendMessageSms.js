@@ -10,7 +10,6 @@ const sendMessageSmsBuyer = (req,c) => {
         body:subject,
         from:process.env.TWILIO_SMS,
         to:tel //La cuenta Trial no puede enviar a telefonos no registrados en el Sandbox
-        //to:process.env.MY_PHONE
     }
     try{
         client.messages.create(options).then(() => {
