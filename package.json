@@ -32,6 +32,8 @@
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
     "session-file-store": "^1.5.0",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^4.6.2",
     "twilio": "^4.7.2",
     "winston": "^3.8.2"
   }

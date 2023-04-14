@@ -148,7 +148,6 @@ if(idCarrito){
     fetch(`/api/carrito/${idCarrito}/productos`)
     .then(data => data.json())
     .then(data => {     
-        console.log('idCarritoX:',data)  
         if(data.length>0){               
             if(productosCarritoX){
                 productosCarritoX.innerHTML = cargarCarrito(data)

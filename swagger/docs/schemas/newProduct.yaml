@@ -1,0 +1,40 @@
+# Product
+
+components:
+  requestBodies:
+    NewProduct:
+      type: object
+      required:
+        - title
+        - description
+        - code
+        - price
+        - stock
+        - thumbnail
+      properties:
+        title:
+          type: string
+          description: nombre del producto
+        description:
+          type: string
+          description: description del producto
+        code:
+          type: string
+          description: codigo del producto
+        price:
+          type: number
+          description: precio del producto
+        stock:
+          type: number
+          description: stock del producto
+        thumbnail:
+          type: string
+          description: url thumbnail del producto
+      example:
+        title: "Poleron No me olvides",
+        description: "Poleron modelo No me Olvides",
+        code: "P0001",
+        price: 20000,
+        stock: 100,
+        thumbnail: "/assets/img/products/ModeloNomeolvides.jpg"
+      
