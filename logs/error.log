@@ -1,0 +1,6 @@
+{"level":"error","message":"{Error:400, Route:undefined, Message:ContenedorMongoDb: save Error, Error: MongoServerError: E11000 duplicate key error collection: ecommerce.products index: id_1 dup key: { id: 4 }}","timestamp":"2023-02-22T06:41:10.605Z"}
+{"level":"error","message":"{Error:400, Route:undefined, Message:ContenedorMongoDb: save Error, Error: MongoServerError: E11000 duplicate key error collection: ecommerce.products index: id_1 dup key: { id: 4 }}","timestamp":"2023-02-22T06:42:56.511Z"}
+{"level":"error","message":"{Error:400, Route:undefined, Message:ContenedorMongoDb: save Error, Error: MongoServerError: E11000 duplicate key error collection: ecommerce.products index: id_1 dup key: { id: 4 }}","timestamp":"2023-02-22T06:45:54.746Z"}
+{"level":"error","message":"{Error:400, Route:/tienda/producto/undefined, Message:Single Product Page Error, Error: ReferenceError: err is not defined}","timestamp":"2023-04-11T06:29:57.712Z"}
+{"level":"error","message":"{Error:400, Route:/tienda/producto/undefined, Message:Single Product Page Error, Error: ReferenceError: err is not defined}","timestamp":"2023-04-11T06:30:18.268Z"}
+{"level":"error","message":"{Error:400, Route:/tienda/producto/undefined, Message:Single Product Page Error, Error: ReferenceError: err is not defined}","timestamp":"2023-04-11T06:30:50.060Z"}

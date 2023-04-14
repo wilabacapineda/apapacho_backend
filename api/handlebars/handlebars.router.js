@@ -1,7 +1,7 @@
 import express from 'express'
 import controller from './handlebars.controller.js'
 import multer, { diskStorage } from 'multer'
-import { checkAuth } from '../../utils/sessionFunctions.js'
+import { checkAuth } from '../../controlSession/functions.js'
 
 const { Router } = express
 const storageProductImage = diskStorage({

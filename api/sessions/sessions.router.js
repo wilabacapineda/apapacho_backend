@@ -2,7 +2,7 @@ import express from 'express'
 import passport from 'passport'
 import controller from './sessions.controller.js'
 import multer, { diskStorage } from 'multer'
-import { checkAuth } from '../../utils/sessionFunctions.js'
+import { checkAuth } from '../../controlSession/functions.js'
 
 const { Router } = express
 const storageAvatarImage = diskStorage({

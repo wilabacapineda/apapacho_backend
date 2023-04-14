@@ -1,6 +1,6 @@
 import express from 'express'
 import controller from './carts.controller.js'
-import { checkAuth } from '../../utils/sessionFunctions.js'
+import { checkAuth } from '../../controlSession/functions.js'
 
 const { Router } = express
 const routerCarts = new Router() 

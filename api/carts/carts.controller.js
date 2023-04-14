@@ -1,9 +1,8 @@
-import din from "../../daos/index.js"
+import din from "../../model/index.js"
 import { runLogger, errorLogger } from "../../logger/loggerCart.js"
-import { sessionCounter, getInfoUserOrder } from "../../utils/sessionFunctions.js"
+import { sessionCounter, getInfoUserOrder } from "../../controlSession/functions.js"
 import { emailToAdmin } from "../../mailer/sendMailTo.js"
 import sendMessageWspAdmin from "../../twilio/sendMessageWsp.js"
-import sendMessageSmsBuyer from "../../twilio/sendMessageSms.js"
 import dotenv from 'dotenv'
 dotenv.config()
 
@@ -31,7 +30,7 @@ const controller = {
       try{
         sessionCounter(req)
         runLogger(req)
-        const newCart = din.cartDao.save({products:[]})
+        const newCart = din.CartDao.save({products:[]})
               newCart.then( nc => {
                 din.CartDaoMemory.save(nc)
                 return res.send({id: nc.id})
@@ -54,14 +53,16 @@ const controller = {
         if(isNaN(id_prod) || id_prod <= 0){
           return res.send({error: 'producto para agregar al carrito no encontrado'})
         } 
+        console.log('aqui-1')
         const result = din.ProductsDaoMemory.getById(id_prod)  
               result.then( r => {
                 if(r===null) {
                   return res.send({error: 'producto para agregar al carrito no encontrado'})
                 }
                 const email = req.user ? req.user.email : 'Sin Email'
-                const newCart = din.cartDao.updateProducts(id, id_prod, r, cartCount,email)                
+                const newCart = din.CartDao.updateProducts(id, id_prod, r, cartCount,email)                
                       newCart.then( (c) => {  
+                        console.log('aqui-4',c)
                         if(c.length<=0){
                           res.status(304)
                           res.send({error: 'Inicie sesión para agregar producto'})
@@ -92,7 +93,7 @@ const controller = {
                   return res.send({error: 'carrito no encontrado'})
                 }
                 if(Object.keys(nc).length>0){
-                  const deleteID = din.cartDao.deleteById(id)
+                  const deleteID = din.CartDao.deleteById(id)
                         deleteID.then( () => {
                           din.CartDaoMemory.deleteById(id)
                           return res.send({mensaje:`Carrito ${id} eliminado`})
@@ -126,7 +127,7 @@ const controller = {
                   return res.send({error: 'carrito no encontrado'})
                 }
                 if(Object.keys(cart).length>0){
-                  const newCart = din.cartDao.deleteProducts(id, id_prod)
+                  const newCart = din.CartDao.deleteProducts(id, id_prod)
                         newCart.then( (c) => {  
                           din.CartDaoMemory.update(id,c)
                           res.send(c)
@@ -161,7 +162,7 @@ const controller = {
                   const total = cart.products.reduce((acc,p) => acc + (p.cartCount*p.price),0)
                   const infoUserOrder = getInfoUserOrder(req,total)
 
-                  const newCart = din.cartDao.update(id,infoUserOrder)
+                  const newCart = din.CartDao.update(id,infoUserOrder)
                         newCart.then( (c) => {  
                           din.CartDaoMemory.update(id,c)
                           emailToAdmin(req,c[0])

@@ -37,7 +37,6 @@ const bluidDevLogger= () => {
 
 let logger = null
 
-console.warn('Environment Type:',process.env.NODE_ENV)
 if(process.env.NODE_ENV === 'PROD'){
     logger = bluidProdLogger();
 } else {

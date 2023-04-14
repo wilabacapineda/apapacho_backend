@@ -12,7 +12,7 @@ export default class ContenedorFile {
             return JSON.parse(content)       
         }
         catch (error) {
-            customCreateError(error,'ContenedorFile: getAll Error',400)
+            customCreateError(error,'ContainerFile: getAll Error',400)
         }
     }
 
@@ -20,6 +20,9 @@ export default class ContenedorFile {
         try {
             const content = this.getAll()            
             const newID = await content.then( resp => {
+                resp.sort(function(a, b) {
+                    return a.id - b.id;
+                });
                 let lastElement = resp[resp.length - 1];
                 if( lastElement !== undefined){
                     Object.id = parseInt(lastElement.id)+1
@@ -35,7 +38,7 @@ export default class ContenedorFile {
             return newID
         }
         catch (error) {
-            customCreateError(error,'ContenedorFile: save Error',400)
+            customCreateError(error,'ContainerFile: save Error',400)
         }
     }
 
@@ -64,51 +67,8 @@ export default class ContenedorFile {
         return updateObject
       }
       catch (error) {
-        customCreateError(error,'ContenedorFile: update Error',400)
+        customCreateError(error,'ContainerFile: update Error',400)
       }
-    }
-
-    async updateProducts(id,id_prod,object,cartCount){
-        try {
-            const content = this.getAll()            
-            const updateObject = content.then( resp => {
-                const returnObject = []
-                const updateID = resp.map( c => {                
-                    if(parseInt(c.id)===parseInt(id)){  
-                        c.dateUpdate=Date.now()
-                        if(c.products.length>0){
-                            const result = c.products.filter( cp => {
-                                if(parseInt(cp.id) === parseInt(id_prod)) {                                    
-                                    cp.cartCount = cartCount
-                                    return cp
-                                }            
-                            })  
-                            if(result.length===0){      
-                                c.products.push({
-                                    ...object,
-                                    cartCount : cartCount                
-                                })
-                            }
-                        } else {
-                            c.products.push({
-                                ...object,
-                                cartCount : cartCount                
-                            })                          
-                        }                        
-                        returnObject.push(c)
-                        return c
-                    } else {
-                        return c
-                    }
-                })                
-                fs.promises.writeFile(this.file,JSON.stringify(updateID,null,2))                          
-                return returnObject
-            })
-            return await updateObject
-        }
-        catch (error) {
-            customCreateError(error,'ContenedorFile: updateProducts Error',400)
-        }
     }
 
     async getById(id) {
@@ -124,40 +84,8 @@ export default class ContenedorFile {
             }            
         }
         catch (error) {
-            customCreateError(error,'ContenedorFile: getById Error',400)
+            customCreateError(error,'ContainerFile: getById Error',400)
         }        
-    }
-
-    async deleteProducts(id,id_prod){
-        try {                         
-            const content = this.getAll()      
-            const updateObject = content.then( resp => {                
-                const returnObject = []
-                resp.forEach( c => {                
-                    if(parseInt(c.id)===parseInt(id)){  
-                        if(c.products.length>0){
-                            const result = c.products.filter( cp => {
-                                if(parseInt(cp.id) !== parseInt(id_prod)) {                                    
-                                    return cp
-                                }            
-                            })  
-                            c.products = result
-                            returnObject.push(c) 
-                        } else {
-                            returnObject.push(c)                           
-                        }         
-                    } else {
-                        returnObject.push(c)
-                    }
-                })                
-                fs.promises.writeFile(this.file,JSON.stringify(returnObject,null,2))                          
-                return returnObject
-            })
-            return await updateObject
-        }
-        catch (error) {
-            customCreateError(error,'ContenedorFile: deleteProducts Error',400)
-        }
     }
 
     async deleteById(id) {
@@ -171,7 +99,7 @@ export default class ContenedorFile {
             return(data)
         }
         catch (error) {
-            customCreateError(error,'ContenedorFile: deleteById Error',400)
+            customCreateError(error,'ContainerFile: deleteById Error',400)
         } 
     }
 
@@ -180,7 +108,7 @@ export default class ContenedorFile {
             await fs.promises.writeFile(this.file,JSON.stringify([],null,2))             
         }
         catch (error) {
-            customCreateError(error,'ContenedorFile: deleteAll Error',400)
+            customCreateError(error,'ContainerFile: deleteAll Error',400)
         } 
     }
 
@@ -196,7 +124,7 @@ export default class ContenedorFile {
                 return 0
             } 
         } catch(error){
-            customCreateError(error,'ContenedorFile: getNumberOfElements Error',400)
+            customCreateError(error,'ContainerFile: getNumberOfElements Error',400)
         }
 
     }

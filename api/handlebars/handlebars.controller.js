@@ -1,11 +1,10 @@
-import din from '../../daos/index.js'
+import din from "../../model/index.js"
 import fetch from "node-fetch"
 import dotenv from 'dotenv'
 import context from '../../utils/context.js'
-import { parametersSession } from '../../utils/sessionFunctions.js'
+import calculate from './handlebars.calculate.js'
 import {customCreateError, dataCreateError} from '../../logger/errors.js'
-import { sessionCounter } from '../../utils/sessionFunctions.js'
-import { fullhostname, addInstagramToData, getData } from './handlebars.calculate.js'
+import { sessionCounter, parametersSession } from "../../controlSession/functions.js"
 dotenv.config()
 
 const controller = {
@@ -23,9 +22,9 @@ const controller = {
       try{
         sessionCounter(req)
         parametersSession(req)
-        fetch(`${fullhostname(req)}/api/products/`).then(prod => prod.json()).then( prod => {          
-          const data = getData(req,prod)
-                addInstagramToData(data)
+        fetch(`${calculate.fullhostname(req)}/api/products/`).then(prod => prod.json()).then( prod => {          
+          const data = calculate.getData(req,prod)
+                calculate.addInstagramToData(data)
           res.render('home',data)
         }).catch( err => {                    
           res.render('home',dataCreateError(err,'Homepage Error: Unreacheable Products',400,context,req))          
@@ -38,8 +37,8 @@ const controller = {
       try{
         sessionCounter(req)
         parametersSession(req)
-        fetch(`${fullhostname(req)}/api/products/`).then(prod => prod.json()).then( prod => {
-          const data = getData(req,prod)
+        fetch(`${calculate.fullhostname(req)}/api/products/`).then(prod => prod.json()).then( prod => {
+          const data = calculate.getData(req,prod)
           res.render("tienda",data)
         }).catch( err => {
           res.render("error",dataCreateError(err,'Store Page Error: Unreacheable Store',523,context,req))                      
@@ -52,7 +51,7 @@ const controller = {
       try{
         sessionCounter(req)
         parametersSession(req)   
-        const data = getData(req)
+        const data = calculate.getData(req)
         res.render("carrito",data)          
       } catch (err) {
         res.render("error",dataCreateError(err,'Cart Page Error',400,context,req))                      
@@ -62,8 +61,8 @@ const controller = {
       try {
         sessionCounter(req)
         parametersSession(req)   
-        fetch(`${fullhostname(req)}/api/products/`).then(prod => prod.json()).then( prod => {
-          const data = prod.length>0 ? getData(req,prod) : getData(req)
+        fetch(`${calculate.fullhostname(req)}/api/products/`).then(prod => prod.json()).then( prod => {
+          const data = prod.length>0 ? calculate.getData(req,prod) : calculate.getData(req)
           res.render("productos",data)                                      
         }).catch( err => {
           res.render("error",dataCreateError(err,'Products Page Error: Unreacheable Products',523,context,req))                      
@@ -81,9 +80,9 @@ const controller = {
           if(isNaN(id) || id <= 0){          
             res.render("error",dataCreateError(err,"Imposible Product",404,context,req,'warn'))                                  
           }    
-          fetch(`${fullhostname(req)}/api/products/${id}`).then( prod => prod.json()).then( prod => {          
+          fetch(`${calculate.fullhostname(req)}/api/products/${id}`).then( prod => prod.json()).then( prod => {          
             if(prod.id){
-              const data = getData(req,prod)
+              const data = calculate.getData(req,prod)
               res.render("editProduct",data)                          
             } else {
               res.render("error",dataCreateError(err,"Non-existent Product",404,context,req,'warn'))                                  
@@ -106,10 +105,10 @@ const controller = {
         if(isNaN(id) || id <= 0){          
           res.render("error",dataCreateError(err,"Imposible Product",404,context,req,'warn'))                                  
         }               
-        fetch(`${fullhostname(req)}/api/products/${id}`).then(prod => prod.json()).then( prod => {          
+        fetch(`${calculate.fullhostname(req)}/api/products/${id}`).then(prod => prod.json()).then( prod => {          
           if(prod.id){            
             prod.price = prod.price.toLocaleString()
-            const data = getData(req,prod)
+            const data = calculate.getData(req,prod)
             res.render("producto",data)            
           } else {
             res.render("error",dataCreateError(err,"Non-existent Product",404,context,req,'warn'))                                  
@@ -128,7 +127,8 @@ const controller = {
           if(req.user.is_admin===true){                
               if(req.file){
                 req.body.file=req.file
-                fetch(`${fullhostname(req)}/api/products/form`,{
+                console.log('req.body:',req.body) 
+                fetch(`${calculate.fullhostname(req)}/api/products/form`,{
                   method: 'POST',
                   body: JSON.stringify(req.body),
                   headers: {
@@ -158,7 +158,7 @@ const controller = {
       try{
         sessionCounter(req)
         parametersSession(req)
-        const data = getData(req)
+        const data = calculate.getData(req)
         res.render("login",data)                  
       } catch (err) {
         res.render("error",dataCreateError(err,'Login Page Error',400,context,req))                      
@@ -168,7 +168,7 @@ const controller = {
       try {
         sessionCounter(req)
         parametersSession(req)  
-        const data = getData(req) 
+        const data = calculate.getData(req) 
               data.name = req.user.name
               res.render("logout",data)  
       } catch (err) {
@@ -179,7 +179,7 @@ const controller = {
       try{   
         sessionCounter(req)
         parametersSession(req)  
-        const data = getData(req)
+        const data = calculate.getData(req)
         res.render("register",data)        
       } catch (err) {
         res.render("error",dataCreateError(err,'Register Page Error',400,context,req))                      
@@ -189,7 +189,7 @@ const controller = {
       try {
         sessionCounter(req)
         parametersSession(req)
-        const data = getData(req)
+        const data = calculate.getData(req)
         res.render("profile",data)       
       } catch (err) {
         res.render("error",dataCreateError(err,'Profile Page Error',400,context,req))                      
@@ -217,7 +217,7 @@ const controller = {
                     user_id: p.user_id
                   })
                 })
-                const data = getData(req)
+                const data = calculate.getData(req)
                       data.ordenes=ordenes
                 res.render("historyOrders",data)
               })
@@ -261,7 +261,7 @@ const controller = {
                     subtotal: (p.cartCount*p.price).toLocaleString()
                   })
                 })
-                const data = getData(req,productos)
+                const data = calculate.getData(req,productos)
                       data.orden=orden
                 res.render("OrderID",data)
               })

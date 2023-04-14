@@ -1,0 +1,67 @@
+[
+  {
+    "_id": "639696bb9669fb6b8d8e0ee6",
+    "id": 1,
+    "timestamp": "2022-12-10T14:42:02.011Z",
+    "dateUpdate": "2022-12-10T14:42:02.011Z",
+    "title": "Poleron No me olvides",
+    "description": "Poleron modelo No me Olvides",
+    "code": "P0001",
+    "price": 20000,
+    "stock": 100,
+    "sales": 0,
+    "thumbnail": "/assets/img/products/ModeloNomeolvides.jpg"
+  },
+  {
+    "_id": "639696bb9669fb6b8d8e0ee7",
+    "id": 2,
+    "timestamp": "2022-12-10T14:42:02.011Z",
+    "dateUpdate": "2023-02-16T01:25:59.768Z",
+    "title": "Poleron modelo Amapola",
+    "description": "Poleron modelo Amapola",
+    "code": "P0002",
+    "price": 20000,
+    "stock": 100,
+    "sales": 3,
+    "thumbnail": "/assets/img/products/ModeloAmapola.jpg"
+  },
+  {
+    "_id": "639696bb9669fb6b8d8e0ee8",
+    "id": 3,
+    "timestamp": "2022-12-10T14:42:02.011Z",
+    "dateUpdate": "2022-12-10T14:42:02.011Z",
+    "title": "Poleron modelo Jacinto",
+    "description": "Poleron modelo Jacinto",
+    "code": "P0003",
+    "price": 15000,
+    "stock": 100,
+    "sales": 0,
+    "thumbnail": "/assets/img/products/ModeloJacinto.jpg"
+  },
+  {
+    "_id": "639696bb9669fb6b8d8e0ee9",
+    "id": 4,
+    "timestamp": "2022-12-10T14:42:02.011Z",
+    "dateUpdate": "2022-12-10T14:47:17.135Z",
+    "title": "Poleron modelo Violeta",
+    "description": "Poleron modelo Violeta",
+    "code": "P0004",
+    "price": 22500,
+    "stock": 100,
+    "sales": 0,
+    "thumbnail": "/assets/img/products/ModeloVioleta.jpg"
+  },
+  {
+    "_id": "639696bb9669fb6b8d8e0eea",
+    "id": 5,
+    "timestamp": "2022-12-10T14:42:02.011Z",
+    "dateUpdate": "2022-12-10T14:42:02.011Z",
+    "title": "Poleron modelo Amaranta",
+    "description": "Poleron modelo Amaranta",
+    "code": "P00052",
+    "price": 21000,
+    "stock": 100,
+    "sales": 0,
+    "thumbnail": "/assets/img/products/ModeloAmaranta.jpg"
+  }
+]

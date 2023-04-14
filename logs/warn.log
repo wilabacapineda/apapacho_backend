@@ -1,0 +1,21 @@
+{"level":"warn","message":"{Error:404, Route:/socket.io/?EIO=4&transport=polling&t=OPtsFVl, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-22T06:39:14.020Z"}
+{"level":"warn","message":"{Error:404, Route:/socket.io/?EIO=4&transport=polling&t=OPtsHDE, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-22T06:39:20.497Z"}
+{"level":"warn","message":"{Error:404, Route:/socket.io/?EIO=4&transport=polling&t=OPtsIgx, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-22T06:39:26.467Z"}
+{"level":"warn","message":"{Error:404, Route:/socket.io/?EIO=4&transport=polling&t=OPtsK8e, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-22T06:39:32.474Z"}
+{"level":"warn","message":"{Error:404, Route:/socket.io/?EIO=4&transport=polling&t=OPtsLQZ, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-22T06:39:37.729Z"}
+{"level":"error","message":"{Error:400, Route:undefined, Message:ContenedorMongoDb: save Error, Error: MongoServerError: E11000 duplicate key error collection: ecommerce.products index: id_1 dup key: { id: 4 }}","timestamp":"2023-02-22T06:41:10.605Z"}
+{"level":"warn","message":"{Error:404, Route:/tienda/producto/, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-02-22T06:41:52.924Z"}
+{"level":"error","message":"{Error:400, Route:undefined, Message:ContenedorMongoDb: save Error, Error: MongoServerError: E11000 duplicate key error collection: ecommerce.products index: id_1 dup key: { id: 4 }}","timestamp":"2023-02-22T06:42:56.511Z"}
+{"level":"error","message":"{Error:400, Route:undefined, Message:ContenedorMongoDb: save Error, Error: MongoServerError: E11000 duplicate key error collection: ecommerce.products index: id_1 dup key: { id: 4 }}","timestamp":"2023-02-22T06:45:54.746Z"}
+{"level":"warn","message":"{Error:404, Route:/undefined, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-04-11T06:09:17.029Z"}
+{"level":"warn","message":"{Error:404, Route:/undefined, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-04-11T06:09:18.861Z"}
+{"level":"warn","message":"{Error:404, Route:/undefined, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-04-11T06:10:56.205Z"}
+{"level":"warn","message":"{Error:404, Route:/undefined, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-04-11T06:11:09.135Z"}
+{"level":"warn","message":"{Error:404, Route:/undefined, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-04-11T06:11:21.560Z"}
+{"level":"warn","message":"{Error:404, Route:/undefined, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-04-11T06:15:50.861Z"}
+{"level":"warn","message":"{Error:404, Route:/undefined, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-04-11T06:16:58.284Z"}
+{"level":"warn","message":"{Error:404, Route:/undefined, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-04-11T06:21:00.423Z"}
+{"level":"error","message":"{Error:400, Route:/tienda/producto/undefined, Message:Single Product Page Error, Error: ReferenceError: err is not defined}","timestamp":"2023-04-11T06:29:57.712Z"}
+{"level":"error","message":"{Error:400, Route:/tienda/producto/undefined, Message:Single Product Page Error, Error: ReferenceError: err is not defined}","timestamp":"2023-04-11T06:30:18.268Z"}
+{"level":"error","message":"{Error:400, Route:/tienda/producto/undefined, Message:Single Product Page Error, Error: ReferenceError: err is not defined}","timestamp":"2023-04-11T06:30:50.060Z"}
+{"level":"warn","message":"{Error:404, Route:/undefined, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-04-11T06:36:04.638Z"}
