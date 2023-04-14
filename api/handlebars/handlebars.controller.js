@@ -1,4 +1,4 @@
-import din from "../../model/index.js"
+import {CartDaoMemory} from "../../model/index.js"
 import fetch from "node-fetch"
 import dotenv from 'dotenv'
 import context from '../../utils/context.js'
@@ -23,6 +23,7 @@ const controller = {
         sessionCounter(req)
         parametersSession(req)
         fetch(`${calculate.fullhostname(req)}/api/products/`).then(prod => prod.json()).then( prod => {          
+          
           const data = calculate.getData(req,prod)
                 calculate.addInstagramToData(data)
           res.render('home',data)
@@ -127,7 +128,6 @@ const controller = {
           if(req.user.is_admin===true){                
               if(req.file){
                 req.body.file=req.file
-                console.log('req.body:',req.body) 
                 fetch(`${calculate.fullhostname(req)}/api/products/form`,{
                   method: 'POST',
                   body: JSON.stringify(req.body),
@@ -201,7 +201,7 @@ const controller = {
         parametersSession(req)  
         const id = req.user._id   
         const email = req.user.email 
-        const result = din.CartDaoMemory.getCartsByUserID(id,email)
+        const result = CartDaoMemory.getCartsByUserID(id,email)
               result.then( c => {
                 const ordenes = c.map( p => {
                   return({
@@ -233,7 +233,7 @@ const controller = {
         if(isNaN(id) || id <= 0){          
           res.render("error",dataCreateError(err,"Imposible Product",404,context,req,'warn'))                                  
         }            
-        const result = din.CartDaoMemory.getOrderByID(id,req.user._id,req.user.email)
+        const result = CartDaoMemory.getOrderByID(id,req.user._id,req.user.email)
               result.then( c => {
                 const orden = {
                   fullname: c.fullname,

@@ -7,8 +7,9 @@ class ProductsDaoMemory extends ContenedorMemory {
     }
 
     async create(object) {
-        try {       
-            this.object = ProductsDtoMemory.createObjectDto(object)    
+        try {    
+            const prod = new ProductsDtoMemory(object)  
+            this.object = prod.object   
         } catch(err){            
             console.warn(`Memory Persistence create error, ${err}`)
         }        

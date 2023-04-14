@@ -396,7 +396,6 @@ if(productoTiendaX){
 
     }
     const successAdd = (res='') => {
-        console.log('res',res)
         Swal.fire({
             icon: 'success',
             title: 'Producto Añadido al carrito!',

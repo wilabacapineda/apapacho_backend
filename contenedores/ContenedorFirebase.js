@@ -60,7 +60,7 @@ export default class ContenedorFirebase {
             customCreateError(error,'ContenedorFirebase: update Error',400)
         }
     }
-
+    
     async deleteById(id){
         try {
             await this.collection.doc(`${id}`).delete()                  

@@ -1,9 +1,9 @@
-import din from '../model/index.js'
+import {users} from '../model/index.js'
 import { Strategy } from 'passport-local'
 import { verifyPassword } from '../controlSession/functions.js'
 
 const localStrategy = new Strategy( (username, password, done) => {
-    din.users.db.findOne({ email: username }, (err, user) => {
+    users.db.findOne({ email: username }, (err, user) => {
       if (err) { 
         return done(err) 
       }

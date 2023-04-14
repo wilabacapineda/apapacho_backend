@@ -4,3 +4,9 @@
 {"level":"error","message":"{Error:400, Route:/tienda/producto/undefined, Message:Single Product Page Error, Error: ReferenceError: err is not defined}","timestamp":"2023-04-11T06:29:57.712Z"}
 {"level":"error","message":"{Error:400, Route:/tienda/producto/undefined, Message:Single Product Page Error, Error: ReferenceError: err is not defined}","timestamp":"2023-04-11T06:30:18.268Z"}
 {"level":"error","message":"{Error:400, Route:/tienda/producto/undefined, Message:Single Product Page Error, Error: ReferenceError: err is not defined}","timestamp":"2023-04-11T06:30:50.060Z"}
+{"level":"error","message":"{function:getProductsByID, route:/api/products/2, method:GET, error:TypeError: ProductsDaoMemory.getById(...).then is not a function}","timestamp":"2023-04-14T20:22:39.954Z"}
+{"level":"error","message":"{function:getProductsByID, route:/api/products/2, method:GET, error:TypeError: ProductsDaoMemory.getById(...).then is not a function}","timestamp":"2023-04-14T20:22:42.242Z"}
+{"level":"error","message":"{function:getProductsByID, route:/api/products/3, method:GET, error:TypeError: ProductsDaoMemory.getById(...).then is not a function}","timestamp":"2023-04-14T20:22:46.494Z"}
+{"level":"error","message":"{function:getProductsByID, route:/api/products/3, method:GET, error:TypeError: ProductsDaoMemory.getById(...).then is not a function}","timestamp":"2023-04-14T20:24:06.543Z"}
+{"level":"error","message":"{function:getProductsByID, route:/api/products/3, method:GET, error:TypeError: ProductsDaoMemory.getById(...).then is not a function}","timestamp":"2023-04-14T20:24:24.180Z"}
+{"level":"error","message":"{function:getProductsByID, route:/api/products/3, method:GET, error:TypeError: ProductsDaoMemory.getById(...).then is not a function}","timestamp":"2023-04-14T20:24:37.433Z"}

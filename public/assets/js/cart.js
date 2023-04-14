@@ -143,10 +143,12 @@ if(carroTienda_title){
 const productosCarritoX = document.getElementById('productoCarrito')
 const carroTienda = document.getElementById("carrito")
 const idCarrito = localStorage.getItem("idCarrito")
-if(idCarrito){                
+if(idCarrito){    
+                
     fetch(`/api/carrito/${idCarrito}/productos`)
     .then(data => data.json())
-    .then(data => {        
+    .then(data => {     
+        console.log('idCarritoX:',data)  
         if(data.length>0){               
             if(productosCarritoX){
                 productosCarritoX.innerHTML = cargarCarrito(data)

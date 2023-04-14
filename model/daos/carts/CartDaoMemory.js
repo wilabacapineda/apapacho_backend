@@ -8,7 +8,8 @@ class CartDaoMemory extends ContenedorMemory {
 
     async create(object) {
         try {       
-            this.object = new CartDtoMemory(object)    
+            const cart = new CartDtoMemory(object)  
+            this.object = cart.object 
         } catch(err){            
             console.warn(`Memory Persistence create error, ${err}`)
         }        
