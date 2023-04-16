@@ -18,8 +18,8 @@ const options = {
       host: process.env.HOST || 'localhost',
       port: process.env.PORT || 8080,
       mode: 'fork',
-      dbType: process.env.DAO_DB || 'mongo',
-      dbHost: process.env.DAO_DB_TYPE || 'local'
+      dbHost: process.env.DAO_DB || 'mongo',
+      dbType: process.env.DAO_DB_TYPE || 'local'
     }
 }
   

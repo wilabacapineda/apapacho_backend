@@ -27,14 +27,14 @@ if (cluster.isPrimary && mode==='cluster') {
         app.engine('handlebars',hbs.engine)
         app.set('view engine','handlebars')
         app.set("views", "./views")
-        app.use(router)
+        app.use(router) //all Routes for Api and Handlebars
         app.use('/api/', (req, res, next) => {
           res.status(404).send({error: -2, descripcion: `ruta ${req.originalUrl} método ${req.method} no implementada`})
         })      
 
   const server = app.listen(port, () => {
                   console.warn('Environment Type (env):',env)
-                  console.warn('DB Factory (dbType):',dbType,dbType === "mongo" ? `- ${dbHost}` : '')
+                  console.warn('DB Factory (dbHost):',dbHost,dbHost === "mongo" ? `- ${dbType}` : '')
                   console.warn('Host:',host)
                   console.warn('Mode:',mode)
                   console.log(`🚀 Server started on PORT ${port} - PID ${process.pid} at ${new Date().toLocaleString()}`)

@@ -1,5 +1,5 @@
 import winston from 'winston'
-import { dbType } from '../options/optionsInit.js'
+import { env } from '../options/optionsInit.js'
 
 const bluidProdLogger = () => {
     const prodLogger = winston.createLogger({
@@ -36,7 +36,7 @@ const bluidDevLogger= () => {
 
 let logger = null
 
-if(dbType === 'prod'){
+if(env === 'prod'){
     logger = bluidProdLogger();
 } else {
     logger = bluidDevLogger();

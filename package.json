@@ -6,8 +6,8 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js -m fork -e prod -t mongo -d atlas",
-    "startDev": "node server.js -m fork -e dev -h localhost -p 8080 -t mongo -d local"
+    "start": "node server.js -m fork -e prod -d mongo -t atlas",
+    "startDev": "node server.js -m fork -e dev -h localhost -p 8080 -d mongo -t local"
   },
   "keywords": [],
   "author": "",

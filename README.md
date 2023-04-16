@@ -10,6 +10,36 @@
 ### 2. Variables de Entorno
 archivo ejemplo variables de entorno en './examples/env.bak'
 
+- NODE_ENV: "prod" OR "dev"
+- DAO_DB: "mongo" or 'firebase' or 'file'
+- DAO_DB_TYPE: 'atlas' or 'local' (avalaible only for MongoDB)
+
+MONGO_USER="mongo-Atlas-User"
+MONGO_PASS="mongo-Atlas-Pass"
+MONGO_HOST="mongo-Atlas-Host"
+MONGO_DBNAME="mongo-DBName"
+
+SECRET="create-a-secret"
+EMAILHOST="smtp.office365.com"
+EMAILPORT=587
+EMAILUSER="email@outlook.com"
+EMAILPASS="email-password-outlook"
+
+EMAILHOST_GOOGLE="smtp.gmail.com"
+EMAILUSER_GOOGLE="email@gmail.com"
+EMAILPASS_GOOGLE="email-password-google"
+
+TWILIO_ACCOUNTSID="twilio-account-sid"
+TWILIO_AUTHTOKEN="twilio-auth-token"
+TWILIO_PHONE="twilio-phone"
+TWILIO_SMS="twilio-sms"
+TWILIO_APISID="twilio-api-sid"
+TWILIO_APIKEY="twilio-api-key"
+TWILIO_SMSSID="twilio-sms-sid"
+
+MY_EMAIL="my.email@gmail.com"
+MY_PHONE="+56987654321"
+
 ### 3. Api Apapacho Store
 Documentación disponible en ruta /api/docs/
 - example: http://localhost:8080/api/docs/
