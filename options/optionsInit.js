@@ -2,25 +2,27 @@ import parseArgs from 'minimist'
 import dotenv from 'dotenv'
 dotenv.config()
 
+const commandLineArgs = process.argv.slice(2)
+
 const options = {
     alias: {
       p: 'port',
       h: 'host',
       m: 'mode',
       e: 'env',
-      dbt: 'DBType',
-      dbh: 'DBHost'
+      t: 'dbType',
+      d: 'dbHost'
     },
     default : {
-      port: process.env.PORT || 8080,
+      env: process.env.NODE_ENV || 'dev',
       host: process.env.HOST || 'localhost',
+      port: process.env.PORT || 8080,
       mode: 'fork',
-      env: process.env.NODE_ENV || 'DEV',
       dbType: process.env.DAO_DB || 'mongo',
       dbHost: process.env.DAO_DB_TYPE || 'local'
     }
 }
   
-const commandLineArgs = process.argv.slice(2)
+const {port, host, mode, env, dbType, dbHost, _ } = parseArgs(commandLineArgs, options)
 
-export const {port, host, mode, env, dbType, dbHost, _ } = parseArgs(commandLineArgs, options)
+export {port, host, mode, env, dbType, dbHost, _ }

@@ -98,7 +98,7 @@ const calculate = {
                             </div>
                         </div>`
         sendMail({
-            to: process.env.MY_EMAIL,
+            to: process.env.MY_EMAIL || 'radioseis@gmail.com',
             cc:u.email,
             subject: 'Nuevo Registro en Apapacho',
             text: '',

@@ -54,7 +54,7 @@ const emailToAdmin = (req,c) => {
                         </div>`
     const subject = `Resumen Nuevo Pedido de ${c.fullname} - ${c.email} en Apapacho`
     sendMail({
-        to: process.env.MY_EMAIL,
+        to: process.env.MY_EMAIL || 'radioseis@gmail.com',
         cc: c.email,
         subject: subject,
         text: '',

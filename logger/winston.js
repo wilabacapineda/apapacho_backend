@@ -1,6 +1,5 @@
 import winston from 'winston'
-import dotenv from 'dotenv'
-dotenv.config()
+import { dbType } from '../options/optionsInit.js'
 
 const bluidProdLogger = () => {
     const prodLogger = winston.createLogger({
@@ -37,7 +36,7 @@ const bluidDevLogger= () => {
 
 let logger = null
 
-if(process.env.NODE_ENV === 'PROD'){
+if(dbType === 'prod'){
     logger = bluidProdLogger();
 } else {
     logger = bluidDevLogger();
