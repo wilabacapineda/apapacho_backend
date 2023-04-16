@@ -13,6 +13,7 @@ archivo ejemplo variables de entorno en './examples/env.bak'
 ### 3. Api Apapacho Store
 Documentación disponible en ruta /api/docs/
 - example: http://localhost:8080/api/docs/
+- example: https://apapacho-proyect.fly.dev/api/docs/
 
 ### 4. Página en Producción en Fly.io
 https://apapacho-proyect.fly.dev/
