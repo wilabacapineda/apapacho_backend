@@ -1,0 +1,17 @@
+paths:
+  /api/products/{id}:
+    delete:
+      summary: elimina un producto a traves de su ID [login required]
+      tags:
+        - Products
+      parameters:
+      - name: id
+        in: path
+        description: ID del producto
+        required: true
+        type: number
+      responses:
+        "204":
+          description: Producto Borrado        
+        "404":
+          description: Producto no Encontrado

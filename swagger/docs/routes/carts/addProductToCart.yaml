@@ -1,0 +1,30 @@
+paths:
+  /api/carrito/{id}/productos/{id_prod}:
+    post:
+      summary: agrega una cantidad determinada de un producto al carrito
+      tags:
+        - Cart
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/requestBody/newProductToCart'  
+      parameters:
+      - name: id
+        in: path
+        description: ID del Carrito
+        required: true
+        type: number
+      - name: id_prod
+        in: path
+        description: ID del Producto
+        required: true
+        type: number
+      responses:
+        "201":
+          description: producto al carrito añadido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cart'                

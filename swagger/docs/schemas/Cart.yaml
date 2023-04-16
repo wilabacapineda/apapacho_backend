@@ -1,0 +1,142 @@
+components:
+  schemas:
+    Cart:
+      type: object      
+      required:
+        - id
+        - user_id
+        - email
+        - fullname
+        - address
+        - phone
+        - products
+      properties:
+        id:
+          type: number
+          description: id autogenerado para el carrito
+        user_id:
+          type: number
+          description: id del usuario asignado al carrito
+        email:
+          type: string
+          description: correo del usuario para el carrito
+        fullname:
+          type: string
+          description: nombre del usuario para el carrito
+        address:
+          type: string
+          description: dirección del usuario para el carrito
+        phone:
+          type: string
+          description: telefono del usuario para el carrito
+        products:
+          type: array
+          items: 
+            $ref: '#/components/schemas/ProductCart'
+          description: array de Productos añadidos al carrito 
+      example:
+        id: 4
+        user_id: 63ec8f03537f758761f03cf7
+        email: walterio.pineda@gmail.com
+        fullname: Walter Ilabaca Pineda
+        address: San Luis 815 Depto 31
+        phone: 56982997957
+        state: creada
+        total: 15000
+        timestamp: 2023-02-15T10:22:12.490+00:00
+        dateUpdate: 2023-02-15T10:22:18.018+00:00
+        products: [
+          {
+            id: 1,
+            timestamp: 2022-12-10T14:42:02.011+00:00,
+            dateUpdate: 2022-12-10T14:42:02.011+00:00,
+            title: Poleron No me olvides,
+            description: Poleron modelo No me Olvides,
+            code: P0001,
+            price: 20000,
+            stock: 100,
+            sales: 0,
+            thumbnail: /assets/img/products/ModeloNomeolvides.jpg,            
+            __v: 0,
+            cartCount: 2
+          },
+          {
+            id: 3,
+            timestamp: 2022-12-10T14:42:02.011+00:00,
+            dateUpdate: 2022-12-10T14:42:02.011+00:00,
+            title: Poleron modelo Jacinto,
+            description: Poleron modelo Jacinto,
+            code: P0003,
+            price: 15000,
+            stock: 100,
+            sales: 0,
+            thumbnail: /assets/img/products/ModeloJacinto.jpg,
+            __v: 0,
+            cartCount: 1
+          }
+        ]
+    ProductCart:
+      type: object
+      required:
+        - id
+        - title
+        - description
+        - code
+        - price
+        - stock
+        - sales
+        - thumbnail
+        - cartCount
+      properties:
+        id:
+          type: number
+          description: id autogenerado para el Producto
+        title:
+          type: string
+          description: nombre del producto
+        description:
+          type: string
+          description: description del producto
+        code:
+          type: string
+          description: codigo del producto
+        price:
+          type: number
+          description: precio del producto
+        stock:
+          type: number
+          description: stock del producto
+        sales:
+          type: number
+          description: ventas del producto
+        thumbnail:
+          type: string
+          description: thumbnail del producto
+        cartCount:
+          type: cantidad de productos X en el carro
+      example:
+        id: 1
+        timestamp: 2022-12-10T14:42:02.011Z
+        dateUpdate: 2022-12-10T14:42:02.011Z
+        title: Poleron No me olvides
+        description: Poleron modelo No me Olvides
+        code: P0001
+        price: 20000
+        stock: 100
+        sales: 0
+        thumbnail: /assets/img/products/ModeloNomeolvides.jpg
+        cartCount: 2
+    NewCart:
+      type: object      
+      example:           
+        id: 26
+        user_id: ""
+        email: ""
+        fullname: ""
+        address: ""
+        phone: ""
+        state: "creada"
+        total: 0
+        timestamp: 2023-04-14T20:25:36.674+00:00
+        dateUpdate: 2023-04-14T20:25:36.674+00:00
+        products: Array

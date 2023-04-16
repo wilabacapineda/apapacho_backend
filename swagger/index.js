@@ -3,7 +3,6 @@ import express from 'express'
 import swaggerUi from "swagger-ui-express";
 import swaggerJSDoc from "swagger-jsdoc"
 
-
 const options = {
     definition:{
         openapi: "3.0.0",
@@ -12,7 +11,7 @@ const options = {
             description:"Documentación de la Api de Apapacho Store - SoyUnRemix 2023"
         }
     },
-    apis:['./docs/**/*.yaml']
+    apis:['./swagger/docs/**/*.yaml']
 }
 
 const swaggerSpecs = swaggerJSDoc(options)

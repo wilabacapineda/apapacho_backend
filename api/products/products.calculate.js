@@ -25,7 +25,7 @@ const calculate = {
                     errorLogger(req,'postProducts - Error al ingresar el producto',r,api)    
                     calculate.sendError(res,{error: 'Error al ingresar el producto'})
                   })          
-        } else {
+        } else {            
             errorLogger(req,'postProducts - metodo POST no autorizado','-1')                                              
             calculate.sendError(res,{ error : -1, descripcion: "Ruta '/api/products', metodo POST no autorizado"})
         } 

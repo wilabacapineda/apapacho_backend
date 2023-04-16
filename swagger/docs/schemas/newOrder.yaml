@@ -1,0 +1,41 @@
+# New Product
+
+components:
+  requestBody:
+    NewOrder:
+      type: object
+      required:
+        - user_id
+        - email
+        - fullname
+        - address
+        - phone
+        - products
+      properties:
+        user_id:
+          type: number
+          description: id del usuario asignado al carrito
+        email:
+          type: string
+          description: correo del usuario para el carrito
+        fullname:
+          type: string
+          description: nombre del usuario para el carrito
+        address:
+          type: string
+          description: dirección del usuario para el carrito
+        phone:
+          type: string
+          description: telefono del usuario para el carrito
+        products:
+          type: array
+          items: 
+            $ref: '#/components/schemas/ProductCart'
+          description: array de Productos añadidos al carrito 
+      example:
+        user_id: 69
+        email: correo@gmail.com
+        fullname: Tu Nombre
+        address: tu dirección
+        phone: +56987654321   
+      

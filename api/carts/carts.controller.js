@@ -43,7 +43,7 @@ const controller = {
       try{
         sessionCounter(req)
         runLogger(req)
-        deleteCartProduct(req,res)        
+        calculate.deleteCartProduct(req,res)        
       } catch(err) {
         errorLogger(req,'deleteCartProduct',err)            
       } 

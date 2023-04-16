@@ -1,0 +1,27 @@
+paths:
+  /api/carrito/{id}/productos/{id_prod}:
+    delete:
+      summary: elimina y producto del carrito
+      tags:
+        - Cart
+      parameters:
+      - name: id
+        in: path
+        description: ID del Carrito
+        required: true
+        type: number
+      - name: id_prod
+        in: path
+        description: ID del Producto
+        required: true
+        type: number
+      responses:
+        "201":
+          description: producto del carrito eliminado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cart'      
+        "404":
+          description: producto o carrito no Encontrado          
+                                

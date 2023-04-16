@@ -1,7 +1,7 @@
-# Product
+# New Product
 
 components:
-  requestBodies:
+  requestBody:
     NewProduct:
       type: object
       required:
@@ -27,14 +27,18 @@ components:
         stock:
           type: number
           description: stock del producto
+        sales:
+          type: number
+          description: stock del producto
         thumbnail:
           type: string
           description: url thumbnail del producto
       example:
-        title: "Poleron No me olvides",
-        description: "Poleron modelo No me Olvides",
-        code: "P0001",
+        title: Titulo de Producto Ejemplo
+        description: Descripción de Producto Ejemplo
+        code: PEX01
         price: 20000,
         stock: 100,
-        thumbnail: "/assets/img/products/ModeloNomeolvides.jpg"
+        sales: 0,
+        thumbnail: /assets/img/products/productDefault.png
       

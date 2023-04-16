@@ -1,0 +1,12 @@
+components:
+  requestBody:
+    newProductToCart:
+      type: object
+      required:
+        - cartCount
+      properties:
+        cartCount:
+          type: number
+          description: cantidad del Producto a Añadir
+      example:
+        cartCount: 2

@@ -31,7 +31,6 @@ const calculate = {
         const id = calculate.verifyIdIsNumberNatural(req) ? parseInt(req.params.id) : calculate.sendError(res,{error: 'carrito no encontrado'})                   
         const id_prod = calculate.verifyIdIsNumberNatural(req,'id_prod') ? parseInt(req.params.id_prod) : calculate.sendError(res,{error: 'producto para agregar al carrito no encontrado'})                   
         const cartCount = req.body.cartCount ? parseInt(req.body.cartCount) : 1
-    
         const result = ProductsDaoMemory.getById(id_prod)  
               result.then( r => {
                 if(r===null) {

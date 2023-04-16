@@ -1,0 +1,29 @@
+paths:
+  /api/products/{id}:
+    put:
+      summary: actualiza un producto a traves de su ID [login required]
+      tags:
+        - Products
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/requestBody/NewProduct'  
+      parameters:
+      - name: id
+        in: path
+        description: ID del producto
+        required: true
+        type: number
+      responses:
+        "200":
+          description: Producto Actualizado
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'            
+        "404":
+          description: Producto no Encontrado

@@ -1,0 +1,7 @@
+# New Product
+
+components:
+  requestBody:
+    NewCart:
+      type: object
+      
