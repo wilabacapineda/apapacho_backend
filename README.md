@@ -15,12 +15,36 @@ Las siguientes variables de entorno tienen opciones:
 - DAO_DB: "mongo" or 'firebase' or 'file'
 - DAO_DB_TYPE: 'atlas' or 'local' (avalaible only for MongoDB)
 
-### 3. Api Apapacho Store
+### 3. Opciones de Iniciales 
+
+Estas opciones disponibles se ejecutan sobre las variables de entorno al momento de iniciar la aplicación con 
+
+"node server.js [OPTIONS]" 
+
+[OPTIONS]
+
+    --env -e : 'prod' or 'dev' (default)
+    --host -h : default 'localhost',
+    --port -p : default '8080',
+    --mode -m : 'fork' (default) or 'cluster'
+    --dbHost -d : 'mongo' (default) or 'firebase' or 'file'
+    --dbType -t : 'atlas' or 'local' (default)
+
+Ejemplos:
+
+    command "npn run start" use
+    node server.js -m fork -e prod -d mongo -t atlas
+
+    command "npm run startDev" use
+    node server.js -m fork -e dev -h localhost -p 8080 -d mongo -t local
+    
+
+### 4. Api Apapacho Store
 Documentación disponible en ruta /api/docs/
 - example: http://localhost:8080/api/docs/
 - example: https://apapacho-proyect.fly.dev/api/docs/
 
-### 4. Página en Producción en Fly.io
+### 5. Página en Producción en Fly.io
 https://apapacho-proyect.fly.dev/
 
 
