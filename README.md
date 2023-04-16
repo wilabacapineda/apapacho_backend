@@ -10,7 +10,7 @@
 ### 2. Variables de Entorno
 archivo ejemplo variables de entorno en './examples/env.bak'
 
-Las siguientes variables de entorno tiene opciones:
+Las siguientes variables de entorno tienen opciones:
 - NODE_ENV: "prod" OR "dev"
 - DAO_DB: "mongo" or 'firebase' or 'file'
 - DAO_DB_TYPE: 'atlas' or 'local' (avalaible only for MongoDB)
