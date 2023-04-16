@@ -1,8 +1,6 @@
 import UsersDaoFirebase from './UsersDaoFirebase.js'
 import UsersDaoMongoDb from './UsersDaoMongoDb.js'
 import { dbType } from '../../../options/optionsInit.js'
-import UsersDaoMongoDb from './UsersDaoMongoDb.js'
-import UsersDaoFirebase from './UsersDaoFirebase.js'
 import dotenv from 'dotenv'
 dotenv.config()
 
