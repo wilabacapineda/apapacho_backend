@@ -268,6 +268,17 @@ const controller = {
       } catch (err) {
         res.render("error",dataCreateError(err,'History Orders Page Error',400,context,req))                      
       }
+    },
+    passwordChange: async(req,res) => {
+      try{
+        sessionCounter(req)
+        parametersSession(req)  
+        const data = calculate.getData(req) 
+              data.name = req.user.name
+              res.render("passwordChange",data)  
+      }catch(err) {
+        res.render("error",dataCreateError(err,'Password Change Page Error',400,context,req))                      
+      }
     }
 } 
 

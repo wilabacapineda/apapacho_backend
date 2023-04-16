@@ -1,0 +1,17 @@
+paths:
+  /session/logout:
+    post:
+      summary: cierre de sesión usuario activo [login required]
+      tags:
+        - Session
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/requestBody/DeleteSession'    
+      responses:
+        "200":
+          description: cierre de sesión exitoso             
+        "400":
+          description: cierre de sesión fallido

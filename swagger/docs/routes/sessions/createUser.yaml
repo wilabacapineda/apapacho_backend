@@ -1,0 +1,39 @@
+paths:
+  /session/register:
+    post:
+      summary: crea un nuevo usuario
+      tags:
+        - Session
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/requestBody/NewUser'    
+      responses:
+        "200":
+          description: registro exitoso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success: 
+                    type: boolean 
+                  message: 
+                    type: string
+                example:
+                  success: true
+                  message: Registro exitoso!              
+        "404":
+          description: registro fallido
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error: 
+                    type: string
+                example:
+                  error: error al registrar usuario
+                

@@ -7,15 +7,15 @@ dotenv.config()
 
 const calculate = {
     getSessionLogin:(req,res)=>{
-        res.status(200).json({name: calculate.getSessionName(req), counter: req.session.counter})                    
+        res.status(200).json({name: calculate.getSessionName(req), sessionActive: calculate.getSessionActive(req), counter: req.session.counter})                    
     },
     postSessionRegister:(req,res)=> {
-        req.body.avatar = req.file ? `/assets/img/avatars/${req.file.filename}` : `/assets/img/avatars/avatar.jpg`
+        req.body.avatar = req.file ? `/assets/img/avatars/${req.file.filename}` : ( req.body.avatar ? req.body.avatar : `/assets/img/avatars/avatar.jpg`)
         const findEmail = users.getByEmail(req.body.email)
               findEmail.then( r => {
-                if(r === null) {                    
+                if(r === null) {   
                   req.body.age = parseInt(req.body.age)
-                  req.body.password = calculate.hashPassword(req.body.password)
+                  req.body.password = calculate.hashPassword(req.body.password) 
                   const newUser = users.saveUser(req.body)  
                         newUser.then( (u) => {
                           calculate.sendRegisterMail(req,u)
@@ -23,6 +23,8 @@ const calculate = {
                               success: true,
                               message: "Registro exitoso!"                          
                           })
+                        }).catch( r => {
+                          res.send({error: 'error al registrar usuario','log':r})
                         })                    
                 } else {
                   res.sendStatus(302)
@@ -57,6 +59,26 @@ const calculate = {
                 res.send({error: 'error al registrar usuario'})
               })   
     },
+    passwordChange:(req,res)=>{
+      const findEmail = users.getByEmail(req.user.email)
+            findEmail.then( r => {
+              if(r === null) {  
+                res.sendStatus(302)
+              } else { 
+                req.body.password = calculate.hashPassword(req.body.passwordNew) 
+                req.body.email=req.user.email
+                delete req.body.username
+                delete req.body.passwordNew
+                const newUser = users.updateUser(req.body) 
+                      newUser.then( (nu) => {  
+                        nu.length === 0 ? res.send({error: 'usuario no encontrado'}) : res.json({ success: true, message: "Cambio de Contraseña exitoso!"})                        
+                      })                       
+              }
+            }).catch( r => {
+              res.send({error: 'error al cambiar contraseña de usuario'})
+            })
+    },
+    getSessionActive: req => req.isAuthenticated() ? true : false, 
     getSessionName: req => req.isAuthenticated() ? req.user.name : 'Invitado',
     hashPassword: (password, saltRounds=10) => bcrypt.hashSync(password, saltRounds),
     sendRegisterMail: (req,u) => {

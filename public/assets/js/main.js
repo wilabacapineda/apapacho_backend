@@ -61,6 +61,73 @@ if(sessionForm){
     })
 }
 
+const passwordChange = document.getElementById('passwordChange')
+if(passwordChange){
+    passwordChange.addEventListener('submit', (e) => {
+        e.preventDefault()
+        const output = document.querySelector("#enviando")
+        const username = document.getElementById("username")
+        const password1 = document.getElementById("password1") || ''
+        const password = document.getElementById("password") || ''
+        const data = { username: username.value, password: password1.value }                     
+        const action = passwordChange.getAttribute('action')          
+        if(action==="/session/passwordChange"){
+            fetch("/session/login", {
+                method: "POST",
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(data),
+            }).then( res => {  
+                output.style.display = "flex"
+                output.classList.add(res.status === 200 ? "exito" : "fallo")
+                if(res.status === 200) {
+                    output.innerHTML = `Inicio de sesión exitoso!` 
+                    if(verifyPassword()){
+                        if(action==="/session/passwordChange"){                            
+                            const datanew = { 
+                                username: username.value,
+                                password: password1.value,
+                                passwordNew: password.value
+                            }                      
+                            fetch("/session/passwordChange", {
+                                method: "POST",                                
+                                headers: {'Content-Type': 'application/json'},
+                                body: JSON.stringify(datanew),
+                            }).then( res => {         
+                                if(res.status === 200) {
+                                    output.innerHTML = "Cambio de Contraseña exitoso!"
+                                } else {
+                                    output.innerHTML = "Cambio de Contraseña fallido, intente nuevamente"
+                                }
+                                output.style.display = "flex"
+                                output.classList.add(res.status === 200 ? "exito" : "fallo")
+                                if(res.status === 200) {
+                                    setTimeout(() => {
+                                        location.href = '/login'
+                                    },2000)
+                                }                    
+                            }).catch((error) => {
+                                output.innerHTML = "Cambio de Contraseña fallido, intente nuevamente"
+                                output.style.display = "flex"
+                                output.classList.add("fallo")
+                            })                    
+                            
+                        } 
+                    } 
+                } else if(res.status === 401) {
+                    output.innerHTML =  "Nombre de Usuario o Contraseña incorrecta"
+                } else {
+                    output.innerHTML =  "Error al iniciar sesión"
+                }                                                
+            }).catch((error) => {
+                output.innerHTML = "Error al iniciar sesión"
+                output.style.display = "flex"
+                output.classList.add("fallo")
+                console.log('error: ', error)
+            })
+        }               
+    })
+}
+
 const verifyPassword = () => {  
     const pw = document.getElementById("password").value
     const pw2 = document.getElementById("password2").value

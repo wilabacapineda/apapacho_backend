@@ -20,5 +20,6 @@ const routerSession = new Router()
       routerSession.post('/login', passport.authenticate('login'), controller.postSessionLogin)
       routerSession.post('/register',uploadAvatarImage.single('thumbnail'), controller.postSessionRegister)     
       routerSession.post('/logout',checkAuth,controller.postSessionLogout)   
-      routerSession.put('/editProfile',checkAuth,uploadAvatarImage.single('thumbnail'),controller.putProfile)   
+      routerSession.put('/editProfile',checkAuth,uploadAvatarImage.single('thumbnail'),controller.putProfile)
+      routerSession.post('/passwordChange',checkAuth,controller.passwordChange)   
 export default routerSession

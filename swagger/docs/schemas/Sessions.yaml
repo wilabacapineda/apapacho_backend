@@ -1,0 +1,38 @@
+components:
+  schemas:
+    Session:
+      type: object      
+      required:
+        - email
+        - name
+        - lastname
+        - address
+        - phone
+        - avatar
+        - age
+      properties:
+        email:
+          type: string
+          description: correo usuario
+        name:
+          type: string
+          description: nombre usuario
+        lastname:
+          type: string
+          description: apellido usuario
+        address:
+          type: string
+          description: dirección usuario
+        phone:
+          type: string
+          description: telefono usuario
+        avatar:
+          type: string
+          description: avatar usuario
+        age:
+          type: string
+          description: edad usuario
+      example:
+        name: Walter
+        sessionActive: true
+        counter: 4

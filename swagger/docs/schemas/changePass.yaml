@@ -1,0 +1,24 @@
+# Change Password
+
+components:
+  requestBody:
+    changePass:
+      type: object
+      required:
+        - username
+        - password
+        - passwordNew
+      properties:
+        username:
+          type: string
+          description: correo usuario
+        password:
+          type: string
+          description: contraseña Antigua usuario        
+        passwordNew:
+          type: string
+          description: contraseña Nueva usuario        
+      example:
+        username: iselacreyo@gmail.com
+        password: "12345678"
+        passwordNew: "87654321"

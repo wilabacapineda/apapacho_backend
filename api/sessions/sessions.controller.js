@@ -52,6 +52,21 @@ const controller = {
       } catch (err) {
         return next(errorLogger(req,'putProfile',err))
       }
+    },
+    passwordChange: async (req,res,next) => {
+      try {
+        console.log('jol',req.body)
+        if(req.isAuthenticated()) {
+          sessionCounter(req)                 
+          runLogger(req) 
+          calculate.passwordChange(req,res) 
+        } else {
+          let err = -1
+          return next(errorLogger(req,'unauthorized POST method on passwordChange - User already login',err))          
+        }           
+      } catch (err) {      
+        return next(errorLogger(req,'passwordChange',err))
+      }
     }
 } 
 

@@ -1,0 +1,19 @@
+# Login - Create Session User
+
+components:
+  requestBody:
+    CreateSession:
+      type: object
+      required:
+        - username
+        - password
+      properties:
+        username:
+          type: string
+          description: correo usuario
+        password:
+          type: string
+          description: contraseña usuario
+      example:
+        username: iselacreyo@gmail.com
+        password: "12345678"

@@ -1,0 +1,14 @@
+# Logut - Delete Session User
+
+components:
+  requestBody:
+    DeleteSession:
+      type: object
+      required:
+        - username
+      properties:
+        username:
+          type: string
+          description: correo usuario
+      example:
+        username: iselacreyo@gmail.com

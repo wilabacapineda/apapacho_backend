@@ -7,5 +7,9 @@ tags: [
     name: Cart,
     description: Api para marcar Carrito
   },
+  {
+    name: Session,
+    description: Api para marcar Session
+  },
 ]
   

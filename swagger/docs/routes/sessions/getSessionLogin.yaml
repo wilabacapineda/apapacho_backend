@@ -1,0 +1,15 @@
+paths:
+  /session/login:
+    get:
+      summary: lista la sesión activa
+      tags:
+        - Session
+      responses:
+        "200":
+          description: sesión activa
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Session'    

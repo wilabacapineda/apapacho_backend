@@ -1,0 +1,18 @@
+paths:
+  /session/login:
+    post:
+      summary: iniciar sesión con usuario
+      tags:
+        - Session
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/requestBody/CreateSession'    
+      responses:
+        "200":
+          description: inicio de sesión exitoso             
+        "400":
+          description: inicio de sesión fallido
+                

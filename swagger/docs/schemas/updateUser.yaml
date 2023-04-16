@@ -1,0 +1,44 @@
+# New User
+
+components:
+  requestBody:
+    UpdateUser:
+      type: object
+      required:
+        - email
+        - name
+        - lastname
+        - address
+        - phone
+        - avatar
+        - age
+      properties:
+        email:
+          type: string
+          description: correo usuario
+        name:
+          type: string
+          description: nombre usuario
+        lastname:
+          type: string
+          description: apellido usuario
+        address:
+          type: string
+          description: dirección usuario
+        phone:
+          type: string
+          description: telefono usuario
+        avatar:
+          type: string
+          description: avatar usuario
+        age:
+          type: string
+          description: edad usuario
+      example:
+        email: iselacreyo@gmail.com
+        name: Isela Creyó
+        lastname: Valdivia
+        address: San Luis 821
+        phone: "+56987654321"
+        avatar: /assets/img/avatars/avatar.jpg
+        age: 39

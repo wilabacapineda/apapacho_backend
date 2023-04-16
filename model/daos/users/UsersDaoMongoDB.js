@@ -19,7 +19,7 @@ class UsersDaoMongoDb extends ContenedorMongoDb  {
     }
 
     async saveUser(object){
-        try {            
+        try {  
             object.timestamp=Date.now()
             object.dateUpdate=object.timestamp
             const aux = this.db.create(object)                
