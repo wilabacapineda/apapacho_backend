@@ -14,6 +14,10 @@ archivo ejemplo variables de entorno en './examples/env.bak'
 Documentación disponible en ruta /api/docs/
 - example: http://localhost:8080/api/docs/
 
+### 4. Página en Producción en Fly.io
+https://apapacho-proyect.fly.dev/
+
+
 --
 ## ** Tercera Entrega Proyecto Final 15-02-2023*
 VERSIÖN APP EN FLY.IO -> https://apapacho-proyect.fly.dev/
