@@ -1,5 +1,20 @@
 ﻿# apapacho_backend
+## ** Entrega Proyecto Final 16-04-2023*
+### 1. Entornos 
+#### 1.1 Entorno desarrollo ejecutar
+- npm run startDev
 
+#### 1.2 Entorno producción ejecutar
+- npm run start
+
+### 2. Variables de Entorno
+archivo ejemplo variables de entorno en './examples/env.bak'
+
+### 3. Api Apapacho Store
+Documentación disponible en ruta /api/docs/
+- example: http://localhost:8080/api/docs/
+
+--
 ## ** Tercera Entrega Proyecto Final 15-02-2023*
 VERSIÖN APP EN FLY.IO -> https://apapacho-proyect.fly.dev/
 
