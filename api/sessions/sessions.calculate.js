@@ -71,7 +71,7 @@ const calculate = {
                 delete req.body.passwordNew
                 const newUser = users.updateUser(req.body) 
                       newUser.then( (nu) => {  
-                        nu.length === 0 ? res.send({error: 'usuario no encontrado'}) : res.json({ success: true, message: "Cambio de Contraseña exitoso!"})                        
+                        nu.length === 0 ? res.send({error: 'usuario no encontrado'}) : calculate.postSessionLogout(req,res)                        
                       })                       
               }
             }).catch( r => {

@@ -55,7 +55,6 @@ const controller = {
     },
     passwordChange: async (req,res,next) => {
       try {
-        console.log('jol',req.body)
         if(req.isAuthenticated()) {
           sessionCounter(req)                 
           runLogger(req) 
