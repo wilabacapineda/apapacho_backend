@@ -23,7 +23,7 @@ switch(dbType){
     case 'file':        
         cart = new CartDaoMemory
         daoCart.CartDao = new CartDaoFiles(`${process.env.PRODUCTOS_DIR ? process.env.PRODUCTOS_DIR : './archivos'}/${process.env.PRODUCTOS_FS ? process.env.PRODUCTOS_FS : 'cart.json'}`)                
-        await daoCart.CartDao.init().then( d => { cart.create(d)})      
+        await daoCart.CartDao.getAll().then( d => { cart.create(d)})      
         daoCart.CartDaoMemory = cart
         break
     case 'firebase':

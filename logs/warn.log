@@ -58,3 +58,5 @@
 {"level":"warn","message":"{Error:404, Route:/session/register, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-04-16T07:53:49.153Z"}
 {"level":"warn","message":"{Error:404, Route:/session/passwordChange, Message:Error 404, Error: PAGE NOT FOUND}","timestamp":"2023-04-16T08:09:31.803Z"}
 {"level":"error","message":"{function:Send Mail Rejected, route:/session/register, method:POST, error:created successfull user iselacreyo@gmail.com but sendMail error response -> Error: Invalid login: 535-5.7.8 Username and Password not accepted. Learn more at\n535 5.7.8  https://support.google.com/mail/?p=BadCredentials l9-20020a05687014c900b001806f2ac9a6sm3458624oab.47 - gsmtp}","timestamp":"2023-04-16T08:26:34.360Z"}
+{"level":"error","message":"{service:instagram, method:update , error:TypeError: photos.forEach is not a function}","timestamp":"2023-04-24T03:55:31.741Z"}
+{"level":"error","message":"{service:instagram, method:update , error:TypeError: photos.forEach is not a function}","timestamp":"2023-04-24T04:00:30.093Z"}

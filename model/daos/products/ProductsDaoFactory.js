@@ -1,4 +1,4 @@
-import { dbType } from '../../../options/optionsInit.js'
+import { dbHost } from '../../../options/optionsInit.js'
 import ProductsDaoMemory from './ProductsDaoMemory.js'
 import ProductsDaoMongoDb from './ProductsDaoMongoDb.js'
 import ProductsDaoFirebase from './ProductsDaoFirebase.js'
@@ -10,10 +10,9 @@ const daoProducts = {
     ProductsDaoMemory: '',
     ProductsDao: ''
 }
-let ProductsDaoX
 let productos
 
-switch(dbType){
+switch(dbHost){
     case "mongo":
         daoProducts.ProductsDao = new ProductsDaoMongoDb
         await daoProducts.ProductsDao.loadFirstinsertions()    
@@ -24,7 +23,7 @@ switch(dbType){
     case 'file':
         daoProducts.ProductsDao = new ProductsDaoFiles(`${process.env.PRODUCTOS_DIR ? process.env.PRODUCTOS_DIR : './archivos'}/${process.env.PRODUCTOS_FS ? process.env.PRODUCTOS_FS : 'products.json'}`)                
         productos = new ProductsDaoMemory
-        await daoProducts.ProductsDao.init().then( d => { productos.create(d)})      
+        await daoProducts.ProductsDao.getAll().then( d => { productos.create(d)})      
         daoProducts.ProductsDaoMemory = productos
         break
     case 'firebase':

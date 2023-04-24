@@ -25,7 +25,7 @@ Estas opciones disponibles se ejecutan sobre las variables de entorno al momento
 
     --env -e : 'prod' or 'dev' (default)
     --host -h : default 'localhost',
-    --port -p : default '8080',
+    --port -p : default '8080', 
     --mode -m : 'fork' (default) or 'cluster'
     --dbHost -d : 'mongo' (default) or 'firebase' or 'file'
     --dbType -t : 'atlas' or 'local' (default)

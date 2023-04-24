@@ -244,6 +244,16 @@ if(idCarrito){
 
 const sendOrderInfo = document.getElementById('sendOrderInfo')
 if(sendOrderInfo){
+
+    const phoneInputField = document.querySelector("#phone");
+    const createPhoneInput = () => {
+        return window.intlTelInput(phoneInputField, {
+            preferredCountries: ["cl", "ar", "ve", "mx"],
+            utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+        });
+    }
+    const phoneInput = phoneInputField ? createPhoneInput() : ''
+    
     sendOrderInfo.addEventListener('submit', (e) => {
         e.preventDefault()
         const output = document.querySelector("#enviando")        
