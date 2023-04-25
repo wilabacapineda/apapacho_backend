@@ -5,9 +5,9 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 const instagramFeed = []
-
+//Use behold.so
 const getInstagramFeed = () => {
-    fetch('https://feeds.behold.so/26PBgsa3kl4KFdoHcecV')
+    fetch(process.env.BEHOLD)
     .then(data => data.json())
     .then(photos => {
         runLogger()  
@@ -33,11 +33,13 @@ const getInstagramFeedArchivo = async () => {
     }) 
 
 }
-getInstagramFeed()
+
+process.env.BEHOLD ? getInstagramFeed() : getInstagramFeedArchivo()
+
 
 
 setInterval(() => {       
-    getInstagramFeed()    
+    process.env.BEHOLD ? getInstagramFeed() : getInstagramFeedArchivo()    
 }, 30*60*1000);
 
 export default instagramFeed
